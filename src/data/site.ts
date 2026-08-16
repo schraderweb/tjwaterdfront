@@ -65,27 +65,27 @@ export const heroServices: HeroService[] = [
     title: "Sectional Docks",
     description:
       "Our best seller! With its strength and light weight, this is easily the industry leader for dock.",
-    icon: "dock-sectional",
+    icon: "sectional-docks",
     href: "/services/sectional-docks",
   },
   {
     title: "Roll-In Docks",
     description: "In most situations, the easiest dock to install.",
-    icon: "dock-rollin",
+    icon: "roll-in-docks",
     href: "/services/roll-in-docks",
   },
   {
     title: "Platinum Docks",
     description:
       "The soft edges and classy look took this high-end dock system to a whole new level.",
-    icon: "dock-platinum",
+    icon: "platinum-docks",
     href: "/services/platinum-docks",
   },
   {
     title: "Floating Docks",
     description:
       "Free-standing docks can get unstable in deeper water, while a floating system maintains its stability.",
-    icon: "dock-floating",
+    icon: "floating-docks",
     href: "/services/floating-docks",
   },
 ];
