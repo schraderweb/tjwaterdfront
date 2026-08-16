@@ -39,7 +39,7 @@ import HeroActions from "./HeroActions.astro";
   .hero-eyebrow {
     margin: 0;
     color: var(--color-gold-700);
-    text-shadow: 0 1px 8px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   }
 
   .hero-title {
@@ -52,6 +52,10 @@ import HeroActions from "./HeroActions.astro";
     letter-spacing: -0.045em;
     color: var(--color-navy-950);
     text-wrap: balance;
+    text-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.9),
+      0 0 30px rgba(255, 255, 255, 0.7),
+      0 0 45px rgba(255, 255, 255, 0.4);
   }
 
   .hero-title span {
@@ -72,6 +76,9 @@ import HeroActions from "./HeroActions.astro";
     font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.125rem);
     line-height: 1.6;
     color: var(--color-navy-900);
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 0 20px rgba(255, 255, 255, 0.7);
   }
 
   /* Short laptop viewports (e.g. 1280×800): tighten the left column so

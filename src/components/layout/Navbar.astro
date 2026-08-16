@@ -142,6 +142,26 @@ import { navLinks, site } from "../../data/site";
       box-shadow var(--duration-base) var(--ease-premium);
   }
 
+  /* Legibility scrim over the bright hero while the nav is transparent */
+  .navbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 26, 43, 0.5) 0%,
+      rgba(7, 26, 43, 0.28) 55%,
+      rgba(7, 26, 43, 0) 100%
+    );
+    transition: opacity var(--duration-base) var(--ease-premium);
+  }
+
+  .navbar.is-scrolled::before {
+    opacity: 0;
+  }
+
   .navbar.is-scrolled {
     background: rgba(7, 26, 43, 0.82);
     -webkit-backdrop-filter: blur(14px);
@@ -155,6 +175,8 @@ import { navLinks, site } from "../../data/site";
   }
 
   .navbar-inner {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -196,11 +218,12 @@ import { navLinks, site } from "../../data/site";
     padding-left: 0.6rem;
     border-left: 1px solid rgba(255, 255, 255, 0.62);
     font-size: 0.68rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.25em;
     line-height: 1.45;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.94);
+    color: var(--color-white);
+    text-shadow: 0 1px 10px rgba(7, 26, 43, 0.65);
   }
 
   .nav-desktop {
@@ -225,13 +248,14 @@ import { navLinks, site } from "../../data/site";
     gap: 0.3rem;
     padding-block: 0.75rem;
     position: relative;
-    color: rgba(255, 255, 255, 0.96);
-    font-size: 0.75rem;
-    font-weight: 600;
+    color: var(--color-white);
+    font-size: 0.8125rem;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
     white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(7, 26, 43, 0.65);
     transition: color var(--duration-fast) var(--ease-premium);
   }
 
@@ -314,10 +338,11 @@ import { navLinks, site } from "../../data/site";
     align-items: center;
     gap: 0.45rem;
     color: var(--color-white);
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(7, 26, 43, 0.65);
   }
 
   .nav-phone svg { color: var(--color-gold-400); }
