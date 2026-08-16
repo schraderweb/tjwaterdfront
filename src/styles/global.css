@@ -1,1 +1,183 @@
 @import "tailwindcss";
+@import "./variables.css";
+
+/* ─────────────────────────────────────────────
+   Tailwind v4 theme mapping — utilities consume the tokens above
+   ───────────────────────────────────────────── */
+@theme inline {
+  /* Colors */
+  --color-navy-950: var(--color-navy-950);
+  --color-navy-900: var(--color-navy-900);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-700: var(--color-navy-700);
+
+  --color-water-700: var(--color-water-700);
+  --color-water-600: var(--color-water-600);
+  --color-water-400: var(--color-water-400);
+  --color-water-200: var(--color-water-200);
+
+  --color-gold-700: var(--color-gold-700);
+  --color-gold-600: var(--color-gold-600);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-200: var(--color-gold-200);
+
+  --color-cream-50: var(--color-cream-50);
+  --color-cream-100: var(--color-cream-100);
+  --color-cream-200: var(--color-cream-200);
+  --color-cream-300: var(--color-cream-300);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-on-dark: var(--color-text-on-dark);
+  --color-text-on-image: var(--color-text-on-image);
+
+  /* Typography */
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --text-hero: var(--text-hero);
+  --text-hero--line-height: var(--leading-heading);
+  --text-hero--letter-spacing: var(--tracking-heading);
+
+  --text-h2: var(--text-h2);
+  --text-h2--line-height: var(--leading-tight);
+  --text-h2--letter-spacing: var(--tracking-heading);
+
+  --text-h3: var(--text-h3);
+  --text-h3--line-height: var(--leading-tight);
+
+  --text-h4: var(--text-h4);
+  --text-h4--line-height: var(--leading-tight);
+
+  --text-lead: var(--text-lead);
+  --text-lead--line-height: var(--leading-body);
+
+  --text-body: var(--text-body);
+  --text-body--line-height: var(--leading-body);
+
+  --text-small: var(--text-small);
+  --text-small--line-height: 1.55;
+
+  --text-tiny: var(--text-tiny);
+  --text-tiny--line-height: 1.5;
+
+  --text-eyebrow: var(--text-eyebrow);
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: var(--tracking-eyebrow);
+
+  /* Radii */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  /* Shadows */
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+  --shadow-panel: var(--shadow-panel);
+
+  /* Easing + durations */
+  --ease-premium: var(--ease-premium);
+
+  /* Breakpoints (content-driven) */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --breakpoint-3xl: 120rem;
+}
+
+/* ─────────────────────────────────────────────
+   Base
+   ───────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--color-text-primary);
+    background-color: var(--color-cream-50);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--color-navy-950);
+  }
+
+  section {
+    scroll-margin-top: 6rem;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-500);
+    color: var(--color-navy-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Components
+   ───────────────────────────────────────────── */
+/* Fluid max-width container — replaces Tailwind's default .container.
+   Content stays controlled on 2K/4K/ultrawide; photography breathes. */
+@utility container {
+  width: min(calc(100% - 2 * var(--container-gutter)), var(--container-xl));
+  margin-inline: auto;
+}
+
+@layer components {
+  /* Eyebrow label: gold, tracked, uppercase */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-gold-500);
+  }
+
+  /* Scroll reveal — visible by default; only hidden when JS is present */
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--duration-slow) var(--ease-premium),
+      transform var(--duration-slow) var(--ease-premium);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  html.js .reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}

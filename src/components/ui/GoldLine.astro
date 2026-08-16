@@ -1,0 +1,21 @@
+---
+/**
+ * GoldLine.astro — small decorative gold rule used with eyebrows.
+ * Jewelry, not wallpaper: short, precise, never a full-width band.
+ */
+interface Props {
+  align?: "left" | "center";
+  class?: string;
+}
+
+const { align = "left", class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    "h-px w-10 bg-gradient-to-r from-gold-500 to-gold-400/40",
+    align === "center" && "mx-auto",
+    className,
+  ]}
+  aria-hidden="true"
+/>

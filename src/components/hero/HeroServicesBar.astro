@@ -1,0 +1,138 @@
+---
+/**
+ * HeroServicesBar.astro — four dock services along the hero's bottom edge.
+ * Desktop: 4 equal columns with subtle dividers.
+ * Mobile: horizontally scrollable with snap — never four squeezed columns.
+ */
+import Icon from "../ui/Icon.astro";
+import { heroServices } from "../../data/site";
+---
+
+<div class="service-bar" role="navigation" aria-label="Dock services">
+  <div class="container">
+    <ul class="service-list">
+      {
+        heroServices.map((service) => (
+          <li class="service-item">
+            <a href={service.href} class="service-link">
+              <span class="service-icon" aria-hidden="true">
+                <Icon name={service.icon} size={22} />
+              </span>
+              <span class="service-text">
+                <span class="service-title">{service.title}</span>
+                <span class="service-desc">{service.description}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  .service-bar {
+    position: relative;
+    z-index: var(--z-content);
+    background: rgba(7, 26, 43, 0.72);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .service-bar {
+      background: rgba(7, 26, 43, 0.95);
+    }
+  }
+
+  .service-list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .service-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .service-item {
+    flex: 1 0 auto;
+    min-width: min(17rem, 80vw);
+    scroll-snap-align: start;
+    border-inline-start: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .service-item:first-child {
+    border-inline-start: 0;
+  }
+
+  .service-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    height: 100%;
+    padding: clamp(0.875rem, 0.75rem + 0.6vw, 1.25rem)
+      clamp(1rem, 0.75rem + 1.25vw, 1.75rem);
+    text-decoration: none;
+    transition: background-color var(--duration-base) var(--ease-premium);
+  }
+
+  .service-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .service-icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(198, 146, 61, 0.45);
+    border-radius: 50%;
+    color: var(--color-gold-400);
+    background: rgba(198, 146, 61, 0.08);
+    transition:
+      background-color var(--duration-base) var(--ease-premium),
+      color var(--duration-base) var(--ease-premium);
+  }
+
+  .service-link:hover .service-icon {
+    background: rgba(198, 146, 61, 0.2);
+    color: var(--color-gold-200);
+  }
+
+  .service-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .service-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-white);
+  }
+
+  .service-desc {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: rgba(246, 241, 231, 0.65);
+  }
+
+  /* Desktop: four true columns */
+  @media (min-width: 64rem) {
+    .service-list {
+      overflow-x: visible;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

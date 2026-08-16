@@ -1,0 +1,138 @@
+:root {
+  /* ─────────────────────────
+     T&J NAVY — brand foundation
+  ───────────────────────── */
+  --color-navy-950: #071a2b;
+  --color-navy-900: #0b2236;
+  --color-navy-800: #12344d;
+  --color-navy-700: #1c4965;
+
+  /* ─────────────────────────
+     WATERFRONT BLUE — supporting accent
+  ───────────────────────── */
+  --color-water-700: #245d7c;
+  --color-water-600: #2f7098;
+  --color-water-400: #6fa8c7;
+  --color-water-200: #b9d7e7;
+
+  /* ─────────────────────────
+     T&J GOLD — premium accent (jewelry, not wallpaper)
+  ───────────────────────── */
+  --color-gold-700: #9b6a27;
+  --color-gold-600: #b47d2f;
+  --color-gold-500: #c6923d;
+  --color-gold-400: #d9ae62;
+  --color-gold-200: #ead5aa;
+
+  /* ─────────────────────────
+     CREAM — architectural neutrals
+  ───────────────────────── */
+  --color-cream-50: #fcfaf5;
+  --color-cream-100: #f6f1e7;
+  --color-cream-200: #eee6d7;
+  --color-cream-300: #e2d6c2;
+
+  /* ─────────────────────────
+     WHITE
+  ───────────────────────── */
+  --color-white: #ffffff;
+
+  /* ─────────────────────────
+     TEXT
+  ───────────────────────── */
+  --color-text-primary: #102235;
+  --color-text-secondary: #536472;
+  --color-text-muted: #75828b;
+  --color-text-on-dark: #f6f1e7;
+  --color-text-on-image: #ffffff;
+
+  /* ─────────────────────────
+     UI
+  ───────────────────────── */
+  --color-border-light: rgba(255, 255, 255, 0.28);
+  --color-border-dark: rgba(16, 34, 53, 0.14);
+  --color-glass: rgba(255, 255, 255, 0.16);
+  --color-glass-strong: rgba(255, 255, 255, 0.24);
+
+  /* ─────────────────────────
+     TYPOGRAPHY
+  ───────────────────────── */
+  --font-display: "DM Serif Display", "Georgia", serif;
+  --font-sans: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Fluid type scale */
+  --text-hero: clamp(2.75rem, 1.7rem + 5.5vw, 6.75rem);
+  --text-h2: clamp(2rem, 1.35rem + 2.4vw, 3.5rem);
+  --text-h3: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  --text-h4: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+  --text-lead: clamp(1rem, 0.92rem + 0.35vw, 1.25rem);
+  --text-body: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  --text-small: clamp(0.8125rem, 0.78rem + 0.15vw, 0.9375rem);
+  --text-tiny: 0.8125rem;
+  --text-eyebrow: 0.75rem;
+
+  --leading-heading: 0.95;
+  --leading-tight: 1.15;
+  --leading-body: 1.65;
+  --tracking-eyebrow: 0.28em;
+  --tracking-nav: 0.08em;
+  --tracking-heading: -0.02em;
+
+  /* ─────────────────────────
+     CONTAINERS
+  ───────────────────────── */
+  --container-sm: 40rem;
+  --container-md: 60rem;
+  --container-lg: 75rem;
+  --container-xl: 90rem;
+  --container-gutter: clamp(1rem, 4vw, 5rem);
+
+  /* ─────────────────────────
+     SPACING (fluid)
+  ───────────────────────── */
+  --space-section: clamp(5rem, 4rem + 5vw, 10rem);
+  --space-card: clamp(1.25rem, 1rem + 1vw, 2rem);
+  --space-stack-sm: clamp(0.75rem, 0.6rem + 0.5vw, 1rem);
+  --space-stack-md: clamp(1.25rem, 1rem + 1vw, 2rem);
+  --space-stack-lg: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+
+  /* ─────────────────────────
+     RADII
+  ───────────────────────── */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+
+  /* ─────────────────────────
+     SHADOWS (soft, natural)
+  ───────────────────────── */
+  --shadow-soft: 0 10px 30px -12px rgba(7, 26, 43, 0.25);
+  --shadow-lift: 0 20px 45px -18px rgba(7, 26, 43, 0.35);
+  --shadow-panel: 0 30px 60px -20px rgba(7, 26, 43, 0.45);
+
+  /* ─────────────────────────
+     BORDERS
+  ───────────────────────── */
+  --border-light: 1px solid rgba(255, 255, 255, 0.28);
+  --border-dark: 1px solid rgba(16, 34, 53, 0.14);
+  --border-gold: 1px solid rgba(198, 146, 61, 0.55);
+
+  /* ─────────────────────────
+     TRANSITIONS
+  ───────────────────────── */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 180ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+
+  /* ─────────────────────────
+     Z-INDEX LAYERS
+  ───────────────────────── */
+  --z-base: 0;
+  --z-overlay: 1;
+  --z-content: 2;
+  --z-nav: 20;
+  --z-menu: 30;
+  --z-modal: 50;
+}

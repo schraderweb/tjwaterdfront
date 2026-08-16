@@ -1,0 +1,30 @@
+---
+/**
+ * HeroActions.astro — primary + secondary CTAs in the hero.
+ */
+import Button from "../ui/Button.astro";
+---
+
+<div class="hero-actions">
+  <Button href="/contact" variant="gold" size="lg">
+    Start Your Project
+  </Button>
+  <Button
+    href="/gallery"
+    variant="outline-light"
+    size="lg"
+    icon="play"
+    iconPosition="left"
+  >
+    Watch Our Work
+  </Button>
+</div>
+
+<style>
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+</style>

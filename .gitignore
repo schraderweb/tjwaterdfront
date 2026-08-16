@@ -25,3 +25,11 @@ pnpm-debug.log*
 
 # vscode setting folder
 .vscode/
+
+# docs folder
+docs/
+
+#playwright mcp files   
+.playwright-mcp/
+# local viewport QA screenshots
+previews/

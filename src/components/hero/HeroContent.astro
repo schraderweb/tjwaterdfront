@@ -1,0 +1,86 @@
+---
+/**
+ * HeroContent.astro — eyebrow, editorial serif H1, supporting copy, actions.
+ * Fluid clamp() typography; gold is used as jewelry (one highlighted line).
+ */
+import GoldLine from "../ui/GoldLine.astro";
+import HeroActions from "./HeroActions.astro";
+---
+
+<div class="hero-content">
+  <div class="hero-eyebrow-row">
+    <GoldLine />
+    <p class="eyebrow">Dock &amp; Lift Specialists — Howell, Michigan</p>
+  </div>
+
+  <h1 class="hero-title">
+    Crafting Michigan's
+    <span class="hero-title-accent">Finest Waterfronts</span>
+  </h1>
+
+  <p class="hero-copy">
+    From docks and boat lifts to seawalls and shorelines, T&amp;J Waterfront
+    Services delivers premium installs, repairs, and maintenance — one trusted
+    team for your entire lakefront.
+  </p>
+
+  <HeroActions />
+</div>
+
+<style>
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+    max-width: 42rem;
+  }
+
+  .hero-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .hero-eyebrow-row .eyebrow {
+    color: var(--color-gold-400);
+    text-shadow: 0 1px 8px rgba(7, 26, 43, 0.45);
+  }
+
+  .hero-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-hero);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    color: var(--color-text-on-image);
+    text-wrap: balance;
+    text-shadow: 0 2px 24px rgba(7, 26, 43, 0.35);
+  }
+
+  .hero-title-accent {
+    display: block;
+    color: var(--color-gold-400);
+  }
+
+  .hero-copy {
+    margin: 0;
+    max-width: 52ch;
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+    color: rgba(246, 241, 231, 0.92);
+    text-shadow: 0 1px 12px rgba(7, 26, 43, 0.5);
+  }
+
+  /* Short laptop viewports (e.g. 1280×800): tighten the left column so
+     the first viewport stays composed. */
+  @media (min-width: 64rem) and (max-height: 920px) {
+    .hero-content {
+      gap: 1.25rem;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 1.4rem + 4.6vw, 5.25rem);
+    }
+  }
+</style>
