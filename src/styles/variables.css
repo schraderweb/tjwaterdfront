@@ -84,8 +84,8 @@
   --container-sm: 40rem;
   --container-md: 60rem;
   --container-lg: 75rem;
-  --container-xl: 90rem;
-  --container-gutter: clamp(1rem, 4vw, 5rem);
+  --container-xl: 135rem;
+  --container-gutter: clamp(1rem, 3.5vw, 5rem);
 
   /* ─────────────────────────
      SPACING (fluid)

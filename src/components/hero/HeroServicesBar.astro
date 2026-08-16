@@ -9,7 +9,7 @@ import { heroServices } from "../../data/site";
 ---
 
 <div class="service-bar" role="navigation" aria-label="Dock services">
-  <div class="container">
+  <div class="site-container">
     <ul class="service-list">
       {
         heroServices.map((service) => (
@@ -76,7 +76,7 @@ import { heroServices } from "../../data/site";
     align-items: flex-start;
     gap: 0.875rem;
     height: 100%;
-    padding: clamp(0.875rem, 0.75rem + 0.6vw, 1.25rem)
+    padding: clamp(0.625rem, 0.55rem + 0.35vw, 0.875rem)
       clamp(1rem, 0.75rem + 1.25vw, 1.75rem);
     text-decoration: none;
     transition: background-color var(--duration-base) var(--ease-premium);
@@ -91,8 +91,8 @@ import { heroServices } from "../../data/site";
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border: 1px solid rgba(198, 146, 61, 0.45);
     border-radius: 50%;
     color: var(--color-gold-400);

@@ -147,10 +147,11 @@
 /* ─────────────────────────────────────────────
    Components
    ───────────────────────────────────────────── */
-/* Fluid max-width container — replaces Tailwind's default .container.
-   Content stays controlled on 2K/4K/ultrawide; photography breathes. */
-@utility container {
-  width: min(calc(100% - 2 * var(--container-gutter)), var(--container-xl));
+/* Fluid project container. Keep it separate from Tailwind's built-in
+   `.container` utility so its breakpoint max-widths cannot override this. */
+@utility site-container {
+  width: calc(100% - 2 * var(--container-gutter));
+  max-width: var(--container-xl);
   margin-inline: auto;
 }
 
