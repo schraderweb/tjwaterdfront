@@ -1,0 +1,82 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  name: string;
+  timeAgo: string;
+  content: string;
+  stars?: number;
+}
+
+const { name, timeAgo, content, stars = 5 } = Astro.props;
+const starArray = Array(stars).fill(0);
+---
+
+<article class="review-card">
+  <div class="stars" aria-label={`Rated ${stars} out of 5 stars`}>
+    {starArray.map(() => (
+      <Icon name="star" class="star-icon" size={18} strokeWidth={1.5} />
+    ))}
+  </div>
+  <h3 class="reviewer-name">{name}</h3>
+  <span class="time-ago">{timeAgo}</span>
+  <div class="meta-divider" aria-hidden="true"></div>
+  <p class="review-content">"{content}"</p>
+</article>
+
+<style>
+  .review-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(5, 20, 35, 0.05);
+    height: 100%;
+    /* Ensure the card doesn't shrink and takes full height of the track */
+    min-height: 280px;
+  }
+
+  .stars {
+    display: flex;
+    gap: 0.25rem;
+    color: var(--color-gold-600, #b98232);
+    margin-bottom: 1.25rem;
+  }
+
+  :global(.star-icon) {
+    fill: currentColor;
+    /* Optional: If Icon.astro overrides fill, we ensure it applies */
+  }
+
+  .reviewer-name {
+    font-family: var(--font-display);
+    color: var(--color-navy-950, #071a2d);
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .time-ago {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #64748b);
+    margin-bottom: 1rem;
+  }
+
+  .meta-divider {
+    width: 32px;
+    height: 1.5px;
+    background-color: var(--color-gold-600, #b98232);
+    margin: 0 auto 1.25rem;
+  }
+
+  .review-content {
+    color: var(--color-text-primary, #334155);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    /* Allows text to flex if we wanted to push things to bottom, but we just center it */
+  }
+</style>

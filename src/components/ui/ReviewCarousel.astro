@@ -1,0 +1,208 @@
+---
+import ReviewCard from "./ReviewCard.astro";
+import Icon from "./Icon.astro";
+import type { Review } from "../../data/reviews";
+
+interface Props {
+  reviews: Review[];
+}
+
+const { reviews } = Astro.props;
+---
+
+<div class="carousel-wrapper">
+  <button class="carousel-control prev" aria-label="Previous reviews" id="btn-prev">
+    <Icon name="arrow-right" size={24} class="flip-icon" />
+  </button>
+  
+  <div class="carousel-viewport" id="carousel-viewport">
+    <div class="carousel-track">
+      {reviews.map((review, i) => (
+        <div class="carousel-slide">
+          <ReviewCard {...review} />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <button class="carousel-control next" aria-label="Next reviews" id="btn-next">
+    <Icon name="arrow-right" size={24} />
+  </button>
+  
+  <div class="carousel-pagination">
+    {reviews.map((_, i) => (
+      <button 
+        class={`dot ${i === 0 ? "active" : ""}`} 
+        aria-label={`Go to slide ${i + 1}`}
+        data-index={i}
+      ></button>
+    ))}
+  </div>
+</div>
+
+<style>
+  .carousel-wrapper {
+    position: relative;
+    width: 100%;
+    margin-inline: auto;
+    max-width: 1400px; /* Limit max width for ultra-wide */
+    padding-bottom: 2rem;
+  }
+
+  .carousel-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    /* Add padding so shadows aren't clipped */
+    padding-block: 1rem 2rem; 
+    margin-inline: -1rem; /* Negative margin to let it bleed to edges on mobile */
+    padding-inline: 1rem;
+  }
+
+  .carousel-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+  }
+
+  .carousel-slide {
+    flex: 0 0 calc(280px); /* Base width for mobile */
+    scroll-snap-align: start;
+  }
+
+  /* Responsive sizes */
+  @media (min-width: 600px) {
+    .carousel-slide { flex: 0 0 320px; }
+  }
+  
+  @media (min-width: 1024px) {
+    .carousel-slide { flex: 0 0 350px; }
+    .carousel-viewport {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+
+  /* Controls */
+  .carousel-control {
+    display: none; /* Hidden by default on mobile */
+    position: absolute;
+    top: calc(50% - 2rem);
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-gold-400);
+    background: transparent;
+    color: var(--color-gold-600);
+    cursor: pointer;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .carousel-control.prev {
+    left: -1rem;
+  }
+  .carousel-control.next {
+    right: -1rem;
+  }
+
+  .flip-icon {
+    transform: rotate(180deg);
+  }
+
+  .carousel-control:hover {
+    background: var(--color-gold-600);
+    border-color: var(--color-gold-600);
+    color: white;
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-control {
+      display: flex;
+    }
+    .carousel-control.prev { left: -3.5rem; }
+    .carousel-control.next { right: -3.5rem; }
+  }
+
+  /* Pagination */
+  .carousel-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-cream-300);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    padding: 0;
+  }
+
+  .dot.active {
+    background: var(--color-gold-600);
+  }
+</style>
+
+<script>
+  // Tiny script for carousel arrows and dot sync
+  const viewports = document.querySelectorAll('#carousel-viewport');
+  
+  viewports.forEach((viewport) => {
+    const wrapper = viewport.closest('.carousel-wrapper');
+    if (!wrapper) return;
+    
+    const btnPrev = wrapper.querySelector('#btn-prev');
+    const btnNext = wrapper.querySelector('#btn-next');
+    const dots = wrapper.querySelectorAll('.dot');
+    
+    if (btnPrev && btnNext) {
+      btnNext.addEventListener('click', () => {
+        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
+        viewport.scrollBy({ left: slideWidth + 24, behavior: 'smooth' }); // 24px is gap
+      });
+      
+      btnPrev.addEventListener('click', () => {
+        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
+        viewport.scrollBy({ left: -(slideWidth + 24), behavior: 'smooth' });
+      });
+    }
+
+    // Update active dot based on scroll position
+    let isScrolling: any;
+    viewport.addEventListener('scroll', () => {
+      window.clearTimeout(isScrolling);
+      isScrolling = setTimeout(() => {
+        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
+        const scrollX = viewport.scrollLeft;
+        const index = Math.round(scrollX / (slideWidth + 24));
+        
+        dots.forEach((dot, i) => {
+          if (i === index) dot.classList.add('active');
+          else dot.classList.remove('active');
+        });
+      }, 50);
+    });
+
+    // Dot click
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
+        viewport.scrollTo({ left: i * (slideWidth + 24), behavior: 'smooth' });
+      });
+    });
+  });
+</script>

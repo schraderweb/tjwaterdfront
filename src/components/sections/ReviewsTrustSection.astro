@@ -1,0 +1,78 @@
+---
+import ReviewCarousel from "../ui/ReviewCarousel.astro";
+import { reviews } from "../../data/reviews";
+---
+
+<section class="reviews-trust-section" id="reviews" aria-labelledby="reviews-title">
+  <div class="site-container">
+    <div class="section-header">
+      <span class="eyebrow">REVIEWS & TRUST</span>
+      <h2 id="reviews-title">What Our Customers Say</h2>
+      <div class="header-divider" aria-hidden="true"></div>
+    </div>
+    
+    <div class="carousel-container">
+      <ReviewCarousel reviews={reviews} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews-trust-section {
+    background-color: var(--color-cream-50, #fcfaf5);
+    padding-block: clamp(4rem, 6vw, 6rem);
+    position: relative;
+    /* Optional: If a global texture exists, it would be applied via a utility class or pseudo-element */
+  }
+
+  /* We add a subtle texture pattern to the background via a faint SVG or CSS radial-gradient. 
+     Since the design spec asks for a subtle topographic/woodgrain texture, 
+     if not globally defined, we can do a very light noise. For now, we stick to the cream base. */
+  .reviews-trust-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.02;
+    /* Basic subtle noise pattern */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    z-index: 0;
+  }
+
+  .site-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .eyebrow {
+    display: block;
+    color: var(--color-gold-600, #b98232);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header h2 {
+    font-family: var(--font-display);
+    color: var(--color-navy-950, #071a2d);
+    font-size: clamp(2rem, 3vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .header-divider {
+    width: 60px;
+    height: 1.5px;
+    background-color: var(--color-gold-600, #b98232);
+    margin: 1.5rem auto 0;
+  }
+</style>
