@@ -1,0 +1,175 @@
+---
+---
+<div class="offer-panel">
+  <div class="offer-main">
+    <div class="offer-brand">
+      <div class="offer-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="5" r="3"></circle>
+          <line x1="12" y1="22" x2="12" y2="8"></line>
+          <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+        </svg>
+      </div>
+      <div class="offer-brand-text">
+        <span class="brand-name">T&J Waterfront</span>
+        <span class="brand-services">Services</span>
+      </div>
+    </div>
+    
+    <div class="offer-divider"></div>
+    
+    <div class="offer-discount">
+      <span class="discount-number">5%</span>
+      <span class="discount-text">OFF</span>
+    </div>
+  </div>
+  
+  <div class="offer-details">
+    <p class="offer-primary">Mention <strong>waterfront5</strong> to get 5% OFF your next service.</p>
+    <p class="offer-secondary">Offer expires <span id="dynamic-expiry-date">August 27, 2026</span>. One coupon per customer. Limitations apply.</p>
+  </div>
+</div>
+
+<script>
+  // Dynamic coupon expiration to create urgency (10-14 days from now)
+  const expiryEl = document.getElementById('dynamic-expiry-date');
+  if (expiryEl) {
+    const today = new Date();
+    // Add 12 days for urgency
+    today.setDate(today.getDate() + 12);
+    
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    }).format(today);
+    
+    expiryEl.textContent = formattedDate;
+  }
+</script>
+
+<style>
+  .offer-panel {
+    background: rgba(250, 248, 243, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 20px 60px rgba(5, 20, 35, 0.12);
+    border-radius: var(--radius-xl, 24px);
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
+    max-width: 48rem;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--color-navy-950, #071a2b);
+  }
+
+  .offer-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .offer-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .offer-icon {
+    color: var(--color-gold-500, #c6923d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .offer-icon svg {
+    width: clamp(2.5rem, 5vw, 3.5rem);
+    height: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .offer-brand-text {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    line-height: 1.1;
+  }
+
+  .offer-divider {
+    width: 1px;
+    height: clamp(3rem, 6vw, 4rem);
+    background: rgba(7, 26, 45, 0.25);
+  }
+
+  .offer-discount {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--color-gold-500, #c6923d);
+    font-family: var(--font-display);
+    line-height: 0.85;
+  }
+
+  .discount-number {
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+  }
+
+  .discount-text {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    letter-spacing: 0.05em;
+    margin-left: 0.2rem;
+  }
+
+  .offer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .offer-primary {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .offer-primary strong {
+    font-weight: 700;
+  }
+
+  .offer-secondary {
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+    color: rgba(7, 26, 45, 0.7);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .offer-main {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .offer-divider {
+      width: 80%;
+      height: 1px;
+    }
+    
+    .offer-brand {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .offer-discount {
+      align-items: center;
+    }
+    
+    .discount-text {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+  }
+</style>
