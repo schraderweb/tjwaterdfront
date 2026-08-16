@@ -1,0 +1,41 @@
+---
+/**
+ * FeaturedServicePanel.astro
+ * The deep navy panel containing the Eyebrow, Heading, Divider, Description, and CTA Button.
+ */
+import Button from "../ui/Button.astro";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+}
+
+const { eyebrow, title, description, href } = Astro.props;
+---
+
+<div class="featured-service-panel bg-navy-950 text-white p-8 md:p-12 lg:p-16 flex flex-col justify-center h-full relative overflow-hidden">
+  <!-- Subtle anchor watermark background -->
+  <div class="absolute -top-16 -right-16 text-navy-900 opacity-20 pointer-events-none select-none">
+    <svg width="300" height="300" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 7.75V20M5 12.5H3.5a8.5 8.5 0 0 0 17 0H19M12 20a4.25 4.25 0 0 0-4.25-4.25h8.5A4.25 4.25 0 0 0 12 20Z" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="12" cy="5.5" r="2.25" stroke="currentColor" stroke-width="0.5"/>
+    </svg>
+  </div>
+
+  <div class="relative z-10">
+    <span class="text-eyebrow tracking-eyebrow text-gold-400 font-bold block mb-4 uppercase">{eyebrow}</span>
+    <h3 class="text-h2 font-display text-white leading-heading mb-6">{title}</h3>
+    
+    <div class="h-px bg-gold-600/50 w-16 mb-6"></div>
+    
+    <p class="text-body text-cream-100/90 leading-body mb-10 max-w-[28ch]">
+      {description}
+    </p>
+
+    <Button variant="navy-outline" href={href} icon="arrow-right" iconPosition="right">
+      Read More
+    </Button>
+  </div>
+</div>

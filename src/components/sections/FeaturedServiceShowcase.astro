@@ -1,0 +1,81 @@
+---
+/**
+ * FeaturedServiceShowcase.astro
+ * Wraps the featured service panel and the image mosaic into one cohesive layout.
+ */
+import FeaturedServicePanel from "./FeaturedServicePanel.astro";
+import ServiceImageMosaic from "./ServiceImageMosaic.astro";
+
+interface Props {
+  service: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    href: string;
+  };
+  images: Array<{
+    src: string;
+    alt: string;
+    focalPoint?: string;
+  }>;
+}
+
+const { service, images } = Astro.props;
+---
+
+<div class="featured-service-showcase">
+  <div class="showcase-panel">
+    <FeaturedServicePanel
+      eyebrow={service.eyebrow}
+      title={service.title}
+      description={service.description}
+      href={service.href}
+    />
+  </div>
+  <div class="showcase-mosaic">
+    <ServiceImageMosaic images={images} />
+  </div>
+</div>
+
+<style>
+  .featured-service-showcase {
+    display: flex;
+    flex-direction: column;
+    /* On mobile, we stack them */
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .featured-service-showcase {
+      gap: 0.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .featured-service-showcase {
+      display: grid;
+      /* Adjust columns: Panel is roughly 1/3, Mosaic is 2/3 */
+      grid-template-columns: 1.2fr 2fr;
+      gap: 1rem;
+      /* This ensures both sides stretch to the same height */
+      align-items: stretch;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .featured-service-showcase {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  .showcase-panel {
+    /* Optional: Ensure the panel can grow if needed */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .showcase-mosaic {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

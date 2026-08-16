@@ -1,0 +1,83 @@
+---
+/**
+ * Section2.astro
+ * The main container for the Premium Editorial Service Showcase.
+ * Implements the layout containing the Featured Service Showcase and Dock Essentials.
+ */
+import FeaturedServiceShowcase from "./FeaturedServiceShowcase.astro";
+import DockEssentialsFeature from "./DockEssentialsFeature.astro";
+
+// --- Data for Featured Service Showcase ---
+const featuredServiceData = {
+  eyebrow: "PREMIUM BOAT LIFTS",
+  title: "Starr Boat Lifts",
+  description: "Starr boat lifts (BLs) are constructed with heavy gauge aluminum providing great strength and long lasting durability. Standard inside width of \"+20\" wide.",
+  href: "/services/boat-lifts",
+};
+
+// High quality waterfront placeholders from Unsplash
+const showcaseImages = [
+  { src: "https://images.unsplash.com/photo-1544431525-416b7da3c5ee?auto=format&fit=crop&q=80&w=800&h=600", alt: "Boat lift at sunset" },
+  { src: "https://images.unsplash.com/photo-1579227581534-118840b2fbc9?auto=format&fit=crop&q=80&w=800&h=600", alt: "Dock on a clear lake" },
+  { src: "https://images.unsplash.com/photo-1601005896350-b0ff07353f86?auto=format&fit=crop&q=80&w=800&h=600", alt: "Pontoon boat parked on lift" },
+  { src: "https://images.unsplash.com/photo-1557088927-4f6c44917a26?auto=format&fit=crop&q=80&w=800&h=600", alt: "Wooden dock extending into water" },
+  { src: "https://images.unsplash.com/photo-1596796979219-c6e2b4d96a60?auto=format&fit=crop&q=80&w=800&h=600", alt: "Lakefront property with dock" },
+  { src: "https://images.unsplash.com/photo-1617387216447-06399b537c35?auto=format&fit=crop&q=80&w=800&h=600", alt: "Modern boat on lift" },
+];
+
+// --- Data for Dock Essentials ---
+const dockEssentialsData = {
+  eyebrow: "DOCK ESSENTIALS",
+  title: "Docks Accessories",
+  description: "Everything you need for a safer, stronger, and more enjoyable dock.",
+  imageSrc: "https://images.unsplash.com/photo-1506528772096-7243c7b2a608?auto=format&fit=crop&q=80&w=1200&h=1600", // Tall portrait image
+  imageAlt: "Dock extending over a serene lake",
+  href: "/products/accessories",
+  benefits: [
+    {
+      icon: "anchor",
+      title: "PREMIUM QUALITY",
+      description: "High quality materials built to withstand Michigan's conditions.",
+    },
+    {
+      icon: "shield",
+      title: "BUILT TO LAST",
+      description: "Corrosion resistant & engineered for long term performance.",
+    },
+    {
+      icon: "wrench",
+      title: "WIDE SELECTION",
+      description: "Dock hardware, bumpers, cleats, ladders & more.",
+    },
+  ],
+};
+---
+
+<section class="section-2 py-[var(--space-section)]">
+  <div class="container mx-auto" style="width: min(calc(100% - 2 * var(--container-gutter)), var(--container-xl));">
+    
+    <!-- Introductory Statement -->
+    <div class="intro-statement max-w-4xl mb-12 md:mb-20">
+      <h2 class="text-h3 font-display text-navy-950 leading-tight">
+        <span class="inline-block mr-2 text-gold-500 align-middle">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5.5" r="2.25"/>
+            <path d="M12 7.75V20M5 12.5H3.5a8.5 8.5 0 0 0 17 0H19M12 20a4.25 4.25 0 0 0-4.25-4.25h8.5A4.25 4.25 0 0 0 12 20Z"/>
+          </svg>
+        </span>
+        We Offer Dock Services & Repair, Boat & Pontoon Lift Accessories, Seawalls, Boat Lifts, Beaches & Retaining Walls, Patios, Boardwalks & Deck Docks in <span class="text-gold-600 italic">Michigan!</span>
+      </h2>
+    </div>
+
+    <!-- Featured Service Showcase -->
+    <div class="mb-12 md:mb-24">
+      <FeaturedServiceShowcase service={featuredServiceData} images={showcaseImages} />
+    </div>
+
+    <!-- Dock Essentials -->
+    <div>
+      <DockEssentialsFeature {...dockEssentialsData} />
+    </div>
+
+  </div>
+</section>

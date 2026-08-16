@@ -1,0 +1,87 @@
+---
+/**
+ * DockEssentialsFeature.astro
+ * The second visual story on a warm T&J cream background.
+ */
+import Button from "../ui/Button.astro";
+import BenefitList from "./BenefitList.astro";
+
+interface Benefit {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  benefits: Benefit[];
+  href: string;
+}
+
+const { eyebrow, title, description, imageSrc, imageAlt, benefits, href } = Astro.props;
+---
+
+<div class="dock-essentials bg-cream-50 overflow-hidden">
+  <div class="essentials-grid">
+    <div class="essentials-image-wrapper">
+      <img src={imageSrc} alt={imageAlt} class="essentials-img" loading="lazy" />
+    </div>
+    
+    <div class="essentials-content p-8 md:p-12 lg:p-16 xl:p-20 flex flex-col justify-center">
+      <span class="text-eyebrow tracking-eyebrow text-gold-600 font-bold block mb-4 uppercase">{eyebrow}</span>
+      <h3 class="text-h2 font-display text-navy-950 leading-heading mb-6">{title}</h3>
+      
+      <div class="h-px bg-water-400/50 w-32 mb-6"></div>
+      
+      <p class="text-lead text-text-secondary mb-2 max-w-[32ch]">
+        {description}
+      </p>
+
+      <BenefitList benefits={benefits} />
+
+      <div class="mt-auto pt-4 border-t border-border-dark w-full max-w-sm">
+        <Button variant="outline-light" class="!text-gold-700 !border-gold-400/50 hover:!bg-gold-50 mt-6" href={href} icon="arrow-right" iconPosition="right">
+          Read More
+        </Button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .essentials-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 1024px) {
+    .essentials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 700px; /* Gives the image some breathing room */
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .essentials-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .essentials-image-wrapper {
+    width: 100%;
+    min-height: 400px;
+    height: 100%;
+  }
+
+  .essentials-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+/**
+ * BenefitList.astro
+ * Renders a list of benefits with an icon, heading, and description.
+ */
+import Icon from "../ui/Icon.astro";
+
+interface Benefit {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  benefits: Benefit[];
+}
+
+const { benefits } = Astro.props;
+---
+
+<div class="benefits-list flex flex-col gap-8 md:gap-10 mt-10 mb-12">
+  {benefits.map((benefit) => (
+    <div class="benefit-item flex items-start gap-5">
+      <div class="benefit-icon-wrapper flex items-center justify-center bg-cream-200/50 rounded-full w-14 h-14 flex-shrink-0 text-gold-600 border border-gold-400/20">
+        <Icon name={benefit.icon} size={24} strokeWidth={1.5} />
+      </div>
+      <div class="benefit-content pt-1">
+        <h4 class="text-h4 font-sans font-bold text-navy-950 mb-2 uppercase tracking-wide text-sm">{benefit.title}</h4>
+        <p class="text-body text-text-secondary leading-body max-w-[30ch]">
+          {benefit.description}
+        </p>
+      </div>
+    </div>
+  ))}
+</div>
