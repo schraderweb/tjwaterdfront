@@ -1,8 +1,5 @@
 ---
-/**
- * FeaturedServiceShowcase.astro
- * Wraps the featured service panel and the image mosaic into one cohesive layout.
- */
+import type { Section2Image } from "../../data/section2";
 import FeaturedServicePanel from "./FeaturedServicePanel.astro";
 import ServiceImageMosaic from "./ServiceImageMosaic.astro";
 
@@ -13,69 +10,34 @@ interface Props {
     description: string;
     href: string;
   };
-  images: Array<{
-    src: string;
-    alt: string;
-    focalPoint?: string;
-  }>;
+  images: Section2Image[];
 }
 
 const { service, images } = Astro.props;
 ---
 
 <div class="featured-service-showcase">
-  <div class="showcase-panel">
-    <FeaturedServicePanel
-      eyebrow={service.eyebrow}
-      title={service.title}
-      description={service.description}
-      href={service.href}
-    />
-  </div>
-  <div class="showcase-mosaic">
-    <ServiceImageMosaic images={images} />
-  </div>
+  <FeaturedServicePanel {...service} />
+  <ServiceImageMosaic images={images} />
 </div>
 
 <style>
   .featured-service-showcase {
-    display: flex;
-    flex-direction: column;
-    /* On mobile, we stack them */
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 48rem) {
     .featured-service-showcase {
-      gap: 0.75rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .featured-service-showcase {
-      display: grid;
-      /* Adjust columns: Panel is roughly 1/3, Mosaic is 2/3 */
-      grid-template-columns: 1.2fr 2fr;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
       gap: 1rem;
-      /* This ensures both sides stretch to the same height */
-      align-items: stretch;
     }
   }
 
-  @media (min-width: 1440px) {
+  @media (min-width: 64rem) {
     .featured-service-showcase {
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: minmax(20rem, 0.9fr) minmax(0, 1.7fr);
     }
-  }
-
-  .showcase-panel {
-    /* Optional: Ensure the panel can grow if needed */
-    display: flex;
-    flex-direction: column;
-  }
-
-  .showcase-mosaic {
-    display: flex;
-    flex-direction: column;
   }
 </style>

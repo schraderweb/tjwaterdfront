@@ -1,88 +1,85 @@
 ---
-/**
- * ServiceImageMosaic.astro
- * The 6-image CSS Grid composition.
- */
-
-interface ImageProp {
-  src: string;
-  alt: string;
-  focalPoint?: string; // e.g. 'center', '60% center'
-}
+import { Image } from "astro:assets";
+import type { Section2Image } from "../../data/section2";
 
 interface Props {
-  images: ImageProp[];
+  images: Section2Image[];
 }
 
 const { images } = Astro.props;
 
-// Ensure we only render exactly 6 images
-const displayImages = images.slice(0, 6);
+if (images.length !== 6) {
+  throw new Error(`ServiceImageMosaic requires exactly six images; received ${images.length}.`);
+}
 ---
 
-<div class="service-image-mosaic">
-  {displayImages.map((image, index) => (
-    <div class="image-wrapper">
-      <img
+<div class="service-image-mosaic" aria-label="Starr boat lift project gallery">
+  {images.map((image) => (
+    <figure class="mosaic-item">
+      <Image
         src={image.src}
         alt={image.alt}
+        widths={[320, 480, 640]}
+        sizes="(min-width: 64rem) 27vw, (min-width: 48rem) 45vw, 100vw"
+        quality={72}
+        format="webp"
         loading="lazy"
-        class="mosaic-img"
-        style={`object-position: ${image.focalPoint || 'center'};`}
+        decoding="async"
+        class="mosaic-image"
+        style={`object-position: ${image.focalPoint ?? "center"};`}
       />
-    </div>
+    </figure>
   ))}
 </div>
 
 <style>
   .service-image-mosaic {
     display: grid;
-    /* On mobile, use 1 column, maybe 2 for slightly larger */
     grid-template-columns: 1fr;
-    gap: 0.5rem; /* Gutters between images */
-    height: 100%;
+    gap: 0.75rem;
+    min-height: 0;
   }
 
-  @media (min-width: 640px) {
-    .service-image-mosaic {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .service-image-mosaic {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 1rem;
-    }
-  }
-
-  .image-wrapper {
-    position: relative;
-    width: 100%;
-    /* Give a default height to prevent collapsing, especially on mobile/tablet */
-    min-height: 250px;
-    height: 100%;
+  .mosaic-item {
+    min-width: 0;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+    margin: 0;
     overflow: hidden;
+    background: var(--color-cream-200);
   }
 
-  /* On desktop, allow the grid to dictate height naturally to match the panel's height, 
-     or let the panel dictate height. We'll set a base height for consistency. */
-  @media (min-width: 1024px) {
-    .image-wrapper {
-      min-height: 200px;
-    }
-  }
-
-  .mosaic-img {
+  .mosaic-image {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform var(--duration-slow) var(--ease-premium);
   }
 
-  .image-wrapper:hover .mosaic-img {
-    transform: scale(1.03);
+  .mosaic-item:hover .mosaic-image {
+    transform: scale(1.025);
+  }
+
+  @media (min-width: 40rem) and (max-width: 63.999rem) {
+    .service-image-mosaic {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mosaic-item { aspect-ratio: 1 / 1; }
+  }
+
+  @media (min-width: 64rem) {
+    .service-image-mosaic {
+      height: clamp(38rem, 52vw, 54rem);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .mosaic-item {
+      aspect-ratio: auto;
+      min-height: 0;
+    }
   }
 </style>
