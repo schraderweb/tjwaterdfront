@@ -36,8 +36,9 @@ if (images.length !== 6) {
   .service-image-mosaic {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 0.5rem;
     min-height: 0;
+    height: 100%; /* Ensure it can stretch if needed */
   }
 
   .mosaic-item {
@@ -71,15 +72,15 @@ if (images.length !== 6) {
 
   @media (min-width: 64rem) {
     .service-image-mosaic {
-      height: clamp(30rem, 29vw, 40rem);
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      grid-template-rows: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
+      gap: 0.5rem; /* Tighter gap to match the premium editorial feel */
     }
 
     .mosaic-item {
-      aspect-ratio: auto;
+      aspect-ratio: 4 / 3; /* Locks the image proportions so it resizes smoothly */
       min-height: 0;
+      width: 100%;
+      height: 100%;
     }
   }
 </style>
