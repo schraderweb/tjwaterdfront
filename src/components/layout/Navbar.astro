@@ -1,9 +1,7 @@
 ---
 /**
- * Navbar.astro — fixed navigation.
- * Transparent over the hero → navy glass after scrolling (12px threshold).
- * Desktop: logo | links (Services dropdown) | phone | CTA
- * Mobile (<1024px): logo | menu button | full panel
+ * Navbar.astro — transparent brand navigation over the hero.
+ * The lockup is inline SVG/text so it stays crisp without an external logo request.
  */
 import Button from "../ui/Button.astro";
 import Icon from "../ui/Icon.astro";
@@ -14,9 +12,14 @@ import { navLinks, site } from "../../data/site";
 
 <header data-navbar class="navbar">
   <div class="site-container navbar-inner">
-    <a href="/" class="logo" aria-label="T&J Waterfront Services — Home">
-      <span class="logo-mark">T&J</span>
-      <span class="logo-sub">Waterfront Services</span>
+    <a href="/" class="logo" aria-label="T&J Waterfront Services">
+      <span class="logo-emblem" aria-hidden="true">
+        <Icon name="anchor" size={68} strokeWidth={1.25} />
+      </span>
+      <span class="logo-lockup">
+        <span class="logo-name">T&amp;J</span>
+        <span class="logo-sub">Waterfront<br />Services</span>
+      </span>
     </a>
 
     <nav class="nav-desktop" aria-label="Primary">
@@ -29,18 +32,12 @@ import { navLinks, site } from "../../data/site";
                   <>
                     <a href={link.href} class="nav-link" aria-haspopup="true">
                       {link.label}
-                      <Icon
-                        name="chevron-down"
-                        size={12}
-                        class="nav-chevron"
-                      />
+                      <Icon name="chevron-down" size={10} class="nav-chevron" />
                     </a>
                     <ul class="dropdown">
                       {link.children.map((child) => (
                         <li>
-                          <a href={child.href} class="dropdown-link">
-                            {child.label}
-                          </a>
+                          <a href={child.href} class="dropdown-link">{child.label}</a>
                         </li>
                       ))}
                     </ul>
@@ -48,10 +45,7 @@ import { navLinks, site } from "../../data/site";
                 ) : (
                   <a
                     href={link.href}
-                    class:list={[
-                      "nav-link",
-                      link.href === "/" && "is-active",
-                    ]}
+                    class:list={["nav-link", link.href === "/" && "is-active"]}
                     {...(link.href === "/" ? { "aria-current": "page" } : {})}
                   >
                     {link.label}
@@ -66,8 +60,8 @@ import { navLinks, site } from "../../data/site";
 
     <div class="nav-actions">
       <a href={site.phoneHref} class="nav-phone">
-        <Icon name="phone" size={15} />
-        <span>{site.phone}</span>
+        <Icon name="phone" size={16} />
+        <span>{site.phoneDisplay}</span>
       </a>
       <Button href="/contact" variant="gold" size="sm" class="nav-cta">
         Start Your Project
@@ -91,17 +85,11 @@ import { navLinks, site } from "../../data/site";
       <ul class="mobile-list">
         {navLinks.map((link) => (
           <li>
-            <a href={link.href} class="mobile-link">
-              {link.label}
-            </a>
+            <a href={link.href} class="mobile-link">{link.label}</a>
             {link.children && (
               <ul class="mobile-sublist">
                 {link.children.map((child) => (
-                  <li>
-                    <a href={child.href} class="mobile-sublink">
-                      {child.label}
-                    </a>
-                  </li>
+                  <li><a href={child.href} class="mobile-sublink">{child.label}</a></li>
                 ))}
               </ul>
             )}
@@ -112,7 +100,7 @@ import { navLinks, site } from "../../data/site";
     <div class="mobile-actions">
       <a href={site.phoneHref} class="mobile-phone">
         <Icon name="phone" size={16} />
-        {site.phone}
+        {site.phoneDisplay}
       </a>
       <Button href="/contact" variant="gold" size="md" class="w-full">
         Start Your Project
@@ -129,7 +117,7 @@ import { navLinks, site } from "../../data/site";
     position: fixed;
     top: -3rem;
     left: 1rem;
-    z-index: calc(var(--z-modal));
+    z-index: var(--z-modal);
     padding: 0.5rem 1rem;
     background: var(--color-gold-500);
     color: var(--color-navy-950);
@@ -138,9 +126,8 @@ import { navLinks, site } from "../../data/site";
     border-radius: var(--radius-sm);
     transition: top var(--duration-fast) var(--ease-premium);
   }
-  .skip-link:focus-visible {
-    top: 0.75rem;
-  }
+
+  .skip-link:focus-visible { top: 0.75rem; }
 
   .navbar {
     position: fixed;
@@ -159,76 +146,92 @@ import { navLinks, site } from "../../data/site";
     background: rgba(7, 26, 43, 0.82);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
-    border-bottom-color: var(--color-border-light);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 30px -18px rgba(7, 26, 43, 0.5);
   }
 
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .navbar.is-scrolled {
-      background: rgba(7, 26, 43, 0.97);
-    }
+    .navbar.is-scrolled { background: rgba(7, 26, 43, 0.97); }
   }
 
   .navbar-inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    height: 4rem;
+    gap: clamp(1rem, 2vw, 2.5rem);
+    width: calc(100% - 4rem);
+    max-width: none;
+    min-height: 4.5rem;
   }
 
   .logo {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-white);
     line-height: 1;
     text-decoration: none;
   }
 
-  .logo-mark {
-    font-family: var(--font-display);
-    font-size: 1.875rem;
+  .logo-emblem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--color-gold-500);
-    letter-spacing: 0.01em;
+  }
+
+  .logo-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.35rem, 2.8vw, 3.2rem);
+    letter-spacing: -0.03em;
   }
 
   .logo-sub {
-    font-size: 0.6rem;
+    padding-left: 0.6rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.62);
+    font-size: 0.68rem;
     font-weight: 600;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.25em;
+    line-height: 1.45;
     text-transform: uppercase;
-    color: var(--color-white);
+    color: rgba(255, 255, 255, 0.94);
   }
 
   .nav-desktop {
     display: none;
+    justify-self: center;
   }
 
   .nav-list {
     display: flex;
     align-items: center;
-    gap: clamp(1.25rem, 2vw, 2.25rem);
+    gap: clamp(1.25rem, 2.7vw, 2.8rem);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .nav-item {
-    position: relative;
-  }
+  .nav-item { position: relative; }
 
   .nav-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.375rem;
-    padding-block: 0.625rem;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    letter-spacing: var(--tracking-nav);
-    text-transform: uppercase;
-    color: var(--color-white);
-    text-decoration: none;
+    gap: 0.3rem;
+    padding-block: 0.75rem;
     position: relative;
+    color: rgba(255, 255, 255, 0.96);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
     transition: color var(--duration-fast) var(--ease-premium);
   }
 
@@ -236,8 +239,8 @@ import { navLinks, site } from "../../data/site";
     content: "";
     position: absolute;
     inset-inline: 0;
-    bottom: 0.25rem;
-    height: 1px;
+    bottom: 0.28rem;
+    height: 2px;
     background: var(--color-gold-500);
     transform: scaleX(0);
     transform-origin: left;
@@ -245,23 +248,13 @@ import { navLinks, site } from "../../data/site";
   }
 
   .nav-link:hover,
-  .nav-item.has-dropdown:focus-within .nav-link {
-    color: var(--color-gold-400);
-  }
-
+  .nav-item.has-dropdown:focus-within .nav-link { color: var(--color-gold-200); }
   .nav-link:hover::after,
-  .nav-link.is-active::after {
-    transform: scaleX(1);
-  }
+  .nav-link.is-active::after { transform: scaleX(1); }
 
-  .nav-chevron {
-    transition: transform var(--duration-base) var(--ease-premium);
-  }
-
+  .nav-chevron { transition: transform var(--duration-base) var(--ease-premium); }
   .has-dropdown:hover .nav-chevron,
-  .has-dropdown:focus-within .nav-chevron {
-    transform: rotate(180deg);
-  }
+  .has-dropdown:focus-within .nav-chevron { transform: rotate(180deg); }
 
   .dropdown {
     position: absolute;
@@ -272,10 +265,10 @@ import { navLinks, site } from "../../data/site";
     padding: 0.5rem;
     margin: 0;
     list-style: none;
-    background: rgba(7, 26, 43, 0.95);
+    background: rgba(7, 26, 43, 0.96);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
-    border: 1px solid var(--color-border-light);
+    border: 1px solid rgba(255, 255, 255, 0.24);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-panel);
     opacity: 0;
@@ -298,13 +291,9 @@ import { navLinks, site } from "../../data/site";
     display: block;
     padding: 0.625rem 0.875rem;
     border-radius: var(--radius-sm);
-    font-size: var(--text-small);
-    font-weight: 500;
     color: var(--color-text-on-dark);
+    font-size: var(--text-small);
     text-decoration: none;
-    transition:
-      background-color var(--duration-fast) var(--ease-premium),
-      color var(--duration-fast) var(--ease-premium);
   }
 
   .dropdown-link:hover,
@@ -316,31 +305,27 @@ import { navLinks, site } from "../../data/site";
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    justify-self: end;
+    gap: clamp(0.75rem, 1.5vw, 1.5rem);
   }
 
   .nav-phone {
     display: none;
     align-items: center;
-    gap: 0.5rem;
-    font-size: var(--text-small);
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    gap: 0.45rem;
     color: var(--color-white);
+    font-size: 0.8rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-premium);
+    white-space: nowrap;
   }
 
-  .nav-phone:hover {
-    color: var(--color-gold-400);
-  }
-
-  .nav-phone svg {
-    color: var(--color-gold-500);
-  }
-
-  .nav-cta {
+  .nav-phone svg { color: var(--color-gold-400); }
+  .nav-phone:hover { color: var(--color-gold-200); }
+  :global(.nav-cta) {
     display: none;
+    min-width: 14.5rem;
+    min-height: 3.25rem;
   }
 
   .menu-button {
@@ -349,34 +334,21 @@ import { navLinks, site } from "../../data/site";
     justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
-    border: 1px solid var(--color-border-light);
+    border: 1px solid rgba(255, 255, 255, 0.36);
     border-radius: var(--radius-sm);
-    background: var(--color-glass);
+    background: rgba(255, 255, 255, 0.12);
     color: var(--color-white);
     cursor: pointer;
-    transition: background-color var(--duration-fast) var(--ease-premium);
   }
 
-  .menu-button:hover {
-    background: var(--color-glass-strong);
-  }
+  .menu-button .icon-close { display: none; }
+  .navbar.is-open .menu-button .icon-menu { display: none; }
+  .navbar.is-open .menu-button .icon-close { display: block; }
 
-  .menu-button .icon-close {
-    display: none;
-  }
-
-  .navbar.is-open .menu-button .icon-menu {
-    display: none;
-  }
-  .navbar.is-open .menu-button .icon-close {
-    display: block;
-  }
-
-  /* Mobile menu panel */
   .mobile-menu {
     position: fixed;
     inset: 0;
-    top: 4rem;
+    top: 4.5rem;
     z-index: calc(var(--z-menu) - 1);
     display: flex;
     flex-direction: column;
@@ -384,7 +356,7 @@ import { navLinks, site } from "../../data/site";
     background: rgba(7, 26, 43, 0.98);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
-    border-top: 1px solid var(--color-border-light);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
@@ -401,41 +373,37 @@ import { navLinks, site } from "../../data/site";
   }
 
   .mobile-list {
+    display: flex;
+    flex-direction: column;
     list-style: none;
     margin: 0;
     padding: 1.5rem var(--container-gutter) 2rem;
-    display: flex;
-    flex-direction: column;
   }
 
   .mobile-link {
     display: block;
     padding: 1rem 0.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-text-on-dark);
     font-family: var(--font-display);
     font-size: 1.5rem;
-    color: var(--color-text-on-dark);
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .mobile-sublist {
+    display: flex;
+    flex-direction: column;
     list-style: none;
     margin: 0;
     padding: 0.25rem 0 0.5rem 1rem;
-    display: flex;
-    flex-direction: column;
   }
 
   .mobile-sublink {
     display: block;
     padding: 0.65rem 0.25rem;
-    font-size: var(--text-body);
     color: rgba(246, 241, 231, 0.75);
+    font-size: var(--text-body);
     text-decoration: none;
-  }
-
-  .mobile-sublink:hover {
-    color: var(--color-gold-400);
   }
 
   .mobile-actions {
@@ -449,41 +417,44 @@ import { navLinks, site } from "../../data/site";
     display: inline-flex;
     align-items: center;
     gap: 0.625rem;
+    color: var(--color-gold-400);
     font-size: 1.125rem;
     font-weight: 700;
-    color: var(--color-gold-400);
     text-decoration: none;
   }
 
   .mobile-hours {
     margin: 0;
-    font-size: var(--text-tiny);
     color: rgba(246, 241, 231, 0.55);
+    font-size: var(--text-tiny);
     text-align: center;
   }
 
-  /* ── Desktop breakpoint: content-driven (logo + links + phone + CTA) ── */
   @media (min-width: 64rem) {
-    .navbar-inner {
-      height: 5rem;
-    }
+    .navbar-inner { min-height: 5rem; }
     .nav-desktop {
       display: block;
+      transform: translateX(calc(-1 * clamp(1rem, 1.5vw, 2rem)));
     }
-    .nav-cta {
-      display: inline-flex;
-    }
-    .menu-button {
-      display: none;
-    }
-    .mobile-menu {
-      display: none;
+    :global(.nav-cta) { display: inline-flex; }
+    .menu-button,
+    .mobile-menu { display: none; }
+  }
+
+  @media (max-width: 63.999rem) {
+    .navbar-inner {
+      width: calc(100% - 2 * var(--container-gutter));
     }
   }
 
   @media (min-width: 80rem) {
-    .nav-phone {
-      display: inline-flex;
-    }
+    .nav-phone { display: inline-flex; }
+  }
+
+  @media (max-width: 80rem) and (min-width: 64rem) {
+    .nav-list { gap: 1.15rem; }
+    .logo-sub { display: none; }
+    .logo-emblem svg { width: 42px; height: 42px; }
+    .logo-name { font-size: 2rem; }
   }
 </style>

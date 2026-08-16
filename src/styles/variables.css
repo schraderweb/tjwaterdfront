@@ -86,6 +86,7 @@
   --container-lg: 75rem;
   --container-xl: 135rem;
   --container-gutter: clamp(1rem, 3.5vw, 5rem);
+  --hero-gutter: clamp(2rem, 5.75vw, 7rem);
 
   /* ─────────────────────────
      SPACING (fluid)

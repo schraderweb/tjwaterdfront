@@ -1,8 +1,7 @@
 ---
 /**
- * QuoteForm.astro — primary conversion element in the hero.
- * Restrained glassmorphism panel. Native HTML validation only (no JS).
- * Posts to /api/quote (Vercel serverless route lands in a later phase).
+ * QuoteForm.astro — light glass conversion panel from the hero reference.
+ * Native HTML validation keeps the first viewport JavaScript-free.
  */
 import Button from "../ui/Button.astro";
 import GoldLine from "../ui/GoldLine.astro";
@@ -23,9 +22,9 @@ const projectTypes = [
 
 <div class="quote-form">
   <div class="quote-heading">
-    <p class="eyebrow">Free Estimate</p>
-    <h2 class="quote-title">Tell us about your project</h2>
-    <GoldLine />
+    <p class="eyebrow">Get Started</p>
+    <h2 class="quote-title">Request a Free Quote</h2>
+    <GoldLine align="center" />
   </div>
 
   <form action="/api/quote" method="post" class="quote-fields">
@@ -38,92 +37,95 @@ const projectTypes = [
 
     <div class="form-grid">
       <div class="field">
-        <label for="quote-name">Full Name</label>
-        <input
-          id="quote-name"
-          type="text"
-          name="name"
-          placeholder="John Smith"
-          autocomplete="name"
-          required
-        />
+        <label class="sr-only" for="quote-name">Full Name</label>
+        <div class="input-wrap">
+          <Icon name="user" size={18} class="field-icon" />
+          <input
+            id="quote-name"
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            autocomplete="name"
+            required
+          />
+        </div>
       </div>
 
       <div class="field">
-        <label for="quote-email">Email</label>
-        <input
-          id="quote-email"
-          type="email"
-          name="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-        />
+        <label class="sr-only" for="quote-email">Email Address</label>
+        <div class="input-wrap">
+          <Icon name="mail" size={18} class="field-icon" />
+          <input
+            id="quote-email"
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            autocomplete="email"
+            required
+          />
+        </div>
       </div>
 
       <div class="field">
-        <label for="quote-phone">Phone</label>
-        <input
-          id="quote-phone"
-          type="tel"
-          name="phone"
-          placeholder="(517) 000-0000"
-          autocomplete="tel"
-          required
-        />
+        <label class="sr-only" for="quote-phone">Phone Number</label>
+        <div class="input-wrap">
+          <Icon name="phone" size={18} class="field-icon" />
+          <input
+            id="quote-phone"
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            autocomplete="tel"
+            required
+          />
+        </div>
       </div>
 
       <div class="field">
-        <label for="quote-location">Project Location</label>
-        <input
-          id="quote-location"
-          type="text"
-          name="location"
-          placeholder="Lake name or city"
-          autocomplete="address-level2"
-          required
-        />
-      </div>
-
-      <div class="field field-wide">
-        <label for="quote-type">Project Type</label>
-        <div class="select-wrap">
-          <select id="quote-type" name="project_type" required>
-            <option value="" selected disabled>Select a service…</option>
-            {projectTypes.map((type) => <option value={type}>{type}</option>)}
-          </select>
-          <Icon
-            name="chevron-down"
-            size={16}
-            class="select-icon"
+        <label class="sr-only" for="quote-location">Project Location</label>
+        <div class="input-wrap">
+          <Icon name="map-pin" size={18} class="field-icon" />
+          <input
+            id="quote-location"
+            type="text"
+            name="location"
+            placeholder="Project Location"
+            autocomplete="address-level2"
+            required
           />
         </div>
       </div>
 
       <div class="field field-wide">
-        <label for="quote-message">Message</label>
+        <label class="sr-only" for="quote-type">Project Type / Service Interested In</label>
+        <div class="input-wrap select-wrap">
+          <Icon name="briefcase" size={18} class="field-icon" />
+          <select id="quote-type" name="project_type" required>
+            <option value="" selected disabled>Project Type / Service Interested In</option>
+            {projectTypes.map((type) => <option value={type}>{type}</option>)}
+          </select>
+          <Icon name="chevron-down" size={16} class="select-icon" />
+        </div>
+      </div>
+
+      <div class="field field-wide">
+        <label class="sr-only" for="quote-message">Project Message</label>
         <textarea
           id="quote-message"
           name="message"
-          rows="3"
-          placeholder="Tell us about your waterfront…"
+          rows="4"
+          placeholder="Tell us about your project..."
         />
       </div>
     </div>
 
-    <Button
-      type="submit"
-      variant="gold"
-      size="md"
-      class="w-full"
-      iconPosition="right"
-    >
-      Request My Free Quote
+    <Button type="submit" variant="gold-cta" size="lg" class="quote-submit">
+      Send Request
     </Button>
 
     <p class="quote-privacy">
-      We respect your privacy — no spam, no obligation. Your details stay with
-      us.
+      <Icon name="shield" size={18} />
+      <span>Your information is secure and never shared.</span>
     </p>
   </form>
 </div>
@@ -131,42 +133,50 @@ const projectTypes = [
 <style>
   .quote-form {
     width: 100%;
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.38);
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-panel);
-    padding: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);
+    max-width: 32rem;
+    justify-self: end;
+    color: var(--color-navy-950);
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    -webkit-backdrop-filter: blur(20px) saturate(115%);
+    backdrop-filter: blur(20px) saturate(115%);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px -24px rgba(7, 26, 43, 0.4);
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
   }
 
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .quote-form {
-      background: rgba(7, 26, 43, 0.82);
+      background: rgba(246, 241, 231, 0.96);
     }
   }
 
   .quote-heading {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.625rem;
-    margin-bottom: clamp(1.25rem, 1rem + 0.75vw, 1.75rem);
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: clamp(2rem, 1.5rem + 0.8vw, 2.5rem);
+    text-align: center;
+  }
+
+  .quote-heading .eyebrow {
+    color: var(--color-gold-700);
   }
 
   .quote-title {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
-    line-height: 1.1;
-    color: var(--color-text-on-image);
+    font-size: clamp(1.7rem, 1.3rem + 1vw, 2.2rem);
+    line-height: 1.05;
+    color: var(--color-navy-950);
   }
 
   .quote-fields {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.3rem;
   }
 
   .hp-field {
@@ -181,121 +191,157 @@ const projectTypes = [
   .form-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.875rem;
+    gap: 1.125rem;
   }
 
   .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
+    min-width: 0;
   }
 
-  .field label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.78);
+  .input-wrap {
+    position: relative;
+  }
+
+  :global(.field-icon),
+  :global(.select-icon) {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    pointer-events: none;
+    color: var(--color-gold-600);
+  }
+
+  :global(.field-icon) {
+    left: 0.8rem;
+  }
+
+  :global(.select-icon) {
+    right: 0.9rem;
+    color: var(--color-navy-800);
   }
 
   .field input,
   .field select,
   .field textarea {
+    display: block;
     width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    border-radius: var(--radius-sm);
-    padding: 0.625rem 0.875rem;
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    border-radius: 0.45rem;
+    background: rgba(255, 255, 255, 0.16);
+    padding: 0.85rem 0.9rem 0.85rem 2.7rem;
     font-family: var(--font-sans);
-    font-size: var(--text-small);
-    color: var(--color-white);
+    font-size: 0.8125rem;
+    color: var(--color-navy-950);
     transition:
       border-color var(--duration-fast) var(--ease-premium),
-      background-color var(--duration-fast) var(--ease-premium);
+      background-color var(--duration-fast) var(--ease-premium),
+      box-shadow var(--duration-fast) var(--ease-premium);
   }
 
   .field textarea {
+    min-height: 7rem;
     resize: vertical;
-    min-height: 4.5rem;
+    padding: 0.9rem;
   }
 
   .field input::placeholder,
-  .field textarea::placeholder {
-    color: rgba(255, 255, 255, 0.45);
+  .field textarea::placeholder,
+  .field select:invalid {
+    color: rgba(16, 34, 53, 0.78);
+    opacity: 1;
   }
 
   .field input:focus,
   .field select:focus,
   .field textarea:focus {
     outline: none;
-    border-color: var(--color-gold-400);
-    background: rgba(255, 255, 255, 0.16);
-  }
-
-  .select-wrap {
-    position: relative;
+    border-color: var(--color-gold-600);
+    background: rgba(255, 255, 255, 0.42);
+    box-shadow: 0 0 0 3px rgba(198, 146, 61, 0.15);
   }
 
   .select-wrap select {
     appearance: none;
     -webkit-appearance: none;
-    padding-inline-end: 2.5rem;
+    padding-right: 2.6rem;
     cursor: pointer;
   }
 
   .select-wrap select option {
     color: var(--color-navy-950);
-    background: var(--color-white);
+    background: var(--color-cream-50);
   }
 
-  .select-icon {
-    position: absolute;
-    top: 50%;
-    right: 0.875rem;
-    translate: 0 -50%;
-    pointer-events: none;
-    color: rgba(255, 255, 255, 0.7);
+  .quote-submit {
+    width: 100%;
+    min-height: 3.5rem;
   }
 
   .quote-privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     margin: 0;
-    font-size: 0.6875rem;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(16, 34, 53, 0.72);
+    font-size: 0.7rem;
+    line-height: 1.4;
     text-align: center;
   }
 
-  /* Two-column field grid once the panel has real width */
+  .quote-privacy :global(svg) {
+    flex: none;
+    color: var(--color-navy-800);
+  }
+
   @media (min-width: 40rem) {
     .form-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
     .field-wide {
       grid-column: 1 / -1;
     }
   }
 
-  /* Short laptop viewports (e.g. 1280×800): keep the panel inside the
-     first viewport without clipping content. */
+  @media (max-width: 63.999rem) {
+    .quote-form {
+      max-width: none;
+      justify-self: stretch;
+    }
+  }
+
   @media (min-width: 64rem) and (max-height: 920px) {
     .quote-form {
-      padding: 1.25rem 1.5rem;
+      padding: 1.5rem;
     }
+
     .quote-heading {
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.15rem;
     }
+
     .quote-fields,
     .form-grid {
       gap: 0.75rem;
     }
+
     .field input,
     .field select,
     .field textarea {
-      padding: 0.5rem 0.75rem;
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
     }
+
     .field textarea {
-      min-height: 3.25rem;
+      min-height: 5.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) and (min-height: 921px) {
+    .quote-form {
+      min-height: 38.5rem;
+      transform: translate(0.5rem, 0.35rem);
     }
   }
 </style>

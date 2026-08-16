@@ -7,6 +7,7 @@ export const site = {
   description:
     "T&J Waterfront Services installs, maintains and repairs docks, boat lifts, seawalls, patios, beaches, retaining walls and shorelines across Michigan. One trusted team for your entire lakefront.",
   phone: "517-294-5577",
+  phoneDisplay: "(517) 294-5577",
   phoneHref: "tel:+15172945577",
   email: "tjwaterfrontservices@gmail.com",
   address: {
@@ -63,7 +64,7 @@ export const heroServices: HeroService[] = [
   {
     title: "Sectional Docks",
     description:
-      "Our best seller — industry-leading strength in a light, durable dock.",
+      "Our best seller! With its strength and light weight, this is easily the industry leader for dock.",
     icon: "dock-sectional",
     href: "/services/sectional-docks",
   },
@@ -76,14 +77,14 @@ export const heroServices: HeroService[] = [
   {
     title: "Platinum Docks",
     description:
-      "Soft edges and a classy finish — a high-end dock system, end to end.",
+      "The soft edges and classy look took this high-end dock system to a whole new level.",
     icon: "dock-platinum",
     href: "/services/platinum-docks",
   },
   {
     title: "Floating Docks",
     description:
-      "Stable in deeper water where free-standing docks get unsteady.",
+      "Free-standing docks can get unstable in deeper water, while a floating system maintains its stability.",
     icon: "dock-floating",
     href: "/services/floating-docks",
   },
