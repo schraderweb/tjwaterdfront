@@ -39,16 +39,23 @@ const { eyebrow, title, description, imageSrc, imageAlt, benefits, href } = Astr
   </figure>
 
   <div class="essentials-content">
-    <p class="eyebrow">{eyebrow}</p>
-    <h3>{title}</h3>
-    <p class="essentials-description">{description}</p>
-    <BenefitList benefits={benefits} />
-    <Button
-      href={href}
-      variant="navy"
-      size="md"
-      ariaLabel="Read more about dock accessories"
-    >Read More <span class="sr-only">about dock accessories</span></Button>
+    <div class="essentials-main">
+      <p class="eyebrow">{eyebrow}</p>
+      <h3 class="dock-title">{title}</h3>
+      <div class="water-divider"></div>
+      <p class="essentials-description">{description}</p>
+      <Button
+        href={href}
+        variant="ghost-dark"
+        class="!border !border-gold-500 !text-gold-700 hover:!bg-gold-100/50 mt-2"
+        size="md"
+        ariaLabel="Read more about dock accessories"
+      >Read More <span class="sr-only">about dock accessories</span></Button>
+    </div>
+
+    <div class="benefits-column">
+      <BenefitList benefits={benefits} />
+    </div>
   </div>
 </article>
 
@@ -75,10 +82,10 @@ const { eyebrow, title, description, imageSrc, imageAlt, benefits, href } = Astr
   }
 
   .essentials-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: 2rem;
     padding: clamp(2rem, 5vw, 5.5rem);
   }
 
@@ -91,14 +98,22 @@ const { eyebrow, title, description, imageSrc, imageAlt, benefits, href } = Astr
     text-underline-offset: 0.3rem;
   }
 
-  .essentials-content h3 {
-    margin: 0;
+  .essentials-content .dock-title {
+    max-width: 10ch;
+    margin: 0 0 1.5rem;
     color: var(--color-navy-950);
     font-family: var(--font-display);
     font-size: var(--text-h2);
     font-weight: 400;
     line-height: var(--leading-heading);
     letter-spacing: var(--tracking-heading);
+  }
+
+  .water-divider {
+    width: 4rem;
+    height: 1px;
+    background-color: var(--color-water-600);
+    margin-bottom: 1.5rem;
   }
 
   .essentials-description {
@@ -109,15 +124,37 @@ const { eyebrow, title, description, imageSrc, imageAlt, benefits, href } = Astr
     line-height: var(--leading-body);
   }
 
+  .benefits-column {
+    min-width: 0;
+  }
+
+  .benefits-column :global(.benefits-list) {
+    margin: 0;
+  }
+
   @media (min-width: 64rem) {
     .dock-essentials {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      min-height: clamp(38rem, 48vw, 48rem);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      height: clamp(30rem, 35vw, 40rem);
+      min-height: 0;
     }
 
     .essentials-image-wrapper {
       aspect-ratio: auto;
+      height: 100%;
       min-height: 0;
+    }
+
+    .essentials-content {
+      height: 100%;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: clamp(1.5rem, 2vw, 2.5rem);
+      padding: clamp(2rem, 3vw, 4rem) clamp(2rem, 4vw, 4rem);
+    }
+
+    .benefits-column {
+      padding-left: clamp(1.5rem, 3vw, 3rem);
+      border-left: 1px solid var(--color-border-dark);
     }
   }
 </style>

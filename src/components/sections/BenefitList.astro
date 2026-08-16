@@ -17,7 +17,9 @@ const { benefits } = Astro.props;
 <ul class="benefits-list">
   {benefits.map((benefit) => (
     <li class="benefit-item">
-      <Icon name={benefit.icon} size={24} strokeWidth={1.5} class="benefit-icon" />
+      <div class="icon-wrap">
+        <Icon name={benefit.icon} size={20} strokeWidth={1.5} class="benefit-icon" />
+      </div>
       <div>
         <h4>{benefit.title}</h4>
         <p>{benefit.description}</p>
@@ -33,15 +35,26 @@ const { benefits } = Astro.props;
     width: 100%;
     max-width: 34rem;
     list-style: none;
-    margin: clamp(2rem, 3vw, 3rem) 0;
+    margin: 0;
     padding: 0;
   }
 
   .benefit-item {
     display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
+    grid-template-columns: 3.5rem minmax(0, 1fr);
     align-items: start;
-    gap: 0.9rem;
+    gap: 1.25rem;
+  }
+
+  .icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: var(--color-cream-200);
+    border: 1px solid rgba(198, 146, 61, 0.2); /* faint gold border */
   }
 
   :global(.benefit-icon) { color: var(--color-gold-600); }

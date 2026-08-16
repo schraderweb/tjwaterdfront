@@ -16,7 +16,9 @@ import { dockEssentials, featuredService, showcaseImages } from "../../data/sect
       </h2>
     </div>
 
-    <FeaturedServiceShowcase service={featuredService} images={showcaseImages} />
+    <div class="showcase-wrap">
+      <FeaturedServiceShowcase service={featuredService} images={showcaseImages} />
+    </div>
 
     <DockEssentialsFeature {...dockEssentials} />
   </div>
@@ -26,20 +28,21 @@ import { dockEssentials, featuredService, showcaseImages } from "../../data/sect
   .section-2 {
     background: var(--color-cream-50);
     color: var(--color-text-primary);
-    padding-block: var(--space-section);
+    padding-block: clamp(3rem, 4vw, 5rem);
   }
 
   .section-2-container {
     display: flex;
     flex-direction: column;
-    gap: clamp(4rem, 7vw, 8rem);
+    gap: 0;
   }
 
   .intro-statement {
     display: grid;
-    grid-template-columns: auto minmax(0, 62rem);
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: start;
     gap: clamp(1rem, 2vw, 1.75rem);
+    margin-bottom: clamp(2rem, 3vw, 4rem);
   }
 
   :global(.intro-anchor) {
@@ -48,14 +51,18 @@ import { dockEssentials, featuredService, showcaseImages } from "../../data/sect
   }
 
   .intro-statement h2 {
-    max-width: 62rem;
+    max-width: 90rem;
     margin: 0;
     color: var(--color-navy-950);
     font-family: var(--font-display);
-    font-size: var(--text-h2);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
     font-weight: 400;
     line-height: 1.08;
     letter-spacing: var(--tracking-heading);
+  }
+
+  .showcase-wrap {
+    margin-bottom: clamp(3rem, 4vw, 5rem);
   }
 
   .intro-statement em {
