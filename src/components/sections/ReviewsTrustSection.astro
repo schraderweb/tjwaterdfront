@@ -6,10 +6,11 @@ import { reviews } from "../../data/reviews";
 <section class="reviews-trust-section" id="reviews" aria-labelledby="reviews-title">
   <div class="site-container">
     <div class="section-header">
+      <span class="section-eyebrow">REVIEWS &amp; TRUST</span>
       <h2 id="reviews-title">What Our Customers Say</h2>
       <div class="header-divider" aria-hidden="true"></div>
     </div>
-    
+
     <div class="carousel-container">
       <ReviewCarousel reviews={reviews} />
     </div>
@@ -18,15 +19,11 @@ import { reviews } from "../../data/reviews";
 
 <style>
   .reviews-trust-section {
-    background-color: var(--color-cream-50, #fcfaf5);
-    padding-block: clamp(3rem, 5vw, 5rem);
+    background-color: var(--color-cream-50);
+    padding-block: clamp(2.5rem, 3.5vw, 4.5rem);
     position: relative;
-    /* Optional: If a global texture exists, it would be applied via a utility class or pseudo-element */
   }
 
-  /* We add a subtle texture pattern to the background via a faint SVG or CSS radial-gradient. 
-     Since the design spec asks for a subtle topographic/woodgrain texture, 
-     if not globally defined, we can do a very light noise. For now, we stick to the cream base. */
   .reviews-trust-section::before {
     content: "";
     position: absolute;
@@ -41,17 +38,28 @@ import { reviews } from "../../data/reviews";
   .site-container {
     position: relative;
     z-index: 1;
-    max-width: 1400px;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: clamp(2rem, 4vw, 3rem);
+    margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+  }
+
+  .section-eyebrow {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-gold-500);
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: 1;
+    text-transform: uppercase;
   }
 
   .section-header h2 {
     font-family: var(--font-display);
-    color: var(--color-navy-950, #071a2d);
+    color: var(--color-navy-950);
     font-size: clamp(2rem, 3vw, 3.5rem);
     font-weight: 400;
     line-height: 1.1;
@@ -60,8 +68,8 @@ import { reviews } from "../../data/reviews";
 
   .header-divider {
     width: 60px;
-    height: 1.5px;
-    background-color: var(--color-gold-600, #b98232);
-    margin: 1.5rem auto 0;
+    height: 1px;
+    background-color: var(--color-gold-500);
+    margin: 1rem auto 0;
   }
 </style>

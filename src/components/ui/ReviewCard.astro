@@ -13,7 +13,7 @@ const starArray = Array(stars).fill(0);
 ---
 
 <article class="review-card">
-  <div class="stars" aria-label={`Rated ${stars} out of 5 stars`}>
+  <div class="stars" role="img" aria-label={`Rated ${stars} out of 5 stars`}>
     {starArray.map(() => (
       <Icon name="star" class="star-icon" size={18} strokeWidth={1.5} />
     ))}
@@ -26,24 +26,25 @@ const starArray = Array(stars).fill(0);
 
 <style>
   .review-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2vw, 2rem);
+    width: 100%;
+    min-height: 16rem;
+    padding: var(--space-card);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(5, 20, 35, 0.05);
     height: 100%;
-    /* Ensure the card doesn't shrink and takes full height of the track */
-    min-height: 280px;
+    border: var(--border-dark);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
   }
 
   .stars {
     display: flex;
     gap: 0.25rem;
-    color: var(--color-gold-600, #b98232);
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.9rem;
+    color: var(--color-gold-500);
   }
 
   :global(.star-icon) {
@@ -53,68 +54,32 @@ const starArray = Array(stars).fill(0);
 
   .reviewer-name {
     font-family: var(--font-display);
-    color: var(--color-navy-950, #071a2d);
-    font-size: 1.25rem;
+    color: var(--color-navy-950);
+    font-size: clamp(1.125rem, 1rem + 0.25vw, 1.375rem);
     font-weight: 500;
-    margin: 0 0 0.25rem 0;
+    line-height: 1.15;
+    margin: 0 0 0.25rem;
   }
 
   .time-ago {
-    font-size: 0.85rem;
-    color: var(--color-text-muted, #64748b);
+    color: var(--color-text-muted);
+    font-size: var(--text-tiny);
+    line-height: 1.4;
     margin-bottom: 1rem;
   }
 
   .meta-divider {
     width: 32px;
-    height: 1.5px;
-    background-color: var(--color-gold-600, #b98232);
-    margin: 0 auto 1.25rem;
+    height: 1px;
+    background-color: var(--color-gold-500);
+    margin: 0 auto 1.15rem;
   }
 
   .review-content {
-    color: var(--color-text-primary, #334155);
-    font-size: 0.95rem;
-    line-height: 1.6;
+    max-width: 38ch;
     margin: 0;
-    /* Allows text to flex if we wanted to push things to bottom, but we just center it */
-  }
-
-  @media (min-width: 64rem) {
-    .review-card {
-      min-height: 16rem;
-      padding: 1.25rem 0.9rem;
-      border: 1px solid rgba(16, 34, 53, 0.06);
-      border-radius: 0.6rem;
-    }
-
-    .stars {
-      gap: 0.1rem;
-      margin-bottom: 0.75rem;
-    }
-
-    :global(.star-icon) {
-      width: 0.9rem;
-      height: 0.9rem;
-    }
-
-    .reviewer-name {
-      font-size: 1.1rem;
-    }
-
-    .time-ago {
-      font-size: 0.72rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .meta-divider {
-      width: 1.75rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .review-content {
-      font-size: 0.78rem;
-      line-height: 1.45;
-    }
+    color: var(--color-text-primary);
+    font-size: var(--text-small);
+    line-height: 1.6;
   }
 </style>

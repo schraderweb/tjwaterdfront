@@ -8,35 +8,48 @@ interface Props {
 }
 
 const { reviews } = Astro.props;
-
-// We duplicate the reviews 3 times to allow seamless infinite scrolling
-const displayReviews = [...reviews, ...reviews, ...reviews];
 ---
 
 <div class="carousel-wrapper" data-review-count={reviews.length}>
-  <button class="carousel-control prev" aria-label="Previous reviews" id="btn-prev">
+  <div class="carousel-frame">
+    <button type="button" class="carousel-control prev" aria-label="Previous reviews" data-carousel-action="prev">
     <Icon name="arrow-right" size={24} class="flip-icon" />
-  </button>
-  
-  <div class="carousel-viewport" id="carousel-viewport">
-    <div class="carousel-track">
-      {displayReviews.map((review, i) => (
-        <div class="carousel-slide" data-index={i % reviews.length}>
-          <ReviewCard {...review} />
-        </div>
-      ))}
+    </button>
+
+    <div
+      class="carousel-viewport"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Customer reviews"
+      tabindex="0"
+    >
+      <div class="carousel-track">
+        {reviews.map((review, i) => (
+          <div
+            class="carousel-slide"
+            data-index={i}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`Review ${i + 1} of ${reviews.length}`}
+          >
+            <ReviewCard {...review} />
+          </div>
+        ))}
+      </div>
     </div>
+
+    <button type="button" class="carousel-control next" aria-label="Next reviews" data-carousel-action="next">
+      <Icon name="arrow-right" size={24} />
+    </button>
   </div>
 
-  <button class="carousel-control next" aria-label="Next reviews" id="btn-next">
-    <Icon name="arrow-right" size={24} />
-  </button>
-  
-  <div class="carousel-pagination">
+  <div class="carousel-pagination" aria-label="Review pages">
     {reviews.map((_, i) => (
-      <button 
-        class={`dot ${i === 0 ? "active" : ""}`} 
-        aria-label={`Go to slide ${i + 1}`}
+      <button
+        type="button"
+        class={`dot ${i === 0 ? "active" : ""}`}
+        aria-label={`Go to review page ${i + 1}`}
+        aria-current={i === 0 ? "true" : undefined}
         data-index={i}
       ></button>
     ))}
@@ -45,22 +58,26 @@ const displayReviews = [...reviews, ...reviews, ...reviews];
 
 <style>
   .carousel-wrapper {
+    --review-gap: clamp(1rem, 1.4vw, 1.5rem);
     position: relative;
     width: 100%;
     margin-inline: auto;
-    max-width: 1400px;
-    padding-bottom: 2rem;
+  }
+
+  .carousel-frame {
+    position: relative;
   }
 
   .carousel-viewport {
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-block: 1rem 2rem; 
-    /* Add padding to each side so cards don't touch edges */
-    padding-inline: 5vw;
+    overscroll-behavior-x: contain;
+    padding: 0.25rem 0.5rem 0.75rem;
+    scroll-padding-inline: 0.5rem;
   }
 
   .carousel-viewport::-webkit-scrollbar {
@@ -68,83 +85,77 @@ const displayReviews = [...reviews, ...reviews, ...reviews];
   }
 
   .carousel-track {
+    align-items: stretch;
     display: flex;
-    gap: 1.5rem;
-    width: max-content;
+    gap: var(--review-gap);
+    width: 100%;
   }
 
   .carousel-slide {
-    flex: 0 0 calc(280px);
-    scroll-snap-align: center; /* Snap to center so padding is visible on both sides */
+    display: flex;
+    flex: 0 0 calc((100% - var(--review-gap)) / 1.12);
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
-  @media (min-width: 600px) {
-    .carousel-slide { flex: 0 0 320px; }
-  }
-  
-  @media (min-width: 1024px) {
-    .carousel-slide { flex: 0 0 350px; }
+  @media (min-width: 40rem) {
     .carousel-viewport {
-      padding-inline: 4rem; /* Desktop side padding */
+      padding-inline: 0;
+      scroll-padding-inline: 0;
+    }
+
+    .carousel-slide {
+      flex-basis: calc((100% - var(--review-gap)) / 2);
     }
   }
 
   @media (min-width: 64rem) {
-    .carousel-wrapper {
-      padding-bottom: 0;
-    }
-
-    .carousel-viewport {
-      overflow: visible;
-      padding: 0;
-    }
-
-    .carousel-track {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: clamp(0.5rem, 1.2vw, 1rem);
-      width: 100%;
-    }
-
     .carousel-slide {
-      display: block;
-      min-width: 0;
-    }
-
-    .carousel-slide:nth-child(n + 7) {
-      display: none;
-    }
-
-    .carousel-control,
-    .carousel-pagination {
-      display: none;
+      flex-basis: calc((100% - var(--review-gap) - var(--review-gap)) / 3);
     }
   }
 
-  /* Controls */
+  @media (min-width: 80rem) {
+    .carousel-slide {
+      flex-basis: calc((100% - var(--review-gap) - var(--review-gap) - var(--review-gap)) / 4);
+    }
+  }
+
+  @media (min-width: 120rem) {
+    .carousel-slide {
+      flex-basis: calc((100% - var(--review-gap) - var(--review-gap) - var(--review-gap) - var(--review-gap)) / 5);
+    }
+  }
+
+  /* Controls remain outside the cards, as in the reference interaction. */
   .carousel-control {
     display: none;
     position: absolute;
-    top: calc(50% - 2rem);
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 1.5px solid var(--color-gold-400);
-    background: transparent;
-    color: var(--color-gold-600);
-    cursor: pointer;
-    z-index: 10;
+    top: 50%;
+    z-index: var(--z-content);
+    width: 2.5rem;
+    height: 2.5rem;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    border: 1px solid var(--color-gold-400);
+    border-radius: 50%;
+    background: var(--color-cream-50);
+    color: var(--color-gold-700);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      border-color var(--duration-fast) var(--ease-premium),
+      color var(--duration-fast) var(--ease-premium);
   }
 
   .carousel-control.prev {
-    left: 0;
+    left: calc(0rem - var(--container-gutter));
   }
+
   .carousel-control.next {
-    right: 0;
+    right: calc(0rem - var(--container-gutter));
   }
 
   .flip-icon {
@@ -152,169 +163,216 @@ const displayReviews = [...reviews, ...reviews, ...reviews];
   }
 
   .carousel-control:hover {
-    background: var(--color-gold-600);
-    border-color: var(--color-gold-600);
-    color: white;
+    border-color: var(--color-gold-500);
+    background: var(--color-gold-500);
+    color: var(--color-white);
   }
 
-  @media (min-width: 1024px) {
+  .carousel-control:focus-visible,
+  .dot:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+  }
+
+  @media (min-width: 40rem) {
     .carousel-control {
       display: flex;
     }
-    .carousel-control.prev { left: -1rem; }
-    .carousel-control.next { right: -1rem; }
+
+    .carousel-control.prev {
+      left: calc(0rem - var(--container-gutter));
+    }
+
+    .carousel-control.next {
+      right: calc(0rem - var(--container-gutter));
+    }
   }
 
-  /* Pagination */
+  .carousel-wrapper.is-static .carousel-control,
+  .carousel-wrapper.is-static .carousel-pagination {
+    display: none;
+  }
+
   .carousel-pagination {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 1rem;
+    min-height: 0.5rem;
+    margin-top: clamp(0.75rem, 1.5vw, 1.25rem);
   }
 
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: 0 0 0.5rem;
     border-radius: 50%;
     background: var(--color-cream-300);
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s ease;
     padding: 0;
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      transform var(--duration-fast) var(--ease-premium);
   }
 
   .dot.active {
-    background: var(--color-gold-600);
+    background: var(--color-gold-500);
+    transform: scale(1.25);
   }
 </style>
 
 <script>
-  const wrappers = document.querySelectorAll('.carousel-wrapper');
-  
+  const wrappers = document.querySelectorAll<HTMLElement>('.carousel-wrapper');
+
   wrappers.forEach((wrapper) => {
-    const viewport = wrapper.querySelector('#carousel-viewport') as HTMLElement;
-    const track = wrapper.querySelector('.carousel-track') as HTMLElement;
-    const btnPrev = wrapper.querySelector('#btn-prev');
-    const btnNext = wrapper.querySelector('#btn-next');
-    const dots = wrapper.querySelectorAll('.dot');
-    const originalCount = parseInt(wrapper.getAttribute('data-review-count') || '0');
-    
-    if (!viewport || !track || originalCount === 0) return;
+    const viewport = wrapper.querySelector<HTMLElement>('.carousel-viewport');
+    const track = wrapper.querySelector<HTMLElement>('.carousel-track');
+    const slides = Array.from(wrapper.querySelectorAll<HTMLElement>('.carousel-slide'));
+    const dots = Array.from(wrapper.querySelectorAll<HTMLButtonElement>('.dot'));
+    const btnPrev = wrapper.querySelector<HTMLButtonElement>('[data-carousel-action="prev"]');
+    const btnNext = wrapper.querySelector<HTMLButtonElement>('[data-carousel-action="next"]');
+    const originalCount = Number(wrapper.dataset.reviewCount || 0);
 
-    // Helper to get true item width
-    const getSlideWidth = () => {
-      const slide = track.firstElementChild as HTMLElement;
-      return slide ? slide.offsetWidth + 24 : 324; // 24px is the gap
+    if (!viewport || !track || !slides.length || !originalCount) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const AUTO_SCROLL_DELAY = 3500;
+    let current = 0;
+    let autoScrollInterval: number | undefined;
+    let scrollTimeout: number | undefined;
+    let restartTimeout: number | undefined;
+    let resizeFrame: number | undefined;
+
+    const getVisibleCount = () => {
+      if (window.matchMedia('(min-width: 120rem)').matches) return 5;
+      if (window.matchMedia('(min-width: 80rem)').matches) return 4;
+      if (window.matchMedia('(min-width: 64rem)').matches) return 3;
+      if (window.matchMedia('(min-width: 40rem)').matches) return 2;
+      return 1;
     };
 
-    // Auto-scroll configuration
-    let autoScrollInterval: ReturnType<typeof setInterval>;
-    const AUTO_SCROLL_DELAY = 4000; // interval between scrolls
-    
-    // Start somewhere in the middle set so we can scroll left or right immediately
-    // Wait a tick for layout to establish
-    setTimeout(() => {
-       const initialScroll = getSlideWidth() * originalCount;
-       viewport.scrollTo({ left: initialScroll, behavior: 'auto' });
-       updateDots();
-       startAutoScroll();
-    }, 100);
+    const getPageCount = () => Math.max(1, originalCount - getVisibleCount() + 1);
 
-    const startAutoScroll = () => {
-      clearInterval(autoScrollInterval);
-      autoScrollInterval = setInterval(() => {
-        scrollNext();
-      }, AUTO_SCROLL_DELAY);
+    const getStep = () => {
+      const slide = slides[0];
+      if (!slide) return viewport.clientWidth;
+
+      const gap = parseFloat(window.getComputedStyle(track).columnGap || '0') || 0;
+      return slide.getBoundingClientRect().width + gap;
     };
-
-    const stopAutoScroll = () => {
-      clearInterval(autoScrollInterval);
-    };
-
-    const scrollNext = () => {
-      viewport.scrollBy({ left: getSlideWidth(), behavior: 'smooth' });
-    };
-
-    const scrollPrev = () => {
-      viewport.scrollBy({ left: -getSlideWidth(), behavior: 'smooth' });
-    };
-
-    // Infinite loop trick: if we get too close to the edges, jump back to the middle set quietly
-    const handleInfiniteScroll = () => {
-      const sw = getSlideWidth();
-      const currentScroll = viewport.scrollLeft;
-      
-      // If we scroll past the second set, jump back to first set
-      if (currentScroll >= sw * originalCount * 2) {
-        viewport.scrollTo({ left: currentScroll - (sw * originalCount), behavior: 'auto' });
-      }
-      // If we scroll into the first set too far left, jump forward to second set
-      else if (currentScroll <= sw * (originalCount - 1)) {
-        viewport.scrollTo({ left: currentScroll + (sw * originalCount), behavior: 'auto' });
-      }
-    };
-
-    let scrollTimeout: ReturnType<typeof setTimeout>;
-    viewport.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        handleInfiniteScroll();
-        updateDots();
-      }, 150); // wait for snap to finish
-    });
 
     const updateDots = () => {
-      const sw = getSlideWidth();
-      // Calculate which physical slide is near the center of the viewport
-      const centerScroll = viewport.scrollLeft + (viewport.clientWidth / 2);
-      const activePhysicalIndex = Math.floor(centerScroll / sw);
-      
-      // Map it back to the original index
-      const activeOriginalIndex = activePhysicalIndex % originalCount;
+      const pageCount = getPageCount();
+      current = Math.min(current, pageCount - 1);
+      wrapper.classList.toggle('is-static', pageCount === 1);
 
-      dots.forEach((dot, i) => {
-        if (i === activeOriginalIndex) {
-          dot.classList.add('active');
+      dots.forEach((dot, index) => {
+        const isActive = index === current;
+        dot.hidden = index >= pageCount;
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-label', `Go to review page ${index + 1} of ${pageCount}`);
+
+        if (isActive) {
+          dot.setAttribute('aria-current', 'true');
         } else {
-          dot.classList.remove('active');
+          dot.removeAttribute('aria-current');
         }
       });
     };
 
-    // Manual controls
-    if (btnNext) {
-      btnNext.addEventListener('click', () => {
-        stopAutoScroll();
-        scrollNext();
-        startAutoScroll(); // restart timer
+    const goTo = (index: number, behavior: ScrollBehavior = 'smooth') => {
+      const pageCount = getPageCount();
+      current = ((index % pageCount) + pageCount) % pageCount;
+      viewport.scrollTo({
+        left: current * getStep(),
+        behavior: reducedMotion.matches ? 'auto' : behavior,
       });
-    }
-    if (btnPrev) {
-      btnPrev.addEventListener('click', () => {
-        stopAutoScroll();
-        scrollPrev();
+      updateDots();
+    };
+
+    const updateFromScroll = () => {
+      const step = getStep();
+      const pageCount = getPageCount();
+      if (!step) return;
+
+      current = Math.max(0, Math.min(pageCount - 1, Math.round(viewport.scrollLeft / step)));
+      updateDots();
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollInterval !== undefined) {
+        window.clearInterval(autoScrollInterval);
+        autoScrollInterval = undefined;
+      }
+    };
+
+    const startAutoScroll = () => {
+      stopAutoScroll();
+      if (reducedMotion.matches || document.visibilityState !== 'visible' || getPageCount() === 1) return;
+
+      autoScrollInterval = window.setInterval(() => goTo(current + 1), AUTO_SCROLL_DELAY);
+    };
+
+    const restartAutoScroll = () => {
+      if (restartTimeout !== undefined) window.clearTimeout(restartTimeout);
+      restartTimeout = window.setTimeout(startAutoScroll, 250);
+    };
+
+    const handleResize = () => {
+      if (resizeFrame !== undefined) window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(() => {
+        current = Math.min(current, getPageCount() - 1);
+        updateDots();
+        goTo(current, 'auto');
         startAutoScroll();
       });
-    }
+    };
 
-    dots.forEach((dot, i) => {
+    btnPrev?.addEventListener('click', () => {
+      stopAutoScroll();
+      goTo(current - 1);
+      restartAutoScroll();
+    });
+
+    btnNext?.addEventListener('click', () => {
+      stopAutoScroll();
+      goTo(current + 1);
+      restartAutoScroll();
+    });
+
+    dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
         stopAutoScroll();
-        // Calculate current physical offset set
-        const sw = getSlideWidth();
-        const currentSet = Math.floor(viewport.scrollLeft / (sw * originalCount));
-        const targetPhysicalIndex = (currentSet * originalCount) + i;
-        
-        viewport.scrollTo({ left: targetPhysicalIndex * sw, behavior: 'smooth' });
-        startAutoScroll();
+        goTo(index);
+        restartAutoScroll();
       });
     });
 
-    // Pause on hover/touch
-    viewport.addEventListener('mouseenter', stopAutoScroll);
-    viewport.addEventListener('mouseleave', startAutoScroll);
+    viewport.addEventListener('scroll', () => {
+      if (scrollTimeout !== undefined) window.clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(updateFromScroll, 80);
+    }, { passive: true });
+
+    wrapper.addEventListener('mouseenter', stopAutoScroll);
+    wrapper.addEventListener('mouseleave', startAutoScroll);
+    wrapper.addEventListener('focusin', stopAutoScroll);
+    wrapper.addEventListener('focusout', () => {
+      if (!wrapper.contains(document.activeElement)) restartAutoScroll();
+    });
     viewport.addEventListener('touchstart', stopAutoScroll, { passive: true });
-    viewport.addEventListener('touchend', startAutoScroll, { passive: true });
+    viewport.addEventListener('touchend', restartAutoScroll, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') startAutoScroll();
+      else stopAutoScroll();
+    });
+    window.addEventListener('resize', handleResize, { passive: true });
+    reducedMotion.addEventListener?.('change', () => {
+      if (reducedMotion.matches) stopAutoScroll();
+      else startAutoScroll();
+    });
+
+    updateDots();
+    goTo(0, 'auto');
+    startAutoScroll();
   });
 </script>
