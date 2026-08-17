@@ -1,9 +1,9 @@
-import dockRepairImage from "../assets/services/dock-repair.jpg";
-import pontoonAccessoriesImage from "../assets/services/pontoon-accessories.jpg";
-import seawallImage from "../assets/services/seawall.jpg";
-import boatLiftImage from "../assets/services/boat-lift.jpg";
-import beachImage from "../assets/services/beach.jpg";
-import retainingWallImage from "../assets/services/retaining-wall.jpg";
+import dockRepairImage from "../assets/services/dock-repair.webp";
+import pontoonAccessoriesImage from "../assets/services/pontoon-accessories.webp";
+import seawallImage from "../assets/services/seawall.webp";
+import boatLiftImage from "../assets/services/boat-lift.webp";
+import beachImage from "../assets/services/beach.webp";
+import retainingWallImage from "../assets/services/retaining-wall.webp";
 
 export const services = [
   {

@@ -8,17 +8,20 @@ interface Props {
 }
 
 const { reviews } = Astro.props;
+
+// We duplicate the reviews 3 times to allow seamless infinite scrolling
+const displayReviews = [...reviews, ...reviews, ...reviews];
 ---
 
-<div class="carousel-wrapper">
+<div class="carousel-wrapper" data-review-count={reviews.length}>
   <button class="carousel-control prev" aria-label="Previous reviews" id="btn-prev">
     <Icon name="arrow-right" size={24} class="flip-icon" />
   </button>
   
   <div class="carousel-viewport" id="carousel-viewport">
     <div class="carousel-track">
-      {reviews.map((review, i) => (
-        <div class="carousel-slide">
+      {displayReviews.map((review, i) => (
+        <div class="carousel-slide" data-index={i % reviews.length}>
           <ReviewCard {...review} />
         </div>
       ))}
@@ -45,7 +48,7 @@ const { reviews } = Astro.props;
     position: relative;
     width: 100%;
     margin-inline: auto;
-    max-width: 1400px; /* Limit max width for ultra-wide */
+    max-width: 1400px;
     padding-bottom: 2rem;
   }
 
@@ -53,12 +56,11 @@ const { reviews } = Astro.props;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
-    /* Add padding so shadows aren't clipped */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     padding-block: 1rem 2rem; 
-    margin-inline: -1rem; /* Negative margin to let it bleed to edges on mobile */
-    padding-inline: 1rem;
+    /* Add padding to each side so cards don't touch edges */
+    padding-inline: 5vw;
   }
 
   .carousel-viewport::-webkit-scrollbar {
@@ -72,11 +74,10 @@ const { reviews } = Astro.props;
   }
 
   .carousel-slide {
-    flex: 0 0 calc(280px); /* Base width for mobile */
-    scroll-snap-align: start;
+    flex: 0 0 calc(280px);
+    scroll-snap-align: center; /* Snap to center so padding is visible on both sides */
   }
 
-  /* Responsive sizes */
   @media (min-width: 600px) {
     .carousel-slide { flex: 0 0 320px; }
   }
@@ -84,14 +85,13 @@ const { reviews } = Astro.props;
   @media (min-width: 1024px) {
     .carousel-slide { flex: 0 0 350px; }
     .carousel-viewport {
-      margin-inline: 0;
-      padding-inline: 0;
+      padding-inline: 4rem; /* Desktop side padding */
     }
   }
 
   /* Controls */
   .carousel-control {
-    display: none; /* Hidden by default on mobile */
+    display: none;
     position: absolute;
     top: calc(50% - 2rem);
     transform: translateY(-50%);
@@ -109,10 +109,10 @@ const { reviews } = Astro.props;
   }
 
   .carousel-control.prev {
-    left: -1rem;
+    left: 0;
   }
   .carousel-control.next {
-    right: -1rem;
+    right: 0;
   }
 
   .flip-icon {
@@ -129,8 +129,8 @@ const { reviews } = Astro.props;
     .carousel-control {
       display: flex;
     }
-    .carousel-control.prev { left: -3.5rem; }
-    .carousel-control.next { right: -3.5rem; }
+    .carousel-control.prev { left: -1rem; }
+    .carousel-control.next { right: -1rem; }
   }
 
   /* Pagination */
@@ -158,51 +158,131 @@ const { reviews } = Astro.props;
 </style>
 
 <script>
-  // Tiny script for carousel arrows and dot sync
-  const viewports = document.querySelectorAll('#carousel-viewport');
+  const wrappers = document.querySelectorAll('.carousel-wrapper');
   
-  viewports.forEach((viewport) => {
-    const wrapper = viewport.closest('.carousel-wrapper');
-    if (!wrapper) return;
-    
+  wrappers.forEach((wrapper) => {
+    const viewport = wrapper.querySelector('#carousel-viewport') as HTMLElement;
+    const track = wrapper.querySelector('.carousel-track') as HTMLElement;
     const btnPrev = wrapper.querySelector('#btn-prev');
     const btnNext = wrapper.querySelector('#btn-next');
     const dots = wrapper.querySelectorAll('.dot');
+    const originalCount = parseInt(wrapper.getAttribute('data-review-count') || '0');
     
-    if (btnPrev && btnNext) {
-      btnNext.addEventListener('click', () => {
-        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
-        viewport.scrollBy({ left: slideWidth + 24, behavior: 'smooth' }); // 24px is gap
-      });
+    if (!viewport || !track || originalCount === 0) return;
+
+    // Helper to get true item width
+    const getSlideWidth = () => {
+      const slide = track.firstElementChild as HTMLElement;
+      return slide ? slide.offsetWidth + 24 : 324; // 24px is the gap
+    };
+
+    // Auto-scroll configuration
+    let autoScrollInterval: ReturnType<typeof setInterval>;
+    const AUTO_SCROLL_DELAY = 4000; // interval between scrolls
+    
+    // Start somewhere in the middle set so we can scroll left or right immediately
+    // Wait a tick for layout to establish
+    setTimeout(() => {
+       const initialScroll = getSlideWidth() * originalCount;
+       viewport.scrollTo({ left: initialScroll, behavior: 'auto' });
+       updateDots();
+       startAutoScroll();
+    }, 100);
+
+    const startAutoScroll = () => {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = setInterval(() => {
+        scrollNext();
+      }, AUTO_SCROLL_DELAY);
+    };
+
+    const stopAutoScroll = () => {
+      clearInterval(autoScrollInterval);
+    };
+
+    const scrollNext = () => {
+      viewport.scrollBy({ left: getSlideWidth(), behavior: 'smooth' });
+    };
+
+    const scrollPrev = () => {
+      viewport.scrollBy({ left: -getSlideWidth(), behavior: 'smooth' });
+    };
+
+    // Infinite loop trick: if we get too close to the edges, jump back to the middle set quietly
+    const handleInfiniteScroll = () => {
+      const sw = getSlideWidth();
+      const currentScroll = viewport.scrollLeft;
       
+      // If we scroll past the second set, jump back to first set
+      if (currentScroll >= sw * originalCount * 2) {
+        viewport.scrollTo({ left: currentScroll - (sw * originalCount), behavior: 'auto' });
+      }
+      // If we scroll into the first set too far left, jump forward to second set
+      else if (currentScroll <= sw * (originalCount - 1)) {
+        viewport.scrollTo({ left: currentScroll + (sw * originalCount), behavior: 'auto' });
+      }
+    };
+
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    viewport.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        handleInfiniteScroll();
+        updateDots();
+      }, 150); // wait for snap to finish
+    });
+
+    const updateDots = () => {
+      const sw = getSlideWidth();
+      // Calculate which physical slide is near the center of the viewport
+      const centerScroll = viewport.scrollLeft + (viewport.clientWidth / 2);
+      const activePhysicalIndex = Math.floor(centerScroll / sw);
+      
+      // Map it back to the original index
+      const activeOriginalIndex = activePhysicalIndex % originalCount;
+
+      dots.forEach((dot, i) => {
+        if (i === activeOriginalIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    };
+
+    // Manual controls
+    if (btnNext) {
+      btnNext.addEventListener('click', () => {
+        stopAutoScroll();
+        scrollNext();
+        startAutoScroll(); // restart timer
+      });
+    }
+    if (btnPrev) {
       btnPrev.addEventListener('click', () => {
-        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
-        viewport.scrollBy({ left: -(slideWidth + 24), behavior: 'smooth' });
+        stopAutoScroll();
+        scrollPrev();
+        startAutoScroll();
       });
     }
 
-    // Update active dot based on scroll position
-    let isScrolling: any;
-    viewport.addEventListener('scroll', () => {
-      window.clearTimeout(isScrolling);
-      isScrolling = setTimeout(() => {
-        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
-        const scrollX = viewport.scrollLeft;
-        const index = Math.round(scrollX / (slideWidth + 24));
-        
-        dots.forEach((dot, i) => {
-          if (i === index) dot.classList.add('active');
-          else dot.classList.remove('active');
-        });
-      }, 50);
-    });
-
-    // Dot click
     dots.forEach((dot, i) => {
       dot.addEventListener('click', () => {
-        const slideWidth = viewport.firstElementChild?.firstElementChild?.clientWidth || 300;
-        viewport.scrollTo({ left: i * (slideWidth + 24), behavior: 'smooth' });
+        stopAutoScroll();
+        // Calculate current physical offset set
+        const sw = getSlideWidth();
+        const currentSet = Math.floor(viewport.scrollLeft / (sw * originalCount));
+        const targetPhysicalIndex = (currentSet * originalCount) + i;
+        
+        viewport.scrollTo({ left: targetPhysicalIndex * sw, behavior: 'smooth' });
+        startAutoScroll();
       });
     });
+
+    // Pause on hover/touch
+    viewport.addEventListener('mouseenter', stopAutoScroll);
+    viewport.addEventListener('mouseleave', startAutoScroll);
+    viewport.addEventListener('touchstart', stopAutoScroll, { passive: true });
+    viewport.addEventListener('touchend', startAutoScroll, { passive: true });
   });
 </script>

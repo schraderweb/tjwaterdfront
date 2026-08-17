@@ -1,0 +1,414 @@
+---
+import Icon from "../ui/Icon.astro";
+import Button from "../ui/Button.astro";
+
+const currentYear = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="site-footer__container">
+    <div class="site-footer__grid">
+      
+      <!-- Brand Column -->
+      <div class="site-footer__col site-footer__brand-col">
+        <div class="site-footer__logo">
+          <Icon name="anchor" class="site-footer__logo-icon" size={32} />
+          <div class="site-footer__logo-text">
+            <span class="site-footer__logo-name">T&J WATERFRONT</span>
+            <span class="site-footer__logo-sub">SERVICES</span>
+          </div>
+        </div>
+        <p class="site-footer__brand-text">
+          Built for Michigan. Built to last.<br>
+          Premium waterfront solutions you can<br>
+          count on, year after year.
+        </p>
+        <div class="site-footer__social">
+          <a href="#" aria-label="Facebook" class="site-footer__social-link">
+            <Icon name="facebook" size={20} />
+          </a>
+          <a href="#" aria-label="Instagram" class="site-footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Mail" class="site-footer__social-link">
+            <Icon name="mail" size={20} />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links Column -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">QUICK LINKS</h3>
+        <ul class="site-footer__list">
+          <li><a href="/" class="site-footer__link"><Icon name="chevron-right" size={14}/> Home</a></li>
+          <li><a href="/services" class="site-footer__link"><Icon name="chevron-right" size={14}/> Services</a></li>
+          <li><a href="/service-areas" class="site-footer__link"><Icon name="chevron-right" size={14}/> Service Areas</a></li>
+          <li><a href="/gallery" class="site-footer__link"><Icon name="chevron-right" size={14}/> Gallery</a></li>
+          <li><a href="/about" class="site-footer__link"><Icon name="chevron-right" size={14}/> About Us</a></li>
+          <li><a href="/contact" class="site-footer__link"><Icon name="chevron-right" size={14}/> Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Services Column -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">OUR SERVICES</h3>
+        <ul class="site-footer__list">
+          <li><a href="/services/dock-services" class="site-footer__link"><Icon name="chevron-right" size={14}/> Dock Services & Repair</a></li>
+          <li><a href="/services/lift-accessories" class="site-footer__link"><Icon name="chevron-right" size={14}/> Boat & Pontoon Lift Accessories</a></li>
+          <li><a href="/services/seawalls" class="site-footer__link"><Icon name="chevron-right" size={14}/> Seawalls</a></li>
+          <li><a href="/services/boat-lifts" class="site-footer__link"><Icon name="chevron-right" size={14}/> Boat Lifts</a></li>
+          <li><a href="/services/beaches" class="site-footer__link"><Icon name="chevron-right" size={14}/> Beaches</a></li>
+          <li><a href="/services/retaining-walls" class="site-footer__link"><Icon name="chevron-right" size={14}/> Retaining Walls</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Column -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">CONTACT US</h3>
+        <ul class="site-footer__contact-list">
+          <li>
+            <Icon name="map-pin" class="site-footer__contact-icon" size={18} />
+            <div class="site-footer__contact-text">
+              <span>5385 Mack Rd.</span>
+              <span>Howell, MI 48855</span>
+            </div>
+          </li>
+          <li>
+            <Icon name="phone" class="site-footer__contact-icon" size={18} />
+            <a href="tel:+15172945577" class="site-footer__contact-link">+1 517-294-5577</a>
+          </li>
+          <li>
+            <Icon name="clock" class="site-footer__contact-icon" size={18} />
+            <span class="site-footer__contact-text">7:00 AM - 7:00 PM</span>
+          </li>
+        </ul>
+        <div class="site-footer__cta">
+          <Button href="/contact" variant="navy-outline" size="sm">GET A FREE QUOTE</Button>
+        </div>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">STAY UPDATED</h3>
+        <p class="site-footer__newsletter-text">Subscribe for tips, updates, and special offers.</p>
+        <form class="site-footer__form" action="#" method="POST">
+          <input type="email" name="email" placeholder="Enter your email address" required class="site-footer__input" />
+          <button type="submit" aria-label="Subscribe" class="site-footer__submit">
+            <Icon name="arrow-right" size={18} />
+          </button>
+        </form>
+        
+        <div class="site-footer__trust">
+          <Icon name="shield" class="site-footer__trust-icon" size={20} />
+          <span class="site-footer__trust-text">Licensed & Insured | Michigan Based</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">
+        © {currentYear} T&J Waterfront Services. All Rights Reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<div class="schrader-bar" aria-label="Web design credit">
+  <span>
+    &copy; {currentYear} T&amp;J Waterfront Services. All Rights Reserved.
+  </span>
+  <span class="schrader-bar__divider" aria-hidden="true"></span>
+  <span>
+    Website Design by{" "}
+    <a href="https://schrader.co/" target="_blank" rel="noopener noreferrer">
+      Schrader Web Design
+    </a>
+  </span>
+</div>
+
+<style>
+.site-footer {
+  background-color: var(--color-navy-950);
+  color: var(--color-cream-100);
+  padding-top: var(--space-section);
+  border-top: var(--border-dark);
+}
+.site-footer__container {
+  width: min(calc(100% - 2 * var(--container-gutter)), var(--container-xl));
+  margin-inline: auto;
+}
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-stack-lg);
+  padding-bottom: var(--space-section);
+}
+
+@media (min-width: 768px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-footer__grid {
+    grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 2fr;
+    gap: 2rem;
+  }
+}
+
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Brand Area */
+.site-footer__brand-col {
+  padding-right: 1rem;
+}
+.site-footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: var(--space-stack-md);
+}
+.site-footer__logo-icon {
+  color: var(--color-gold-500);
+}
+.site-footer__logo-text {
+  display: flex;
+  flex-direction: column;
+}
+.site-footer__logo-name {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  line-height: 1;
+  color: var(--color-cream-50);
+}
+.site-footer__logo-sub {
+  font-family: var(--font-sans);
+  font-size: var(--text-tiny);
+  letter-spacing: 0.2em;
+  color: var(--color-gold-500);
+}
+.site-footer__brand-text {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-text-on-dark);
+  margin-bottom: var(--space-stack-md);
+  opacity: 0.8;
+}
+.site-footer__social {
+  display: flex;
+  gap: 1rem;
+}
+.site-footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-cream-100);
+  transition: all var(--duration-fast) var(--ease-premium);
+}
+.site-footer__social-link:hover {
+  background-color: var(--color-gold-500);
+  color: var(--color-navy-950);
+  border-color: var(--color-gold-500);
+}
+
+/* Headings */
+.site-footer__heading {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold-500);
+  margin-bottom: var(--space-stack-md);
+}
+
+/* Links List */
+.site-footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--color-text-on-dark);
+  font-size: var(--text-small);
+  transition: color var(--duration-fast) var(--ease-premium);
+  opacity: 0.8;
+}
+.site-footer__link svg {
+  color: var(--color-gold-500);
+  transition: transform var(--duration-fast) var(--ease-premium);
+}
+.site-footer__link:hover {
+  color: var(--color-gold-400);
+  opacity: 1;
+}
+.site-footer__link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Contact List */
+.site-footer__contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-stack-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.site-footer__contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.site-footer__contact-icon {
+  color: var(--color-gold-500);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+.site-footer__contact-text,
+.site-footer__contact-link {
+  font-size: var(--text-small);
+  color: var(--color-text-on-dark);
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+}
+.site-footer__contact-link {
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-premium);
+}
+.site-footer__contact-link:hover {
+  color: var(--color-gold-400);
+  opacity: 1;
+}
+
+/* Newsletter */
+.site-footer__newsletter-text {
+  font-size: var(--text-small);
+  color: var(--color-text-on-dark);
+  opacity: 0.8;
+  margin-bottom: var(--space-stack-md);
+}
+.site-footer__form {
+  display: flex;
+  position: relative;
+  margin-bottom: var(--space-stack-lg);
+}
+.site-footer__input {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 3rem 0.75rem 1rem;
+  color: var(--color-cream-50);
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  transition: border-color var(--duration-fast) var(--ease-premium);
+}
+.site-footer__input:focus {
+  outline: none;
+  border-color: var(--color-gold-500);
+}
+.site-footer__input::placeholder {
+  color: rgba(246, 241, 231, 0.4);
+}
+.site-footer__submit {
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gold-500);
+  color: var(--color-navy-950);
+  border: none;
+  border-radius: calc(var(--radius-sm) - 2px);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-premium);
+}
+.site-footer__submit:hover {
+  background-color: var(--color-gold-400);
+}
+
+.site-footer__trust {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-gold-500);
+}
+.site-footer__trust-text {
+  font-size: var(--text-tiny);
+  color: var(--color-cream-100);
+  opacity: 0.8;
+}
+
+/* Bottom Bar */
+.site-footer__bottom {
+  padding-block: var(--space-card);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+.site-footer__copyright {
+  font-size: var(--text-tiny);
+  color: var(--color-text-on-dark);
+  opacity: 0.6;
+}
+@media (min-width: 768px) {
+  .site-footer__bottom {
+    text-align: left;
+  }
+}
+
+/* Schrader Web credit bar */
+.schrader-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem clamp(1rem, 3.5vw, 5rem);
+  background-color: #040d17;
+  color: rgba(246, 241, 231, 0.55);
+  font-family: var(--font-sans);
+  font-size: var(--text-tiny);
+  text-align: center;
+}
+
+.schrader-bar__divider {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgba(198, 146, 61, 0.6);
+  flex-shrink: 0;
+}
+
+.schrader-bar a {
+  color: rgba(246, 241, 231, 0.8);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-premium);
+}
+
+.schrader-bar a:hover,
+.schrader-bar a:focus-visible {
+  color: var(--color-gold-400);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+</style>

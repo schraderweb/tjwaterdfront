@@ -1,19 +1,19 @@
 ---
+import { Image } from "astro:assets";
+import logo2 from "../../assets/brand/logo2.webp";
 ---
 <div class="offer-panel">
   <div class="offer-main">
     <div class="offer-brand">
-      <div class="offer-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="5" r="3"></circle>
-          <line x1="12" y1="22" x2="12" y2="8"></line>
-          <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
-        </svg>
-      </div>
-      <div class="offer-brand-text">
-        <span class="brand-name">T&J Waterfront</span>
-        <span class="brand-services">Services</span>
-      </div>
+      <Image
+        src={logo2}
+        alt="T&J Waterfront Services"
+        width={240}
+        height={81}
+        loading="lazy"
+        decoding="async"
+        class="offer-logo"
+      />
     </div>
     
     <div class="offer-divider"></div>
@@ -78,24 +78,10 @@
     text-align: left;
   }
 
-  .offer-icon {
-    color: var(--color-gold-500, #c6923d);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .offer-icon svg {
-    width: clamp(2.5rem, 5vw, 3.5rem);
-    height: clamp(2.5rem, 5vw, 3.5rem);
-  }
-
-  .offer-brand-text {
-    display: flex;
-    flex-direction: column;
-    font-family: var(--font-display);
-    font-size: clamp(1.25rem, 2vw, 1.75rem);
-    line-height: 1.1;
+  .offer-logo {
+    display: block;
+    width: clamp(190px, 24vw, 260px);
+    height: auto;
   }
 
   .offer-divider {

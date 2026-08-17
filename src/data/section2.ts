@@ -1,12 +1,12 @@
 import type { ImageMetadata } from "astro";
 
-import starrLift01 from "../assets/section2/starr-lift-01.png";
-import starrLift02 from "../assets/section2/starr-lift-02.png";
-import starrLift03 from "../assets/section2/starr-lift-03.png";
-import starrLift04 from "../assets/section2/starr-lift-04.jpg";
-import starrLift05 from "../assets/section2/starr-lift-05.jpg";
-import starrLift06 from "../assets/section2/starr-lift-06.jpg";
-import dockEssentialsImage from "../assets/section2/dock-essentials.jpg";
+import starrLift01 from "../assets/section2/starr-lift-01.webp";
+import starrLift02 from "../assets/section2/starr-lift-02.webp";
+import starrLift03 from "../assets/section2/starr-lift-03.webp";
+import starrLift04 from "../assets/section2/starr-lift-04.webp";
+import starrLift05 from "../assets/section2/starr-lift-05.webp";
+import starrLift06 from "../assets/section2/starr-lift-06.webp";
+import dockEssentialsImage from "../assets/section2/dock-essentials.webp";
 
 export interface Section2Image {
   src: ImageMetadata;
@@ -25,33 +25,33 @@ export const featuredService = {
 export const showcaseImages: Section2Image[] = [
   {
     src: starrLift01,
-    alt: "Several Starr boat lifts installed along a Michigan lakefront",
-    focalPoint: "center 58%",
+    alt: "Starr boat lift installation on a Michigan lakefront",
+    focalPoint: "center 55%",
   },
   {
     src: starrLift02,
-    alt: "Covered boat lift and dock reaching into a Michigan lake",
-    focalPoint: "center 58%",
-  },
-  {
-    src: starrLift03,
-    alt: "Starr boat lift with pontoon and dock on a sunny lake",
-    focalPoint: "center 48%",
-  },
-  {
-    src: starrLift04,
-    alt: "Boat positioned on a Starr lift beside a waterfront dock",
-    focalPoint: "center 54%",
-  },
-  {
-    src: starrLift05,
-    alt: "Starr boat lift holding multiple boats at a lake dock",
+    alt: "Starr boat lift on a dock at a Michigan lake",
     focalPoint: "center 52%",
   },
   {
+    src: starrLift03,
+    alt: "Completed dock and lift project on a Michigan lake",
+    focalPoint: "center 50%",
+  },
+  {
+    src: starrLift04,
+    alt: "Waterfront dock project with boat lift",
+    focalPoint: "center 50%",
+  },
+  {
+    src: starrLift05,
+    alt: "Boat lift and dock work at a residential waterfront",
+    focalPoint: "center 50%",
+  },
+  {
     src: starrLift06,
-    alt: "Boat secured on a Starr lift beside a residential waterfront",
-    focalPoint: "center 54%",
+    alt: "Dock and lift installation on a Michigan waterfront",
+    focalPoint: "center 50%",
   },
 ];
 

@@ -4,8 +4,19 @@
  * Desktop: 4 equal columns with subtle dividers.
  * Mobile: horizontally scrollable with snap — never four squeezed columns.
  */
-import Icon from "../ui/Icon.astro";
+import { Image } from "astro:assets";
 import { heroServices } from "../../data/site";
+import sectionalIcon from "../../assets/icons/docks/sectional-docks.webp";
+import rollInIcon from "../../assets/icons/docks/roll-in-docks.webp";
+import platinumIcon from "../../assets/icons/docks/platinum-docks.webp";
+import floatingIcon from "../../assets/icons/docks/floating-docks.webp";
+
+const iconImages: Record<string, ImageMetadata> = {
+  "sectional-docks": sectionalIcon,
+  "roll-in-docks": rollInIcon,
+  "platinum-docks": platinumIcon,
+  "floating-docks": floatingIcon,
+};
 ---
 
 <div class="service-bar" role="navigation" aria-label="Dock services">
@@ -16,7 +27,15 @@ import { heroServices } from "../../data/site";
           <li class="service-item">
             <a href={service.href} class="service-link">
               <span class="service-icon" aria-hidden="true">
-                <Icon name={service.icon} size={54} strokeWidth={1.35} />
+                <Image
+                  src={iconImages[service.icon] ?? sectionalIcon}
+                  alt=""
+                  width={54}
+                  height={54}
+                  loading="lazy"
+                  decoding="async"
+                  class="service-icon-img"
+                />
               </span>
               <span class="service-text">
                 <span class="service-title">{service.title}</span>
@@ -102,8 +121,18 @@ import { heroServices } from "../../data/site";
     transition: color var(--duration-base) var(--ease-premium);
   }
 
-  .service-link:hover .service-icon {
-    color: var(--color-gold-200);
+  .service-icon-img {
+    display: block;
+    width: 3.25rem;
+    height: 3.25rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    transition: filter var(--duration-base) var(--ease-premium);
+  }
+
+  .service-link:hover .service-icon-img {
+    filter: brightness(0) saturate(100%) invert(84%) sepia(30%) saturate(566%)
+      hue-rotate(357deg) brightness(93%) contrast(90%);
   }
 
   .service-text {
