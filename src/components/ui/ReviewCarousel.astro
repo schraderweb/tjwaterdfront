@@ -89,6 +89,38 @@ const displayReviews = [...reviews, ...reviews, ...reviews];
     }
   }
 
+  @media (min-width: 64rem) {
+    .carousel-wrapper {
+      padding-bottom: 0;
+    }
+
+    .carousel-viewport {
+      overflow: visible;
+      padding: 0;
+    }
+
+    .carousel-track {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: clamp(0.5rem, 1.2vw, 1rem);
+      width: 100%;
+    }
+
+    .carousel-slide {
+      display: block;
+      min-width: 0;
+    }
+
+    .carousel-slide:nth-child(n + 7) {
+      display: none;
+    }
+
+    .carousel-control,
+    .carousel-pagination {
+      display: none;
+    }
+  }
+
   /* Controls */
   .carousel-control {
     display: none;

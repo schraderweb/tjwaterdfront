@@ -4,9 +4,6 @@ import BoatLiftIcon from '../icons/resources/BoatLiftIcon.astro';
 import SeawallIcon from '../icons/resources/SeawallIcon.astro';
 import ArrowRightIcon from '../icons/resources/ArrowRightIcon.astro';
 
-// A dynamic import of a dock icon
-import DockIcon from '../icons/docks/sectional-docks.astro'; // Wait, it's svg, so I will inline it or create Astro component for it. Let's create an Astro one later or just use an inline SVG. I will create a DockIcon component.
-
 const { resource } = Astro.props;
 
 const getIcon = (name) => {
@@ -123,6 +120,44 @@ const IconComponent = getIcon(resource.iconName);
 
   .resource-item:hover .resource-arrow {
     transform: translateX(5px);
+  }
+
+  @media (min-width: 64rem) {
+    .resource-item {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1fr);
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    .resource-icon-wrapper {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .resource-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .resource-content {
+      min-width: 0;
+    }
+
+    .resource-description {
+      max-width: 18ch;
+      font-size: clamp(0.72rem, 0.65rem + 0.15vw, 0.85rem);
+      line-height: 1.25;
+    }
+
+    .resource-cta {
+      justify-content: flex-start;
+      margin-top: 0.4rem;
+      font-size: clamp(0.62rem, 0.58rem + 0.1vw, 0.75rem);
+      white-space: nowrap;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -79,4 +79,42 @@ const starArray = Array(stars).fill(0);
     margin: 0;
     /* Allows text to flex if we wanted to push things to bottom, but we just center it */
   }
+
+  @media (min-width: 64rem) {
+    .review-card {
+      min-height: 16rem;
+      padding: 1.25rem 0.9rem;
+      border: 1px solid rgba(16, 34, 53, 0.06);
+      border-radius: 0.6rem;
+    }
+
+    .stars {
+      gap: 0.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    :global(.star-icon) {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+
+    .reviewer-name {
+      font-size: 1.1rem;
+    }
+
+    .time-ago {
+      font-size: 0.72rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .meta-divider {
+      width: 1.75rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .review-content {
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+  }
 </style>

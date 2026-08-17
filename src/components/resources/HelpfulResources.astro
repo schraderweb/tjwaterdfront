@@ -31,7 +31,7 @@ import resourcesBg from '../../assets/resources/resources-bg.webp';
 <style>
   .helpful-resources {
     position: relative;
-    padding: var(--space-section, 6rem) var(--container-gutter, 2rem);
+    padding: clamp(2.5rem, 4vw, 4rem) var(--container-gutter, 2rem);
     display: flex;
     justify-content: center;
     overflow: hidden;
@@ -121,6 +121,12 @@ import resourcesBg from '../../assets/resources/resources-bg.webp';
       border-bottom: none;
       margin-bottom: 0;
       padding-bottom: 0;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .helpful-resources {
+      padding-block: 1rem;
     }
   }
 </style>

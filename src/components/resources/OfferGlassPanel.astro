@@ -1,19 +1,19 @@
 ---
-import { Image } from "astro:assets";
-import logo2 from "../../assets/brand/logo2.webp";
 ---
 <div class="offer-panel">
   <div class="offer-main">
     <div class="offer-brand">
-      <Image
-        src={logo2}
-        alt="T&J Waterfront Services"
-        width={240}
-        height={81}
-        loading="lazy"
-        decoding="async"
-        class="offer-logo"
-      />
+      <div class="offer-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="5" r="3"></circle>
+          <line x1="12" y1="22" x2="12" y2="8"></line>
+          <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+        </svg>
+      </div>
+      <div class="offer-brand-text">
+        <span>T&amp;J Waterfront</span>
+        <span>Services</span>
+      </div>
     </div>
     
     <div class="offer-divider"></div>
@@ -55,9 +55,9 @@ import logo2 from "../../assets/brand/logo2.webp";
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.72);
     box-shadow: 0 20px 60px rgba(5, 20, 35, 0.12);
-    border-radius: var(--radius-xl, 24px);
-    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
-    max-width: 48rem;
+    border-radius: 1.125rem;
+    padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.5rem);
+    max-width: 38rem;
     margin: 0 auto;
     text-align: center;
     color: var(--color-navy-950, #071a2b);
@@ -67,8 +67,8 @@ import logo2 from "../../assets/brand/logo2.webp";
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(1.5rem, 4vw, 3rem);
-    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    gap: clamp(1.25rem, 2vw, 2rem);
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
   }
 
   .offer-brand {
@@ -78,15 +78,31 @@ import logo2 from "../../assets/brand/logo2.webp";
     text-align: left;
   }
 
-  .offer-logo {
+  .offer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold-600, #b98232);
+  }
+
+  .offer-icon svg {
     display: block;
-    width: clamp(190px, 24vw, 260px);
-    height: auto;
+    width: clamp(2.75rem, 4vw, 3.25rem);
+    height: clamp(2.75rem, 4vw, 3.25rem);
+  }
+
+  .offer-brand-text {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-navy-950, #071a2b);
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 1.7vw, 1.5rem);
+    line-height: 1.05;
   }
 
   .offer-divider {
     width: 1px;
-    height: clamp(3rem, 6vw, 4rem);
+    height: clamp(2.5rem, 5vw, 3.5rem);
     background: rgba(7, 26, 45, 0.25);
   }
 
@@ -100,7 +116,7 @@ import logo2 from "../../assets/brand/logo2.webp";
   }
 
   .discount-number {
-    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-size: clamp(3.25rem, 5vw, 5rem);
   }
 
   .discount-text {
