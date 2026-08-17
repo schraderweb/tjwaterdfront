@@ -1,6 +1,7 @@
 ---
 import ReviewCarousel from "../ui/ReviewCarousel.astro";
-import { reviews } from "../../data/reviews";
+import Icon from "../ui/Icon.astro";
+import { reviewSummary, reviews } from "../../data/reviews";
 ---
 
 <section class="reviews-trust-section" id="reviews" aria-labelledby="reviews-title">
@@ -9,6 +10,15 @@ import { reviews } from "../../data/reviews";
       <span class="section-eyebrow">REVIEWS &amp; TRUST</span>
       <h2 id="reviews-title">What Our Customers Say</h2>
       <div class="header-divider" aria-hidden="true"></div>
+      <p class="review-summary">
+        <span class="review-score">{reviewSummary.rating.toFixed(1)}</span>
+        <span class="review-stars" aria-hidden="true">★★★★★</span>
+        <span>Average rating from <strong>{reviewSummary.count} {reviewSummary.source} reviews</strong></span>
+        <a href={reviewSummary.url} target="_blank" rel="noopener noreferrer">
+          Read all reviews
+          <Icon name="arrow-up-right" size={15} strokeWidth={1.75} />
+        </a>
+      </p>
     </div>
 
     <div class="carousel-container">
@@ -71,5 +81,50 @@ import { reviews } from "../../data/reviews";
     height: 1px;
     background-color: var(--color-gold-500);
     margin: 1rem auto 0;
+  }
+
+  .review-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.75rem;
+    margin: 1.25rem auto 0;
+    color: var(--color-text-secondary);
+    font-size: var(--text-small);
+  }
+
+  .review-score {
+    color: var(--color-navy-950);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .review-stars {
+    color: var(--color-gold-500);
+    letter-spacing: 0.12em;
+    line-height: 1;
+  }
+
+  .review-summary strong {
+    color: var(--color-navy-950);
+    font-weight: 700;
+  }
+
+  .review-summary a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--color-water-700);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold-400);
+    text-underline-offset: 0.25em;
+    transition: color var(--duration-fast) var(--ease-premium);
+  }
+
+  .review-summary a:hover {
+    color: var(--color-gold-700);
   }
 </style>

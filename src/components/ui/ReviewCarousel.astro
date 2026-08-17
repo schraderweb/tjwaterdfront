@@ -12,8 +12,8 @@ const { reviews } = Astro.props;
 
 <div class="carousel-wrapper" data-review-count={reviews.length}>
   <div class="carousel-frame">
-    <button type="button" class="carousel-control prev" aria-label="Previous reviews" data-carousel-action="prev">
-    <Icon name="arrow-right" size={24} class="flip-icon" />
+    <button type="button" class="carousel-control prev" aria-label="Previous reviews" data-carousel-action="prev" disabled>
+      <Icon name="arrow-right" size={24} />
     </button>
 
     <div
@@ -128,7 +128,6 @@ const { reviews } = Astro.props;
     }
   }
 
-  /* Controls remain outside the cards, as in the reference interaction. */
   .carousel-control {
     display: none;
     position: absolute;
@@ -147,18 +146,19 @@ const { reviews } = Astro.props;
     transition:
       background-color var(--duration-fast) var(--ease-premium),
       border-color var(--duration-fast) var(--ease-premium),
-      color var(--duration-fast) var(--ease-premium);
+      color var(--duration-fast) var(--ease-premium),
+      opacity var(--duration-fast) var(--ease-premium);
   }
 
   .carousel-control.prev {
-    left: calc(0rem - var(--container-gutter));
+    left: 0.5rem;
   }
 
   .carousel-control.next {
-    right: calc(0rem - var(--container-gutter));
+    right: 0.5rem;
   }
 
-  .flip-icon {
+  .carousel-control.prev :global(svg) {
     transform: rotate(180deg);
   }
 
@@ -168,6 +168,20 @@ const { reviews } = Astro.props;
     color: var(--color-white);
   }
 
+  .carousel-control:disabled {
+    border-color: var(--color-cream-300);
+    background: var(--color-cream-100);
+    color: var(--color-text-muted);
+    cursor: default;
+    opacity: 0.6;
+  }
+
+  .carousel-control:disabled:hover {
+    border-color: var(--color-cream-300);
+    background: var(--color-cream-100);
+    color: var(--color-text-muted);
+  }
+
   .carousel-control:focus-visible,
   .dot:focus-visible {
     outline: 2px solid var(--color-gold-500);
@@ -175,16 +189,20 @@ const { reviews } = Astro.props;
   }
 
   @media (min-width: 40rem) {
+    .carousel-frame {
+      padding-inline: 3rem;
+    }
+
     .carousel-control {
       display: flex;
     }
 
     .carousel-control.prev {
-      left: calc(0rem - var(--container-gutter));
+      left: 0.25rem;
     }
 
     .carousel-control.next {
-      right: calc(0rem - var(--container-gutter));
+      right: 0.25rem;
     }
   }
 
@@ -236,11 +254,8 @@ const { reviews } = Astro.props;
     if (!viewport || !track || !slides.length || !originalCount) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const AUTO_SCROLL_DELAY = 3500;
     let current = 0;
-    let autoScrollInterval: number | undefined;
     let scrollTimeout: number | undefined;
-    let restartTimeout: number | undefined;
     let resizeFrame: number | undefined;
 
     const getVisibleCount = () => {
@@ -251,7 +266,15 @@ const { reviews } = Astro.props;
       return 1;
     };
 
-    const getPageCount = () => Math.max(1, originalCount - getVisibleCount() + 1);
+    const getPageStarts = () => {
+      const visibleCount = Math.min(getVisibleCount(), originalCount);
+      const pageCount = Math.ceil(originalCount / visibleCount);
+      const lastStart = Math.max(0, originalCount - visibleCount);
+
+      return Array.from({ length: pageCount }, (_, index) => Math.min(index * visibleCount, lastStart));
+    };
+
+    const getPageCount = () => getPageStarts().length;
 
     const getStep = () => {
       const slide = slides[0];
@@ -265,6 +288,9 @@ const { reviews } = Astro.props;
       const pageCount = getPageCount();
       current = Math.min(current, pageCount - 1);
       wrapper.classList.toggle('is-static', pageCount === 1);
+
+      if (btnPrev) btnPrev.disabled = pageCount === 1 || current === 0;
+      if (btnNext) btnNext.disabled = pageCount === 1 || current === pageCount - 1;
 
       dots.forEach((dot, index) => {
         const isActive = index === current;
@@ -281,10 +307,11 @@ const { reviews } = Astro.props;
     };
 
     const goTo = (index: number, behavior: ScrollBehavior = 'smooth') => {
+      const pageStarts = getPageStarts();
       const pageCount = getPageCount();
-      current = ((index % pageCount) + pageCount) % pageCount;
+      current = Math.max(0, Math.min(pageCount - 1, index));
       viewport.scrollTo({
-        left: current * getStep(),
+        left: pageStarts[current] * getStep(),
         behavior: reducedMotion.matches ? 'auto' : behavior,
       });
       updateDots();
@@ -292,30 +319,14 @@ const { reviews } = Astro.props;
 
     const updateFromScroll = () => {
       const step = getStep();
-      const pageCount = getPageCount();
+      const pageStarts = getPageStarts();
       if (!step) return;
 
-      current = Math.max(0, Math.min(pageCount - 1, Math.round(viewport.scrollLeft / step)));
+      const scrollIndex = viewport.scrollLeft / step;
+      current = pageStarts.reduce((closest, start, index) => {
+        return Math.abs(start - scrollIndex) < Math.abs(pageStarts[closest] - scrollIndex) ? index : closest;
+      }, 0);
       updateDots();
-    };
-
-    const stopAutoScroll = () => {
-      if (autoScrollInterval !== undefined) {
-        window.clearInterval(autoScrollInterval);
-        autoScrollInterval = undefined;
-      }
-    };
-
-    const startAutoScroll = () => {
-      stopAutoScroll();
-      if (reducedMotion.matches || document.visibilityState !== 'visible' || getPageCount() === 1) return;
-
-      autoScrollInterval = window.setInterval(() => goTo(current + 1), AUTO_SCROLL_DELAY);
-    };
-
-    const restartAutoScroll = () => {
-      if (restartTimeout !== undefined) window.clearTimeout(restartTimeout);
-      restartTimeout = window.setTimeout(startAutoScroll, 250);
     };
 
     const handleResize = () => {
@@ -324,27 +335,20 @@ const { reviews } = Astro.props;
         current = Math.min(current, getPageCount() - 1);
         updateDots();
         goTo(current, 'auto');
-        startAutoScroll();
       });
     };
 
     btnPrev?.addEventListener('click', () => {
-      stopAutoScroll();
       goTo(current - 1);
-      restartAutoScroll();
     });
 
     btnNext?.addEventListener('click', () => {
-      stopAutoScroll();
       goTo(current + 1);
-      restartAutoScroll();
     });
 
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
-        stopAutoScroll();
         goTo(index);
-        restartAutoScroll();
       });
     });
 
@@ -353,26 +357,9 @@ const { reviews } = Astro.props;
       scrollTimeout = window.setTimeout(updateFromScroll, 80);
     }, { passive: true });
 
-    wrapper.addEventListener('mouseenter', stopAutoScroll);
-    wrapper.addEventListener('mouseleave', startAutoScroll);
-    wrapper.addEventListener('focusin', stopAutoScroll);
-    wrapper.addEventListener('focusout', () => {
-      if (!wrapper.contains(document.activeElement)) restartAutoScroll();
-    });
-    viewport.addEventListener('touchstart', stopAutoScroll, { passive: true });
-    viewport.addEventListener('touchend', restartAutoScroll, { passive: true });
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') startAutoScroll();
-      else stopAutoScroll();
-    });
     window.addEventListener('resize', handleResize, { passive: true });
-    reducedMotion.addEventListener?.('change', () => {
-      if (reducedMotion.matches) stopAutoScroll();
-      else startAutoScroll();
-    });
 
     updateDots();
     goTo(0, 'auto');
-    startAutoScroll();
   });
 </script>

@@ -104,13 +104,6 @@ const currentYear = new Date().getFullYear();
       </div>
 
     </div>
-
-    <!-- Bottom Bar -->
-    <div class="site-footer__bottom">
-      <p class="site-footer__copyright">
-        © {currentYear} T&J Waterfront Services. All Rights Reserved.
-      </p>
-    </div>
   </div>
 </footer>
 
@@ -131,7 +124,7 @@ const currentYear = new Date().getFullYear();
 .site-footer {
   background-color: var(--color-navy-950);
   color: var(--color-cream-100);
-  padding-top: var(--space-section);
+  padding-top: clamp(2.5rem, 4vw, 4.5rem);
   border-top: var(--border-dark);
 }
 .site-footer__container {
@@ -141,8 +134,8 @@ const currentYear = new Date().getFullYear();
 .site-footer__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-stack-lg);
-  padding-bottom: var(--space-section);
+  gap: var(--space-stack-md);
+  padding-bottom: clamp(2.5rem, 4vw, 4.5rem);
 }
 
 @media (min-width: 768px) {
@@ -357,23 +350,6 @@ const currentYear = new Date().getFullYear();
   font-size: var(--text-tiny);
   color: var(--color-cream-100);
   opacity: 0.8;
-}
-
-/* Bottom Bar */
-.site-footer__bottom {
-  padding-block: var(--space-card);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  text-align: center;
-}
-.site-footer__copyright {
-  font-size: var(--text-tiny);
-  color: var(--color-text-on-dark);
-  opacity: 0.6;
-}
-@media (min-width: 768px) {
-  .site-footer__bottom {
-    text-align: left;
-  }
 }
 
 /* Schrader Web credit bar */
