@@ -1,0 +1,103 @@
+---
+/**
+ * Catch-all interior page — renders a simple placeholder with the page name
+ * so every nav/footer link resolves instead of 404ing until the real pages
+ * are built out.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/layout/Navbar.astro";
+import SiteFooter from "../components/sections/SiteFooter.astro";
+
+export function getStaticPaths() {
+  const slugs = [
+    "services",
+    "service-areas",
+    "gallery",
+    "about",
+    "contact",
+    "services/landscaping",
+    "services/seawalls",
+    "services/retaining-walls",
+    "services/patios",
+    "services/beaches",
+    "services/decks-boardwalks",
+    "services/dock-service",
+    "services/hoist-service",
+    "services/dock-services",
+    "services/lift-accessories",
+    "services/boat-lifts",
+    "services/sectional-docks",
+    "services/roll-in-docks",
+    "services/platinum-docks",
+    "services/floating-docks",
+  ];
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const slug = Astro.params.slug ?? "";
+const pageNames: Record<string, string> = {
+  "services": "Services",
+  "service-areas": "Service Areas",
+  "gallery": "Gallery",
+  "about": "About Us",
+  "contact": "Contact Us",
+  "services/landscaping": "Landscaping",
+  "services/seawalls": "Seawalls",
+  "services/retaining-walls": "Retaining Walls",
+  "services/patios": "Patios",
+  "services/beaches": "Beaches",
+  "services/decks-boardwalks": "Decks & Boardwalks",
+  "services/dock-service": "Dock Service / Repairs",
+  "services/hoist-service": "Hoist Service / Repairs",
+  "services/dock-services": "Dock Services & Repair",
+  "services/lift-accessories": "Boat & Pontoon Lift Accessories",
+  "services/boat-lifts": "Boat Lifts",
+  "services/sectional-docks": "Sectional Docks",
+  "services/roll-in-docks": "Roll-In Docks",
+  "services/platinum-docks": "Platinum Docks",
+  "services/floating-docks": "Floating Docks",
+};
+const pageName =
+  pageNames[slug] ?? slug.split("/").pop()!.replace(/-/g, " ");
+---
+
+
+<BaseLayout title={`${pageName} | T&J Waterfront Services`}>
+  <Navbar />
+  <main id="main">
+    <section class="placeholder-page">
+      <div class="site-container">
+        <span class="eyebrow">COME SOON</span>
+        <h1>{pageName}</h1>
+        <p>We&rsquo;re putting the finishing touches on this page.</p>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .placeholder-page {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding-block: clamp(4rem, 8vw, 8rem);
+    background-color: var(--color-cream-50);
+  }
+
+  .placeholder-page h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    margin: 0.75rem 0 0.5rem;
+    color: var(--color-navy-950);
+  }
+
+  .placeholder-page p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--text-lead);
+  }
+</style>
