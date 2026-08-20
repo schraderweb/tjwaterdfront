@@ -1,6 +1,7 @@
----
+--- 
 import Icon from "../ui/Icon.astro";
 import Button from "../ui/Button.astro";
+import { site } from "../../data/site";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -23,13 +24,10 @@ const currentYear = new Date().getFullYear();
           count on, year after year.
         </p>
         <div class="site-footer__social">
-          <a href="#" aria-label="Facebook" class="site-footer__social-link">
+          <a href={site.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="site-footer__social-link">
             <Icon name="facebook" size={20} />
           </a>
-          <a href="#" aria-label="Instagram" class="site-footer__social-link">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          </a>
-          <a href="#" aria-label="Mail" class="site-footer__social-link">
+          <a href={`mailto:${site.email}`} aria-label="Email" class="site-footer__social-link">
             <Icon name="mail" size={20} />
           </a>
         </div>
@@ -90,12 +88,13 @@ const currentYear = new Date().getFullYear();
       <div class="site-footer__col">
         <h3 class="site-footer__heading">STAY UPDATED</h3>
         <p class="site-footer__newsletter-text">Subscribe for tips, updates, and special offers.</p>
-        <form class="site-footer__form" action="#" method="POST">
+        <form class="site-footer__form" action="#" method="POST" data-newsletter-form novalidate>
           <input type="email" name="email" placeholder="Enter your email address" required class="site-footer__input" />
           <button type="submit" aria-label="Subscribe" class="site-footer__submit">
             <Icon name="arrow-right" size={18} />
           </button>
         </form>
+        <p class="site-footer__form-status" data-newsletter-status role="status" aria-live="polite"></p>
         
         <div class="site-footer__trust">
           <Icon name="shield" class="site-footer__trust-icon" size={20} />
@@ -352,6 +351,17 @@ const currentYear = new Date().getFullYear();
   opacity: 0.8;
 }
 
+.site-footer__form-status {
+  min-height: 1.5rem;
+  margin: 0.5rem 0 0;
+  font-size: var(--text-tiny);
+  color: var(--color-gold-400);
+}
+
+.site-footer__form-status.is-error {
+  color: #e08b8b;
+}
+
 /* Schrader Web credit bar */
 .schrader-bar {
   display: flex;
@@ -388,3 +398,25 @@ const currentYear = new Date().getFullYear();
   text-underline-offset: 3px;
 }
 </style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-newsletter-form]");
+  const status = document.querySelector<HTMLElement>("[data-newsletter-status]");
+  if (form && status) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('input[type="email"]');
+      const value = input?.value.trim() ?? "";
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!emailOk) {
+        status.textContent = "Please enter a valid email address.";
+        status.classList.add("is-error");
+        input?.focus();
+        return;
+      }
+      status.classList.remove("is-error");
+      status.textContent = "Thanks for subscribing! We'll be in touch.";
+      form.reset();
+    });
+  }
+</script>
