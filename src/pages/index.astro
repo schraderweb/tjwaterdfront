@@ -2,23 +2,23 @@
 /**
  * Home page — hero, Section 2 service showcase, and Popular Services (Section 3).
  */
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Navbar from "../components/layout/Navbar.astro";
-import Hero from "../components/hero/Hero.astro";
-import Section2 from "../components/sections/Section2.astro";
-import PopularServices from "../components/sections/PopularServices.astro";
-import PromotionalResourcesSection from "../components/sections/PromotionalResourcesSection.astro";
-import ReviewsTrustSection from "../components/sections/ReviewsTrustSection.astro";
-import ReviewCTA from "../components/sections/ReviewCTA.astro";
-import LocationMap from "../components/sections/LocationMap.astro";
-import SiteFooter from "../components/sections/SiteFooter.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import Hero from "@/components/pages/home/hero/Hero.astro";
+import FeaturedServices from "@/components/pages/home/sections/FeaturedServices.astro";
+import PopularServices from "@/components/shared/sections/PopularServices.astro";
+import PromotionalResourcesSection from "@/components/pages/home/sections/PromotionalResourcesSection.astro";
+import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
+import ReviewCTA from "@/components/shared/sections/ReviewCTA.astro";
+import LocationMap from "@/components/shared/sections/LocationMap.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 ---
 
 <BaseLayout>
   <Navbar />
   <main id="main">
     <Hero />
-    <Section2 />
+    <FeaturedServices />
     <PopularServices />
     <PromotionalResourcesSection />
     <ReviewsTrustSection />

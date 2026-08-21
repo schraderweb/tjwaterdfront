@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import type { FeaturedServiceImage } from "@/data/featuredServices";
+
+interface Props {
+  images: FeaturedServiceImage[];
+}
+
+const { images } = Astro.props;
+
+if (images.length !== 6) {
+  throw new Error(`ServiceImageMosaic requires exactly six images; received ${images.length}.`);
+}
+---
+
+<div class="service-image-mosaic" aria-label="Starr boat lift project gallery">
+  {images.map((image) => (
+    <figure class="mosaic-item">
+      <Image
+        src={image.src}
+        alt={image.alt}
+        widths={[320, 480, 640]}
+        sizes="(min-width: 64rem) 27vw, (min-width: 48rem) 45vw, 100vw"
+        quality={72}
+        format="webp"
+        loading="lazy"
+        decoding="async"
+        class="mosaic-image"
+        style={`object-position: ${image.focalPoint ?? "center"};`}
+      />
+    </figure>
+  ))}
+</div>
+
+<style>
+  .service-image-mosaic {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    min-height: 0;
+    height: 100%; /* Ensure it can stretch if needed */
+  }
+
+  .mosaic-item {
+    min-width: 0;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+    background: var(--color-cream-200);
+  }
+
+  .mosaic-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-premium);
+  }
+
+  .mosaic-item:hover .mosaic-image {
+    transform: scale(1.025);
+  }
+
+  @media (min-width: 40rem) and (max-width: 63.999rem) {
+    .service-image-mosaic {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mosaic-item { aspect-ratio: 1 / 1; }
+  }
+
+  @media (min-width: 64rem) {
+    .service-image-mosaic {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem; /* Tighter gap to match the premium editorial feel */
+    }
+
+    .mosaic-item {
+      aspect-ratio: 4 / 3; /* Locks the image proportions so it resizes smoothly */
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+</style>

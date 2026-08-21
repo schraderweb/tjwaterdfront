@@ -29,17 +29,21 @@ How the build works:
 
  src/
  ├── pages/                 The site's pages
- │   └── index.astro          Homepage
- ├── components/            Page sections and UI pieces
- │   ├── hero/                Top banner + quote form
- │   ├── sections/            Services, reviews, resources, footer, map
- │   ├── layout/              Navigation + page layout
- │   └── ui/                  Buttons, cards, carousel
+ │   ├── index.astro          Homepage (composes the home sections below)
+ │   └── [...slug].astro      Catch-all interior pages (placeholders until real pages land)
+ ├── components/
+ │   ├── pages/<route>/...    Components used by a single page
+ │   │   └── home/              hero, sections, resources
+ │   └── shared/              Reusable components used across pages
+ │       ├── layout/            Navigation + page layout (Navbar)
+ │       ├── sections/          Services, reviews, resources, footer, map
+ │       ├── ui/                Buttons, cards, carousel
+ │       └── icons/             Inline SVG icons
  ├── data/                  ⭐ TEXT CONTENT lives here (plain, easy files)
  │   ├── reviews.ts            Customer reviews
  │   ├── serviceAreas.ts       Areas served
  │   ├── helpfulResources.ts   Resources section content
- │   ├── section2.ts / section3.ts   Homepage section content
+ │   ├── featuredServices.ts / popularServices.ts   Homepage section content
  │   └── site.ts               Site-wide info (name, contact, links)
  ├── assets/                Images used inside components (photos, icons, logos)
  ├── layouts/BaseLayout.astro   Shared page shell (head, nav, footer)
@@ -120,7 +124,7 @@ The site is connected to a hosting provider (Vercel) via the GitHub repository.
  Edit src/ or public/  →  Commit + push to main  →  Auto build & deploy  →  Live site
 ```
 
-> **Quote form note:** the quote form (`src/components/hero/QuoteForm.astro`) submits to an `/api/quote` endpoint that is not defined in this repository — it must be provided by the hosting platform. If quote submissions stop working, check that endpoint with your developer/hosting provider.
+> **Quote form note:** the quote form (`src/components/pages/home/hero/QuoteForm.astro`) submits to an `/api/quote` endpoint that is not defined in this repository — it must be provided by the hosting platform. If quote submissions stop working, check that endpoint with your developer/hosting provider.
 
 ---
 

@@ -1,0 +1,347 @@
+---
+/**
+ * QuoteForm.astro — light glass conversion panel from the hero reference.
+ * Native HTML validation keeps the first viewport JavaScript-free.
+ */
+import Button from "@/components/shared/ui/Button.astro";
+import GoldLine from "@/components/shared/ui/GoldLine.astro";
+import Icon from "@/components/shared/ui/Icon.astro";
+
+const projectTypes = [
+  "Dock Installation",
+  "Boat Lift",
+  "Seawall",
+  "Patio",
+  "Beach",
+  "Retaining Wall",
+  "Landscaping",
+  "Service / Repair",
+  "Other",
+];
+---
+
+<div class="quote-form">
+  <div class="quote-heading">
+    <p class="eyebrow">Get Started</p>
+    <h2 class="quote-title">Request a Free Quote</h2>
+    <GoldLine align="center" />
+  </div>
+
+  <form action="/api/quote" method="post" class="quote-fields">
+    <p class="hp-field" aria-hidden="true">
+      <label>
+        Company
+        <input type="text" name="company" tabindex="-1" autocomplete="off" />
+      </label>
+    </p>
+
+    <div class="form-grid">
+      <div class="field">
+        <label class="sr-only" for="quote-name">Full Name</label>
+        <div class="input-wrap">
+          <Icon name="user" size={18} class="field-icon" />
+          <input
+            id="quote-name"
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            autocomplete="name"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="sr-only" for="quote-email">Email Address</label>
+        <div class="input-wrap">
+          <Icon name="mail" size={18} class="field-icon" />
+          <input
+            id="quote-email"
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            autocomplete="email"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="sr-only" for="quote-phone">Phone Number</label>
+        <div class="input-wrap">
+          <Icon name="phone" size={18} class="field-icon" />
+          <input
+            id="quote-phone"
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            autocomplete="tel"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="sr-only" for="quote-location">Project Location</label>
+        <div class="input-wrap">
+          <Icon name="map-pin" size={18} class="field-icon" />
+          <input
+            id="quote-location"
+            type="text"
+            name="location"
+            placeholder="Project Location"
+            autocomplete="address-level2"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="field field-wide">
+        <label class="sr-only" for="quote-type">Project Type / Service Interested In</label>
+        <div class="input-wrap select-wrap">
+          <Icon name="briefcase" size={18} class="field-icon" />
+          <select id="quote-type" name="project_type" required>
+            <option value="" selected disabled>Project Type / Service Interested In</option>
+            {projectTypes.map((type) => <option value={type}>{type}</option>)}
+          </select>
+          <Icon name="chevron-down" size={16} class="select-icon" />
+        </div>
+      </div>
+
+      <div class="field field-wide">
+        <label class="sr-only" for="quote-message">Project Message</label>
+        <textarea
+          id="quote-message"
+          name="message"
+          rows="4"
+          placeholder="Tell us about your project..."
+        />
+      </div>
+    </div>
+
+    <Button type="submit" variant="gold-cta" size="lg" class="quote-submit">
+      Send Request
+    </Button>
+
+    <p class="quote-privacy">
+      <Icon name="shield" size={18} />
+      <span>Your information is secure and never shared.</span>
+    </p>
+  </form>
+</div>
+
+<style>
+  .quote-form {
+    width: 100%;
+    max-width: 32rem;
+    justify-self: end;
+    color: var(--color-navy-950);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(6px) saturate(110%);
+    backdrop-filter: blur(6px) saturate(110%);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px -24px rgba(7, 26, 43, 0.4);
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .quote-form {
+      background: rgba(246, 241, 231, 0.96);
+    }
+  }
+
+  .quote-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: clamp(2rem, 1.5rem + 0.8vw, 2.5rem);
+    text-align: center;
+  }
+
+  .quote-heading .eyebrow {
+    color: var(--color-gold-700);
+  }
+
+  .quote-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.7rem, 1.3rem + 1vw, 2.2rem);
+    line-height: 1.05;
+    color: var(--color-navy-950);
+  }
+
+  .quote-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.125rem;
+  }
+
+  .field {
+    min-width: 0;
+  }
+
+  .input-wrap {
+    position: relative;
+  }
+
+  :global(.field-icon),
+  :global(.select-icon) {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    pointer-events: none;
+    color: var(--color-gold-600);
+  }
+
+  :global(.field-icon) {
+    left: 0.8rem;
+  }
+
+  :global(.select-icon) {
+    right: 0.9rem;
+    color: var(--color-navy-800);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 0.45rem;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.85rem 0.9rem 0.85rem 2.7rem;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--color-navy-950);
+    transition:
+      border-color var(--duration-fast) var(--ease-premium),
+      background-color var(--duration-fast) var(--ease-premium),
+      box-shadow var(--duration-fast) var(--ease-premium);
+  }
+
+  .field textarea {
+    min-height: 7rem;
+    resize: vertical;
+    padding: 0.9rem;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder,
+  .field select:invalid {
+    color: rgba(16, 34, 53, 0.78);
+    opacity: 1;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--color-gold-600);
+    background: rgba(255, 255, 255, 0.42);
+    box-shadow: 0 0 0 3px rgba(198, 146, 61, 0.15);
+  }
+
+  .select-wrap select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 2.6rem;
+    cursor: pointer;
+  }
+
+  .select-wrap select option {
+    color: var(--color-navy-950);
+    background: var(--color-cream-50);
+  }
+
+  .quote-submit {
+    width: 100%;
+    min-height: 3.5rem;
+  }
+
+  .quote-privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0;
+    color: rgba(16, 34, 53, 0.72);
+    font-size: 0.7rem;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .quote-privacy :global(svg) {
+    flex: none;
+    color: var(--color-navy-800);
+  }
+
+  @media (min-width: 40rem) {
+    .form-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field-wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 63.999rem) {
+    .quote-form {
+      max-width: none;
+      justify-self: stretch;
+    }
+  }
+
+  @media (min-width: 64rem) and (max-height: 920px) {
+    .quote-form {
+      padding: 1.5rem;
+    }
+
+    .quote-heading {
+      gap: 0.5rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .quote-fields,
+    .form-grid {
+      gap: 0.75rem;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+    }
+
+    .field textarea {
+      min-height: 5.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) and (min-height: 921px) {
+    .quote-form {
+      min-height: 38.5rem;
+      transform: translate(0.5rem, 0.35rem);
+    }
+  }
+</style>

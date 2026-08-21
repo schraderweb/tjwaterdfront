@@ -1,0 +1,91 @@
+---
+/**
+ * Button.astro — single button/anchor primitive with variants.
+ * Renders <a> when href is provided, otherwise <button>.
+ * Arrow nudges 4px on hover (subtle, physical).
+ */
+import Icon from "@/components/shared/ui/Icon.astro";
+
+interface Props {
+  variant?:
+    | "gold"
+    | "gold-cta"
+    | "navy"
+    | "navy-outline"
+    | "outline-light"
+    | "ghost-light"
+    | "ghost-dark";
+  size?: "sm" | "md" | "lg";
+  href?: string;
+  type?: "button" | "submit";
+  icon?: string;
+  iconPosition?: "left" | "right";
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  variant = "gold",
+  size = "md",
+  href,
+  type = "button",
+  icon = "arrow-right",
+  iconPosition = "right",
+  class: className,
+  ariaLabel,
+} = Astro.props;
+
+const base = [
+  "group/btn",
+  "inline-flex",
+  "items-center",
+  "justify-center",
+  "gap-2",
+  "font-sans",
+  "font-semibold",
+  "tracking-wide",
+  "uppercase",
+  "rounded-sm",
+  "transition-all",
+  "duration-fast",
+  "ease-premium",
+  "focus-visible:outline-2",
+  "focus-visible:outline-offset-2",
+  "focus-visible:outline-gold-400",
+  "no-underline",
+];
+
+const sizes = {
+  sm: "px-4 py-2.5 text-[0.75rem] tracking-[0.08em]",
+  md: "px-6 py-3.5 text-[0.8125rem] tracking-[0.1em]",
+  lg: "px-8 py-4 text-[0.875rem] tracking-[0.12em]",
+};
+
+const variants = {
+  gold: "bg-gold-500 text-navy-950 hover:bg-gold-400 shadow-soft hover:shadow-lift",
+  "gold-cta": "bg-gold-600 text-navy-950 hover:bg-gold-500 shadow-soft hover:shadow-lift",
+  navy: "bg-navy-900 text-cream-50 hover:bg-navy-800 shadow-soft hover:shadow-lift",
+  "navy-outline":
+    "border border-gold-500 bg-navy-950 text-gold-400 hover:bg-navy-900 hover:text-gold-200",
+  "outline-light":
+    "border border-white/40 text-white backdrop-blur-sm hover:border-white hover:bg-white/10",
+  "ghost-light": "text-white/90 hover:text-white hover:bg-white/10",
+  "ghost-dark": "text-navy-900 hover:bg-navy-950/5 hover:text-navy-800",
+};
+
+const Tag = href ? "a" : "button";
+const arrowClasses =
+  iconPosition === "right"
+    ? "transition-transform duration-fast ease-premium group-hover/btn:translate-x-1"
+    : "transition-transform duration-fast ease-premium group-hover/btn:-translate-x-1";
+---
+
+<Tag
+  {...(href ? { href } : { type })}
+  class:list={[...base, sizes[size], variants[variant], className]}
+  aria-label={ariaLabel}
+>
+  {icon && iconPosition === "left" && <Icon name={icon} size={15} class={arrowClasses} />}
+  <span><slot /></span>
+  {icon && iconPosition === "right" && <Icon name={icon} size={15} class={arrowClasses} />}
+</Tag>

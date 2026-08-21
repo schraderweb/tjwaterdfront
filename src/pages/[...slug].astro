@@ -4,9 +4,9 @@
  * so every nav/footer link resolves instead of 404ing until the real pages
  * are built out.
  */
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Navbar from "../components/layout/Navbar.astro";
-import SiteFooter from "../components/sections/SiteFooter.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 
 export function getStaticPaths() {
   const slugs = [
@@ -30,6 +30,9 @@ export function getStaticPaths() {
     "services/roll-in-docks",
     "services/platinum-docks",
     "services/floating-docks",
+    "services/dock-accessories",
+    "services/dock-services-repair",
+    "services/boat-pontoon-lift-accessories",
   ];
   return slugs.map((slug) => ({ params: { slug } }));
 }
@@ -56,6 +59,9 @@ const pageNames: Record<string, string> = {
   "services/roll-in-docks": "Roll-In Docks",
   "services/platinum-docks": "Platinum Docks",
   "services/floating-docks": "Floating Docks",
+  "services/dock-accessories": "Dock Accessories",
+  "services/dock-services-repair": "Dock Services & Repair",
+  "services/boat-pontoon-lift-accessories": "Boat & Pontoon Lift Accessories",
 };
 const pageName =
   pageNames[slug] ?? slug.split("/").pop()!.replace(/-/g, " ");

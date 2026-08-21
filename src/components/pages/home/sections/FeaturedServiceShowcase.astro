@@ -1,0 +1,43 @@
+---
+import type { FeaturedServiceImage } from "@/data/featuredServices";
+import FeaturedServicePanel from "@/components/pages/home/sections/FeaturedServicePanel.astro";
+import ServiceImageMosaic from "@/components/pages/home/sections/ServiceImageMosaic.astro";
+
+interface Props {
+  service: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    href: string;
+  };
+  images: FeaturedServiceImage[];
+}
+
+const { service, images } = Astro.props;
+---
+
+<div class="featured-service-showcase">
+  <FeaturedServicePanel {...service} />
+  <ServiceImageMosaic images={images} />
+</div>
+
+<style>
+  .featured-service-showcase {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 48rem) {
+    .featured-service-showcase {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .featured-service-showcase {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.7fr);
+    }
+  }
+</style>

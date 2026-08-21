@@ -1,0 +1,171 @@
+---
+import WarrantyIcon from "@/components/shared/icons/resources/WarrantyIcon.astro";
+import BoatLiftIcon from "@/components/shared/icons/resources/BoatLiftIcon.astro";
+import SeawallIcon from "@/components/shared/icons/resources/SeawallIcon.astro";
+import ArrowRightIcon from "@/components/shared/icons/resources/ArrowRightIcon.astro";
+
+const { resource } = Astro.props;
+
+const getIcon = (name) => {
+  switch (name) {
+    case 'warranty': return WarrantyIcon;
+    case 'boatLift': return BoatLiftIcon;
+    case 'seawall': return SeawallIcon;
+    default: return BoatLiftIcon; // Fallback
+  }
+}
+
+const IconComponent = getIcon(resource.iconName);
+---
+
+<a href={resource.url} class="resource-item">
+  <div class="resource-icon-wrapper">
+    {resource.iconName === 'dock' ? (
+      <svg class="resource-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 14h16"></path>
+        <path d="M4 18h16"></path>
+        <path d="M8 14v8"></path>
+        <path d="M16 14v8"></path>
+        <path d="M2 10l20 0"></path>
+        <path d="M6 10V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"></path>
+      </svg>
+    ) : (
+      <IconComponent class="resource-icon" />
+    )}
+  </div>
+  
+  <div class="resource-content">
+    <p class="resource-description">{resource.description}</p>
+    <div class="resource-cta">
+      <span>{resource.ctaTextPre}</span>
+      <span class="cta-emphasis">{resource.ctaTextEmphasized}</span>
+      <span>{resource.ctaTextPost}</span>
+      <ArrowRightIcon class="resource-arrow" />
+    </div>
+  </div>
+</a>
+
+<style>
+  .resource-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    padding: 1rem;
+    gap: 1.5rem;
+    transition: transform var(--duration-base, 300ms) var(--ease-premium, ease);
+  }
+
+  .resource-item:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+
+  .resource-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(198, 146, 61, 0.55);
+    border-radius: 50%;
+    color: var(--color-gold-500, #c6923d);
+    background: rgba(7, 26, 45, 0.28);
+    transition: background var(--duration-base) ease, border-color var(--duration-base) ease;
+  }
+
+  .resource-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .resource-item:hover .resource-icon-wrapper {
+    background: rgba(7, 26, 45, 0.45);
+    border-color: var(--color-gold-400);
+  }
+
+  .resource-description {
+    font-family: var(--font-sans);
+    color: var(--color-cream-50, #fcfaf5);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+    max-width: 200px;
+  }
+
+  .resource-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
+    color: rgba(252, 250, 245, 0.8);
+  }
+
+  .cta-emphasis {
+    color: var(--color-gold-500, #c6923d);
+  }
+
+  .resource-arrow {
+    width: 14px;
+    height: 14px;
+    color: var(--color-gold-500, #c6923d);
+    margin-left: 0.25rem;
+    transition: transform 250ms ease;
+  }
+
+  .resource-item:hover .resource-arrow {
+    transform: translateX(5px);
+  }
+
+  @media (min-width: 64rem) {
+    .resource-item {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1fr);
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    .resource-icon-wrapper {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .resource-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .resource-content {
+      min-width: 0;
+    }
+
+    .resource-description {
+      max-width: 18ch;
+      font-size: clamp(0.72rem, 0.65rem + 0.15vw, 0.85rem);
+      line-height: 1.25;
+    }
+
+    .resource-cta {
+      justify-content: flex-start;
+      margin-top: 0.4rem;
+      font-size: clamp(0.62rem, 0.58rem + 0.1vw, 0.75rem);
+      white-space: nowrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .resource-item {
+      transition: none;
+    }
+    .resource-item:hover .resource-arrow {
+      transform: none;
+    }
+  }
+</style>

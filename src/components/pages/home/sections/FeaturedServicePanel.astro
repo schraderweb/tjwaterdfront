@@ -1,0 +1,83 @@
+---
+import Button from "@/components/shared/ui/Button.astro";
+import GoldLine from "@/components/shared/ui/GoldLine.astro";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+}
+
+const { eyebrow, title, description, href } = Astro.props;
+---
+
+<article class="featured-service-panel relative overflow-hidden">
+  <!-- Faint watermark anchor -->
+  <div class="absolute -right-24 -top-8 text-navy-900 opacity-[0.15] pointer-events-none select-none z-0" aria-hidden="true">
+    <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 7.75V20M5 12.5H3.5a8.5 8.5 0 0 0 17 0H19M12 20a4.25 4.25 0 0 0-4.25-4.25h8.5A4.25 4.25 0 0 0 12 20Z"/>
+      <circle cx="12" cy="5.5" r="2.25"/>
+    </svg>
+  </div>
+
+  <div class="panel-content relative z-10">
+    <p class="eyebrow">{eyebrow}</p>
+    <h3 class="panel-title">{title}</h3>
+    <GoldLine />
+    <p class="panel-description">{description}</p>
+    <Button
+      href={href}
+      variant="navy-outline"
+      size="md"
+      ariaLabel="Read more about Starr Boat Lifts"
+    >Read More <span class="sr-only">about Starr Boat Lifts</span></Button>
+  </div>
+</article>
+
+<style>
+  .featured-service-panel {
+    display: flex;
+    min-height: 0;
+    height: 100%;
+    align-items: center;
+    background: var(--color-navy-950);
+    color: var(--color-text-on-dark);
+    padding: clamp(2rem, 4vw, 5rem);
+  }
+
+  .panel-content {
+    max-width: 30rem;
+  }
+
+  .panel-content .eyebrow {
+    margin: 0 0 1rem;
+    color: var(--color-gold-400);
+  }
+
+  .panel-content .panel-title {
+    max-width: 6ch;
+    margin: 0 0 1.5rem;
+    color: var(--color-text-on-dark);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .panel-description {
+    max-width: 34ch;
+    margin: 1.5rem 0 2rem;
+    color: rgba(246, 241, 231, 0.82);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  @media (max-width: 47.999rem) {
+    .featured-service-panel {
+      min-height: 23rem;
+      height: auto;
+    }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+/**
+ * HeroActions.astro — primary + secondary CTAs in the hero.
+ */
+import Button from "@/components/shared/ui/Button.astro";
+---
+
+<div class="hero-actions">
+  <Button href="/gallery" variant="navy-outline" size="md">
+    Explore Our Work
+  </Button>
+  <Button
+    href="/gallery"
+    variant="ghost-dark"
+    size="md"
+    icon="play"
+    iconPosition="left"
+    class="watch-action"
+  >
+    Watch Our Work
+  </Button>
+</div>
+
+<style>
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(0.85rem, 1vw, 1.25rem);
+  }
+
+  .hero-actions :global(.navy-outline) {
+    min-width: 14.5rem;
+  }
+
+  :global(.watch-action) :global(svg) {
+    width: 2.35rem;
+    height: 2.35rem;
+    padding: 0.42rem;
+    border: 1px solid var(--color-gold-600);
+    border-radius: 50%;
+    color: var(--color-gold-600);
+  }
+
+  :global(.watch-action) {
+    padding-inline: 0.25rem;
+  }
+</style>

@@ -1,0 +1,517 @@
+---
+/**
+ * Navbar.astro — transparent brand navigation over the hero.
+ * The lockup is inline SVG/text so it stays crisp without an external logo request.
+ */
+import Button from "@/components/shared/ui/Button.astro";
+import Icon from "@/components/shared/ui/Icon.astro";
+import { navLinks, site } from "@/data/site";
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath === href || currentPath.startsWith(href + "/");
+---
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header data-navbar class="navbar">
+  <div class="site-container navbar-inner">
+    <a href="/" class="logo">
+      <span class="logo-emblem" aria-hidden="true">
+        <Icon name="anchor" size={68} strokeWidth={1.25} />
+      </span>
+      <span class="logo-lockup">
+        <span class="logo-name">T&amp;J</span>
+        <span class="logo-sub">Waterfront<br />Services</span>
+      </span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <ul class="nav-list">
+        {
+          navLinks.map((link) => (
+            <li class:list={["nav-item", link.children && "has-dropdown"]}>
+              {
+                link.children ? (
+                  <>
+                    <a
+                      href={link.href}
+                      class:list={["nav-link", isActive(link.href) && "is-active"]}
+                      aria-haspopup="true"
+                      {...(isActive(link.href) ? { "aria-current": "page" } : {})}
+                    >
+                      {link.label}
+                      <Icon name="chevron-down" size={10} class="nav-chevron" />
+                    </a>
+                    <ul class="dropdown">
+                      {link.children.map((child) => (
+                        <li>
+                          <a
+                            href={child.href}
+                            class:list={["dropdown-link", isActive(child.href) && "is-active-child"]}
+                            {...(isActive(child.href) ? { "aria-current": "page" } : {})}
+                          >{child.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <a
+                    href={link.href}
+                    class:list={["nav-link", isActive(link.href) && "is-active"]}
+                    {...(isActive(link.href) ? { "aria-current": "page" } : {})}
+                  >
+                    {link.label}
+                  </a>
+                )
+              }
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href={site.phoneHref} class="nav-phone">
+        <Icon name="phone" size={16} />
+        <span>{site.phoneDisplay}</span>
+      </a>
+      <Button href="/contact" variant="gold" size="sm" class="nav-cta">
+        Start Your Project
+      </Button>
+      <button
+        type="button"
+        data-menu-button
+        class="menu-button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <Icon name="menu" size={24} class="icon-menu" />
+        <Icon name="close" size={24} class="icon-close" />
+      </button>
+    </div>
+  </div>
+
+  <div data-menu-panel id="mobile-menu" class="mobile-menu">
+    <nav aria-label="Mobile">
+      <ul class="mobile-list">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class:list={["mobile-link", isActive(link.href) && "is-active"]}>
+              {link.label}
+            </a>
+            {link.children && (
+              <ul class="mobile-sublist">
+                {link.children.map((child) => (
+                  <li>
+                    <a href={child.href} class:list={["mobile-sublink", isActive(child.href) && "is-active-child"]}>
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mobile-actions">
+      <a href={site.phoneHref} class="mobile-phone">
+        <Icon name="phone" size={16} />
+        {site.phoneDisplay}
+      </a>
+      <Button href="/contact" variant="gold" size="md" class="w-full">
+        Start Your Project
+      </Button>
+      <p class="mobile-hours">Open daily 7:00 AM – 7:00 PM · Howell, MI</p>
+    </div>
+  </div>
+</header>
+
+<script>
+  import "@/scripts/navbar.js";
+</script>
+
+<style>
+  .skip-link {
+    position: fixed;
+    top: -3rem;
+    left: 1rem;
+    z-index: var(--z-modal);
+    padding: 0.5rem 1rem;
+    background: var(--color-gold-500);
+    color: var(--color-navy-950);
+    font-weight: 700;
+    font-size: var(--text-small);
+    border-radius: var(--radius-sm);
+    transition: top var(--duration-fast) var(--ease-premium);
+  }
+
+  .skip-link:focus-visible { top: 0.75rem; }
+
+  .navbar {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: var(--z-nav);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color var(--duration-base) var(--ease-premium),
+      border-color var(--duration-base) var(--ease-premium),
+      box-shadow var(--duration-base) var(--ease-premium);
+  }
+
+  /* Legibility scrim over the bright hero while the nav is transparent */
+  .navbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 26, 43, 0.5) 0%,
+      rgba(7, 26, 43, 0.28) 55%,
+      rgba(7, 26, 43, 0) 100%
+    );
+    transition: opacity var(--duration-base) var(--ease-premium);
+  }
+
+  .navbar.is-scrolled::before {
+    opacity: 0;
+  }
+
+  .navbar.is-scrolled {
+    background: rgba(7, 26, 43, 0.82);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 30px -18px rgba(7, 26, 43, 0.5);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .navbar.is-scrolled { background: rgba(7, 26, 43, 0.97); }
+  }
+
+  .navbar-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2.5rem);
+    width: calc(100% - 4rem);
+    max-width: none;
+    min-height: 4.5rem;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-white);
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .logo-emblem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold-500);
+  }
+
+  .logo-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.35rem, 2.8vw, 3.2rem);
+    letter-spacing: -0.03em;
+  }
+
+  .logo-sub {
+    padding-left: 0.6rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.62);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    line-height: 1.45;
+    text-transform: uppercase;
+    color: var(--color-white);
+    text-shadow: 0 1px 10px rgba(7, 26, 43, 0.65);
+  }
+
+  .nav-desktop {
+    display: none;
+    justify-self: center;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 2.7vw, 2.8rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item { position: relative; }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding-block: 0.75rem;
+    position: relative;
+    color: var(--color-white);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(7, 26, 43, 0.65);
+    transition: color var(--duration-fast) var(--ease-premium);
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0.28rem;
+    height: 2px;
+    background: var(--color-gold-500);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-base) var(--ease-premium);
+  }
+
+  .nav-link:hover,
+  .nav-item.has-dropdown:focus-within .nav-link { color: var(--color-gold-200); }
+  .nav-link:hover::after,
+  .nav-link.is-active::after { transform: scaleX(1); }
+  .nav-link.is-active { color: var(--color-gold-200); }
+
+  .nav-chevron { transition: transform var(--duration-base) var(--ease-premium); }
+  .has-dropdown:hover .nav-chevron,
+  .has-dropdown:focus-within .nav-chevron { transform: rotate(180deg); }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    translate: -50% 0.5rem;
+    min-width: 15rem;
+    padding: 0.5rem;
+    margin: 0;
+    list-style: none;
+    background: rgba(7, 26, 43, 0.96);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition:
+      opacity var(--duration-base) var(--ease-premium),
+      transform var(--duration-base) var(--ease-premium),
+      visibility var(--duration-base) var(--ease-premium);
+  }
+
+  .has-dropdown:hover .dropdown,
+  .has-dropdown:focus-within .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-on-dark);
+    font-size: var(--text-small);
+    text-decoration: none;
+  }
+
+  .dropdown-link:hover,
+  .dropdown-link:focus-visible {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-gold-400);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  }
+
+  .nav-phone {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--color-white);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(7, 26, 43, 0.65);
+  }
+
+  .nav-phone svg { color: var(--color-gold-400); }
+  .nav-phone:hover { color: var(--color-gold-200); }
+  :global(.nav-cta) {
+    display: none;
+    min-width: 14.5rem;
+    min-height: 3.25rem;
+  }
+
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--color-white);
+    cursor: pointer;
+  }
+
+  .menu-button .icon-close { display: none; }
+  .navbar.is-open .menu-button .icon-menu { display: none; }
+  .navbar.is-open .menu-button .icon-close { display: block; }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    top: 4.5rem;
+    z-index: calc(var(--z-menu) - 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background: rgba(7, 26, 43, 0.98);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--duration-base) var(--ease-premium),
+      transform var(--duration-base) var(--ease-premium),
+      visibility var(--duration-base) var(--ease-premium);
+  }
+
+  .navbar.is-open .mobile-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mobile-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 1.5rem var(--container-gutter) 2rem;
+  }
+
+  .mobile-link {
+    display: block;
+    padding: 1rem 0.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-text-on-dark);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+
+  .mobile-sublist {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0.25rem 0 0.5rem 1rem;
+  }
+
+  .mobile-sublink {
+    display: block;
+    padding: 0.65rem 0.25rem;
+    color: rgba(246, 241, 231, 0.75);
+    font-size: var(--text-body);
+    text-decoration: none;
+  }
+
+  .mobile-link.is-active,
+  .mobile-sublink.is-active-child {
+    color: var(--color-gold-400);
+  }
+
+  .dropdown .is-active-child {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-gold-400);
+  }
+
+  .mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 var(--container-gutter) 2.5rem;
+  }
+
+  .mobile-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--color-gold-400);
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .mobile-hours {
+    margin: 0;
+    color: rgba(246, 241, 231, 0.55);
+    font-size: var(--text-tiny);
+    text-align: center;
+  }
+
+  @media (min-width: 64rem) {
+    .navbar-inner { min-height: 5rem; }
+    .nav-desktop {
+      display: block;
+      transform: translateX(calc(-1 * clamp(1rem, 1.5vw, 2rem)));
+    }
+    :global(.nav-cta) { display: inline-flex; }
+    .menu-button,
+    .mobile-menu { display: none; }
+  }
+
+  @media (max-width: 63.999rem) {
+    .navbar-inner {
+      width: calc(100% - 2 * var(--container-gutter));
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .nav-phone { display: inline-flex; }
+  }
+
+  @media (max-width: 80rem) and (min-width: 64rem) {
+    .nav-list { gap: 1.15rem; }
+    .logo-sub { display: none; }
+    .logo-emblem svg { width: 42px; height: 42px; }
+    .logo-name { font-size: 2rem; }
+  }
+</style>
