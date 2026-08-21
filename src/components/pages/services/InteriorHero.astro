@@ -1,0 +1,284 @@
+---
+import { Picture } from "astro:assets";
+import Button from "@/components/shared/ui/Button.astro";
+
+interface Props {
+  title: string;
+  category?: string;
+  description: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+const { 
+  title, 
+  category = "WATERFRONT SERVICES", 
+  description, 
+  image, 
+  imageAlt 
+} = Astro.props;
+---
+
+<section class="interior-hero">
+  <div class="hero-bg">
+    <Picture 
+      src={image} 
+      alt={imageAlt}
+      formats={["avif", "webp"]} 
+      loading="eager"
+      fetchpriority="high"
+      class="hero-image"
+      widths={[640, 960, 1280, 1920, 2400]}
+      sizes="100vw"
+    />
+    <div class="tonal-overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero-content-wrapper">
+    <div class="hero-content">
+      {category && <span class="service-category">{category}</span>}
+      <h1 class="service-title">{title}</h1>
+      <p class="service-description">{description}</p>
+      <div class="hero-actions">
+        <Button href="/contact" variant="primary">
+          CONTACT US &rarr;
+        </Button>
+        <a href="#work" class="view-work">
+          <span class="play-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"></polygon>
+            </svg>
+          </span>
+          VIEW OUR WORK
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator-wrapper">
+    <div class="scroll-indicator">
+      <div class="vertical-line"></div>
+      <div class="scroll-content">
+        <span class="scroll-text">SCROLL TO EXPLORE</span>
+        <svg class="chevron-down" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .interior-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 45rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-navy-950, #071a2d);
+    color: var(--color-cream-50, #f7f3eb);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Deep navy tonal treatment for contrast, seamlessly blending into the image */
+  .tonal-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(7, 26, 45, 0.95) 0%,
+      rgba(7, 26, 45, 0.75) 40%,
+      rgba(7, 26, 45, 0.1) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero-content-wrapper {
+    position: relative;
+    z-index: 2;
+    width: calc(100% - 2 * var(--hero-gutter));
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    /* Offset header height visually */
+    margin-top: 4rem;
+  }
+
+  .hero-content {
+    max-width: 45rem;
+    padding-right: 2rem;
+  }
+
+  .service-category {
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--color-gold-400, #d4af37);
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow, 0.8125rem);
+    font-weight: 700;
+    letter-spacing: var(--tracking-eyebrow, 0.15em);
+    text-transform: uppercase;
+  }
+
+  .service-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    font-weight: 400;
+    line-height: 1;
+    margin: 0 0 2rem;
+    color: var(--color-cream-50, #f7f3eb);
+  }
+
+  .service-description {
+    font-family: var(--font-sans);
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-cream-200, #e0d8c8);
+    margin: 0 0 3.5rem;
+    max-width: 36rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .view-work {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow, 0.8125rem);
+    font-weight: 700;
+    letter-spacing: var(--tracking-eyebrow, 0.15em);
+    color: var(--color-cream-100, #f0eae1);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .view-work:hover {
+    color: var(--color-gold-400, #d4af37);
+  }
+
+  .play-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-gold-600, #a88b2d);
+    color: var(--color-gold-500, #c5a032);
+    transition: all 0.3s ease;
+  }
+
+  .view-work:hover .play-icon {
+    background-color: var(--color-gold-500, #c5a032);
+    color: var(--color-navy-950, #071a2d);
+    border-color: var(--color-gold-500, #c5a032);
+  }
+
+  /* Scroll Indicator */
+  .scroll-indicator-wrapper {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    width: calc(100% - 2 * var(--hero-gutter));
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    display: flex;
+    pointer-events: none;
+  }
+
+  .scroll-indicator {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .vertical-line {
+    width: 1px;
+    height: 3rem;
+    background-color: var(--color-gold-600, #a88b2d);
+  }
+
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .scroll-text {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-cream-300, #cfc5b0);
+    text-transform: uppercase;
+  }
+
+  .chevron-down {
+    color: var(--color-gold-500, #c5a032);
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(5px);
+    }
+    60% {
+      transform: translateY(3px);
+    }
+  }
+
+  @media (max-width: 64rem) {
+    .tonal-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(7, 26, 45, 0.5) 0%,
+        rgba(7, 26, 45, 0.85) 60%,
+        rgba(7, 26, 45, 0.95) 100%
+      );
+    }
+
+    .hero-content-wrapper,
+    .scroll-indicator-wrapper {
+      width: calc(100% - 2 * var(--container-gutter));
+    }
+
+    .hero-content-wrapper {
+      align-items: flex-end;
+      padding-bottom: 8rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+    
+    .scroll-indicator-wrapper {
+      bottom: 2rem;
+    }
+  }
+</style>
