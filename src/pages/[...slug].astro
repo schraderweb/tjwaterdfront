@@ -6,6 +6,7 @@
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 
 export function getStaticPaths() {
@@ -63,6 +64,18 @@ const pageNames: Record<string, string> = {
 };
 const pageName =
   pageNames[slug] ?? slug.split("/").pop()!.replace(/-/g, " ");
+
+const galleryCategoryBySlug: Record<string, string> = {
+  "services/seawalls": "seawalls",
+  "services/retaining-walls": "retaining-walls",
+  "services/patios": "patios",
+  "services/beaches": "beaches",
+  "services/decks-boardwalks": "decks-boardwalks",
+  "services/dock-service": "dock-service-repairs",
+  "services/hoist-service": "hoist-service-repairs",
+};
+
+const galleryCategory = galleryCategoryBySlug[slug];
 ---
 
 
@@ -76,6 +89,7 @@ const pageName =
         <p>We&rsquo;re putting the finishing touches on this page.</p>
       </div>
     </section>
+    {galleryCategory && <GallerySection category={galleryCategory} />}
   </main>
   <SiteFooter />
 </BaseLayout>

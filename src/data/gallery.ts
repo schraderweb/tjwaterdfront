@@ -9,15 +9,11 @@ import type { ImageMetadata } from "astro";
  * site after the next build. No code changes required.
  */
 
-export type GallerySize = "small" | "medium" | "large" | "tall" | "wide";
-
 export interface GalleryImage {
   src: ImageMetadata;
   fullSrc: string;
   alt: string;
   category: string;
-  categoryLabel: string;
-  size: GallerySize;
 }
 
 export interface GalleryCategory {
@@ -49,9 +45,6 @@ const DEFAULT_CATEGORY_ORDER = [
   "dock-service-repairs",
   "hoist-service-repairs",
 ];
-
-/** Mosaic rhythm cycled across each category (matches the original gallery look). */
-const SIZE_CYCLE: GallerySize[] = ["large", "tall", "wide", "medium", "small", "medium"];
 
 function humanize(slug: string): string {
   const override = CATEGORY_LABEL_OVERRIDES[slug];
@@ -124,8 +117,6 @@ export function getGalleryImages(category?: string): GalleryImage[] {
         fullSrc: meta.src,
         alt,
         category: slug,
-        categoryLabel: entry.label,
-        size: SIZE_CYCLE[index % SIZE_CYCLE.length],
       });
     });
   }

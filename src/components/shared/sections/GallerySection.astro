@@ -20,22 +20,30 @@ const { category } = Astro.props;
 const images = getGalleryImages(category);
 const categories = category ? [] : getGalleryCategories();
 const showTabs = !category;
+const categoryLabel = category
+  ? getGalleryCategories().find((item) => item.slug === category)?.label ?? category
+  : "";
 ---
 
 <section data-gallery class="gallery-section">
   <div class="site-container">
-    {
-      showTabs && (
-        <header class="gallery-header">
-          <span class="eyebrow">OUR WORK</span>
-          <h2 class="gallery-title">Project Gallery</h2>
+    <header class:list={["gallery-header", category && "gallery-header-category"]}>
+      {showTabs && <span class="eyebrow">OUR WORK</span>}
+      <h2 class="gallery-title">{category ? `${categoryLabel} Gallery` : "Project Gallery"}</h2>
+      <span class="gallery-decoration" aria-hidden="true">
+        <svg viewBox="0 0 44 8" focusable="false">
+          <path d="M1 2c3 0 3 4 6 4s3-4 6-4 3 4 6 4 3-4 6-4 3 4 6 4 3-4 6-4" />
+        </svg>
+      </span>
+      {
+        showTabs && (
           <p class="gallery-lead">
             Every project below is organized by service &mdash; drop by drop, shoreline by
             shoreline. Click any photo to view it full size.
           </p>
-        </header>
-      )
-    }
+        )
+      }
+    </header>
 
     {
       showTabs && (
@@ -72,7 +80,7 @@ const showTabs = !category;
             data-category={img.category}
             data-full={img.fullSrc}
             data-caption={img.alt}
-            class:list={["gallery-item", `size-${img.size}`]}
+            class="gallery-item"
             role="button"
             tabindex={0}
             aria-label={`View ${img.alt}`}
@@ -83,12 +91,8 @@ const showTabs = !category;
               formats={["avif", "webp"]}
               class="gallery-image"
               widths={[400, 800, 1200]}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 480px) calc(100vw - 2rem), (max-width: 768px) calc(50vw - 1.5rem), 240px"
             />
-            <div class="hover-overlay" aria-hidden="true"></div>
-            <div class="zoom-hint" aria-hidden="true">
-              <Icon name="expand" size={20} />
-            </div>
           </div>
         ))
       }
@@ -153,27 +157,57 @@ const showTabs = !category;
 
 <style>
   .gallery-section {
-    background-color: var(--color-cream-50, #f7f3eb);
-    padding-block: clamp(4rem, 8vw, 8rem);
+    background-color: #f3f4f6;
+    padding-block: 0 clamp(4rem, 8vw, 8rem);
   }
 
-  /* ── Header (tabs mode) ─────────────────────────────── */
+  .gallery-section > .site-container {
+    max-width: 67.5rem;
+  }
+
+  /* ── Header ────────────────────────────────────────── */
   .gallery-header {
     max-width: 40rem;
-    margin-bottom: clamp(2rem, 3vw, 3.5rem);
+    margin-inline: auto;
+    padding-block: clamp(2.5rem, 4vw, 4rem) clamp(1.75rem, 3vw, 3rem);
+  }
+
+  .gallery-header-category {
+    max-width: 67.5rem;
+    padding-bottom: clamp(1.25rem, 2vw, 2rem);
   }
 
   .gallery-title {
-    margin: 0.5rem 0 0.75rem;
-    font-family: var(--font-display);
-    font-size: var(--text-h2);
-    font-weight: 400;
-    line-height: var(--leading-heading);
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.1;
     color: var(--color-navy-950);
   }
 
+  .gallery-decoration {
+    display: block;
+    width: 2.75rem;
+    height: 0.5rem;
+    margin-top: 0.75rem;
+    color: var(--color-water-600);
+  }
+
+  .gallery-decoration svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2.5;
+  }
+
   .gallery-lead {
-    margin: 0;
+    max-width: 40rem;
+    margin: 1.25rem 0 0;
     color: var(--color-text-secondary);
     font-size: var(--text-lead);
     line-height: var(--leading-body);
@@ -231,21 +265,28 @@ const showTabs = !category;
     color: var(--color-gold-400);
   }
 
-  /* ── Mosaic grid ───────────────────────────────────── */
+  /* ── Uniform gallery grid ──────────────────────────── */
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: clamp(1rem, 2vw, 2.5rem);
-    grid-auto-flow: dense;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.875rem;
+    width: 100%;
+    max-width: 65.625rem;
+    margin-inline: auto;
   }
 
   .gallery-item {
     position: relative;
     overflow: hidden;
+    height: 12.5rem;
     background-color: var(--color-cream-200, #e0d8c8);
-    box-shadow: 0 10px 30px rgba(5, 20, 35, 0.05);
+    box-shadow: 0 0 1rem rgba(7, 26, 43, 0.2);
     border-radius: 4px;
     cursor: zoom-in;
+    transition:
+      transform 300ms ease,
+      box-shadow 300ms ease;
+    will-change: transform;
   }
 
   .gallery-item.is-hidden {
@@ -258,74 +299,23 @@ const showTabs = !category;
   }
 
   .gallery-image {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .hover-overlay {
-    position: absolute;
-    inset: 0;
-    background: var(--color-navy-950, #071a2d);
-    opacity: 0;
-    mix-blend-mode: multiply;
-    transition: opacity 0.5s var(--ease-premium, cubic-bezier(0.2, 0.8, 0.2, 1));
-  }
-
-  .zoom-hint {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-white);
-    opacity: 0;
-    transition: opacity var(--duration-base) var(--ease-premium);
-  }
-
-  .gallery-item:hover .hover-overlay {
-    opacity: 0.15;
-  }
-
-  .gallery-item:hover .gallery-image {
-    transform: scale(1.03);
-  }
-
-  .gallery-item:hover .zoom-hint {
-    opacity: 0.9;
-  }
-
-  /* Asymmetrical sizing on the 12-col grid */
-  .size-large {
-    grid-column: span 12;
-    aspect-ratio: 16/9;
-  }
-
-  .size-wide {
-    grid-column: span 8;
-    aspect-ratio: 16/10;
-  }
-
-  .size-tall {
-    grid-column: span 4;
-    grid-row: span 2;
-    aspect-ratio: 3/4;
-  }
-
-  .size-medium {
-    grid-column: span 6;
-    aspect-ratio: 4/3;
-  }
-
-  .size-small {
-    grid-column: span 4;
-    aspect-ratio: 1/1;
+  .gallery-item:hover {
+    z-index: 2;
+    transform: scale(1.2);
+    box-shadow: 0 0 2rem rgba(7, 26, 43, 0.34);
   }
 
   /* ── Empty state ───────────────────────────────────── */
   .gallery-empty {
+    max-width: 65.625rem;
     margin: 2rem 0 0;
+    margin-inline: auto;
     padding: 2rem;
     border: 1px dashed var(--color-cream-300);
     border-radius: var(--radius-md);
@@ -469,19 +459,12 @@ const showTabs = !category;
 
   @media (max-width: 64rem) {
     .gallery-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.5rem;
     }
 
-    .size-large,
-    .size-wide,
-    .size-medium {
-      grid-column: span 2;
-    }
-
-    .size-tall,
-    .size-small {
-      grid-column: span 1;
+    .gallery-item {
+      height: 11.25rem;
     }
 
     .lightbox-nav {
@@ -498,15 +481,14 @@ const showTabs = !category;
     }
   }
 
-  @media (max-width: 40rem) {
+  @media (max-width: 48rem) {
     .gallery-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
     }
 
     .gallery-item {
-      grid-column: span 1 !important;
-      aspect-ratio: 4/3;
+      height: 11.25rem;
     }
 
     .gallery-tabs {
@@ -532,6 +514,16 @@ const showTabs = !category;
 
     .lightbox-next {
       right: 1rem;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-item {
+      height: 13.75rem;
     }
   }
 </style>
