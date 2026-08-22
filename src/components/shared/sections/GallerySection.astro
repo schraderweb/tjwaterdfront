@@ -1,0 +1,537 @@
+---
+/**
+ * GallerySection.astro — folder-driven gallery.
+ *
+ * With `category` set: renders that category's photos (service pages).
+ * Without `category`: renders every category with filter tabs (/gallery).
+ *
+ * Photos live in `src/content/gallery/<category>/` — they are discovered at
+ * build time. Adding or removing photos requires no code changes.
+ */
+import { Picture } from "astro:assets";
+import Icon from "@/components/shared/ui/Icon.astro";
+import { getGalleryCategories, getGalleryImages } from "@/data/gallery";
+
+interface Props {
+  category?: string;
+}
+
+const { category } = Astro.props;
+const images = getGalleryImages(category);
+const categories = category ? [] : getGalleryCategories();
+const showTabs = !category;
+---
+
+<section data-gallery class="gallery-section">
+  <div class="site-container">
+    {
+      showTabs && (
+        <header class="gallery-header">
+          <span class="eyebrow">OUR WORK</span>
+          <h2 class="gallery-title">Project Gallery</h2>
+          <p class="gallery-lead">
+            Every project below is organized by service &mdash; drop by drop, shoreline by
+            shoreline. Click any photo to view it full size.
+          </p>
+        </header>
+      )
+    }
+
+    {
+      showTabs && (
+        <div class="gallery-tabs" role="tablist" aria-label="Gallery categories">
+          <button
+            type="button"
+            class="gallery-tab is-active"
+            data-gallery-tab="all"
+            aria-pressed="true"
+          >
+            All <span class="tab-count">{images.length}</span>
+          </button>
+          {
+            categories.map((cat) => (
+              <button
+                type="button"
+                class:list={["gallery-tab", cat.count === 0 && "is-empty"]}
+                data-gallery-tab={cat.slug}
+                aria-pressed="false"
+              >
+                {cat.label} <span class="tab-count">{cat.count}</span>
+              </button>
+            ))
+          }
+        </div>
+      )
+    }
+
+    <div data-gallery-grid class="gallery-grid">
+      {
+        images.map((img) => (
+          <div
+            data-gallery-item
+            data-category={img.category}
+            data-full={img.fullSrc}
+            data-caption={img.alt}
+            class:list={["gallery-item", `size-${img.size}`]}
+            role="button"
+            tabindex={0}
+            aria-label={`View ${img.alt}`}
+          >
+            <Picture
+              src={img.src}
+              alt={img.alt}
+              formats={["avif", "webp"]}
+              class="gallery-image"
+              widths={[400, 800, 1200]}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+            <div class="hover-overlay" aria-hidden="true"></div>
+            <div class="zoom-hint" aria-hidden="true">
+              <Icon name="expand" size={20} />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      showTabs && (
+        <p class="gallery-empty" data-gallery-empty hidden>
+          Photos coming soon &mdash; check back after our next project.
+        </p>
+      )
+    }
+  </div>
+
+  <div
+    class="lightbox"
+    data-lightbox
+    hidden
+    aria-modal="true"
+    role="dialog"
+    aria-label="Photo viewer"
+  >
+    <button
+      type="button"
+      class="lightbox-close"
+      data-lightbox-close
+      aria-label="Close photo viewer"
+    >
+      <Icon name="close" size={26} />
+    </button>
+
+    <button
+      type="button"
+      class="lightbox-nav lightbox-prev"
+      data-lightbox-prev
+      aria-label="Previous photo"
+    >
+      <Icon name="chevron-left" size={30} />
+    </button>
+    <button
+      type="button"
+      class="lightbox-nav lightbox-next"
+      data-lightbox-next
+      aria-label="Next photo"
+    >
+      <Icon name="chevron-right" size={30} />
+    </button>
+
+    <figure class="lightbox-figure">
+      <img data-lightbox-image class="lightbox-image" alt="" draggable="false" />
+      <figcaption class="lightbox-meta">
+        <span data-lightbox-caption class="lightbox-caption"></span>
+        <span data-lightbox-counter class="lightbox-counter"></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  import "@/scripts/gallery.js";
+</script>
+
+<style>
+  .gallery-section {
+    background-color: var(--color-cream-50, #f7f3eb);
+    padding-block: clamp(4rem, 8vw, 8rem);
+  }
+
+  /* ── Header (tabs mode) ─────────────────────────────── */
+  .gallery-header {
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 3vw, 3.5rem);
+  }
+
+  .gallery-title {
+    margin: 0.5rem 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    line-height: var(--leading-heading);
+    color: var(--color-navy-950);
+  }
+
+  .gallery-lead {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  /* ── Category tabs ─────────────────────────────────── */
+  .gallery-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+
+  .gallery-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--color-border-dark);
+    border-radius: 999px;
+    background: var(--color-white);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      border-color var(--duration-fast) var(--ease-premium),
+      color var(--duration-fast) var(--ease-premium);
+  }
+
+  .gallery-tab:hover {
+    border-color: var(--color-gold-500);
+    color: var(--color-navy-950);
+  }
+
+  .gallery-tab.is-active {
+    background: var(--color-navy-950);
+    border-color: var(--color-navy-950);
+    color: var(--color-text-on-dark);
+  }
+
+  .gallery-tab.is-empty .tab-count {
+    opacity: 0.5;
+  }
+
+  .tab-count {
+    font-size: var(--text-tiny);
+    font-weight: 700;
+    color: var(--color-gold-600);
+  }
+
+  .gallery-tab.is-active .tab-count {
+    color: var(--color-gold-400);
+  }
+
+  /* ── Mosaic grid ───────────────────────────────────── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1rem, 2vw, 2.5rem);
+    grid-auto-flow: dense;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-cream-200, #e0d8c8);
+    box-shadow: 0 10px 30px rgba(5, 20, 35, 0.05);
+    border-radius: 4px;
+    cursor: zoom-in;
+  }
+
+  .gallery-item.is-hidden {
+    display: none;
+  }
+
+  .gallery-item:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+  }
+
+  .gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--color-navy-950, #071a2d);
+    opacity: 0;
+    mix-blend-mode: multiply;
+    transition: opacity 0.5s var(--ease-premium, cubic-bezier(0.2, 0.8, 0.2, 1));
+  }
+
+  .zoom-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-premium);
+  }
+
+  .gallery-item:hover .hover-overlay {
+    opacity: 0.15;
+  }
+
+  .gallery-item:hover .gallery-image {
+    transform: scale(1.03);
+  }
+
+  .gallery-item:hover .zoom-hint {
+    opacity: 0.9;
+  }
+
+  /* Asymmetrical sizing on the 12-col grid */
+  .size-large {
+    grid-column: span 12;
+    aspect-ratio: 16/9;
+  }
+
+  .size-wide {
+    grid-column: span 8;
+    aspect-ratio: 16/10;
+  }
+
+  .size-tall {
+    grid-column: span 4;
+    grid-row: span 2;
+    aspect-ratio: 3/4;
+  }
+
+  .size-medium {
+    grid-column: span 6;
+    aspect-ratio: 4/3;
+  }
+
+  .size-small {
+    grid-column: span 4;
+    aspect-ratio: 1/1;
+  }
+
+  /* ── Empty state ───────────────────────────────────── */
+  .gallery-empty {
+    margin: 2rem 0 0;
+    padding: 2rem;
+    border: 1px dashed var(--color-cream-300);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    font-size: var(--text-body);
+    text-align: center;
+  }
+
+  /* ── Lightbox ──────────────────────────────────────── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 26, 43, 0.94);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    animation: lightbox-fade-in var(--duration-base) var(--ease-premium);
+  }
+
+  @keyframes lightbox-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: clamp(1rem, 3vw, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      border-color var(--duration-fast) var(--ease-premium),
+      color var(--duration-fast) var(--ease-premium),
+      transform var(--duration-fast) var(--ease-premium);
+  }
+
+  .lightbox-close:hover,
+  .lightbox-close:focus-visible {
+    background: rgba(198, 146, 61, 0.2);
+    border-color: var(--color-gold-500);
+    color: var(--color-gold-400);
+    transform: rotate(90deg);
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      border-color var(--duration-fast) var(--ease-premium),
+      color var(--duration-fast) var(--ease-premium);
+  }
+
+  .lightbox-nav:hover,
+  .lightbox-nav:focus-visible {
+    background: rgba(198, 146, 61, 0.2);
+    border-color: var(--color-gold-500);
+    color: var(--color-gold-400);
+  }
+
+  .lightbox-prev {
+    left: clamp(0.75rem, 2vw, 1.5rem);
+  }
+
+  .lightbox-next {
+    right: clamp(0.75rem, 2vw, 1.5rem);
+  }
+
+  .lightbox-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: min(92vw, 75rem);
+    padding-top: 4.5rem;
+  }
+
+  .lightbox-image {
+    max-width: 100%;
+    max-height: min(78vh, 60rem);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-panel);
+  }
+
+  .lightbox-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    color: var(--color-text-on-dark);
+  }
+
+  .lightbox-caption {
+    font-family: var(--font-display);
+    font-size: var(--text-lead);
+    color: var(--color-text-on-image);
+  }
+
+  .lightbox-counter {
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-400);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 64rem) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .size-large,
+    .size-wide,
+    .size-medium {
+      grid-column: span 2;
+    }
+
+    .size-tall,
+    .size-small {
+      grid-column: span 1;
+    }
+
+    .lightbox-nav {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+
+    .lightbox-figure {
+      max-width: 100vw;
+    }
+
+    .lightbox-image {
+      max-height: 70vh;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      grid-column: span 1 !important;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+    }
+
+    .gallery-tab {
+      white-space: nowrap;
+    }
+
+    .lightbox-nav {
+      top: auto;
+      bottom: 1rem;
+      translate: 0 0;
+    }
+
+    .lightbox-prev {
+      left: 1rem;
+    }
+
+    .lightbox-next {
+      right: 1rem;
+    }
+  }
+</style>

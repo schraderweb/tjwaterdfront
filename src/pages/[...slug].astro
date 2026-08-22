@@ -12,7 +12,6 @@ export function getStaticPaths() {
   const slugs = [
     "services",
     "service-areas",
-    "gallery",
     "about",
     "contact",
     "services/landscaping",
@@ -41,7 +40,6 @@ const slug = Astro.params.slug ?? "";
 const pageNames: Record<string, string> = {
   "services": "Services",
   "service-areas": "Service Areas",
-  "gallery": "Gallery",
   "about": "About Us",
   "contact": "Contact Us",
   "services/landscaping": "Landscaping",

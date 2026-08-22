@@ -2,29 +2,14 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
-import ProjectGallery from "@/components/pages/services/ProjectGallery.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
 import PopularServices from "@/components/shared/sections/PopularServices.astro";
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 
-// Placeholder images
+// Hero image
 import heroImage from "@/assets/hero/waterfront-hero.png";
-import starrLift01 from "@/assets/featured-services/starr-lift-01.webp";
-import starrLift02 from "@/assets/featured-services/starr-lift-02.webp";
-import starrLift03 from "@/assets/featured-services/starr-lift-03.webp";
-import starrLift04 from "@/assets/featured-services/starr-lift-04.webp";
-import starrLift05 from "@/assets/featured-services/starr-lift-05.webp";
-import starrLift06 from "@/assets/featured-services/starr-lift-06.webp";
-
-const galleryImages = [
-  { src: starrLift01, alt: "Landscaping project 1", size: "large" as const },
-  { src: starrLift02, alt: "Landscaping project 2", size: "tall" as const },
-  { src: starrLift03, alt: "Landscaping project 3", size: "wide" as const },
-  { src: starrLift04, alt: "Landscaping project 4", size: "medium" as const },
-  { src: starrLift05, alt: "Landscaping project 5", size: "small" as const },
-  { src: starrLift06, alt: "Landscaping project 6", size: "medium" as const },
-];
 ---
 
 <BaseLayout title="Waterfront Landscaping | T&J Waterfront Services">
@@ -38,7 +23,7 @@ const galleryImages = [
       imageAlt="Beautiful waterfront landscaping by T&J Waterfront Services"
     />
 
-    <ProjectGallery images={galleryImages} />
+    <GallerySection category="landscaping" />
 
     <PopularServices />
 

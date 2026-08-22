@@ -1,0 +1,29 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import ContactSection from "@/components/shared/sections/ContactSection.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+
+import heroImage from "@/assets/hero/waterfront-hero.png";
+---
+
+<BaseLayout title="Project Gallery | T&J Waterfront Services">
+  <Navbar />
+
+  <main id="main">
+    <InteriorHero
+      title="Our Work"
+      description="Docks, seawalls, patios, shorelines and more — real projects from across Michigan's lakefronts. Browse by service and click any photo to view it full size."
+      image={heroImage}
+      imageAlt="Waterfront project by T&J Waterfront Services"
+    />
+
+    <GallerySection />
+
+    <ContactSection />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

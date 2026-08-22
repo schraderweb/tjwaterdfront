@@ -43,9 +43,11 @@ How the build works:
  │   ├── reviews.ts            Customer reviews
  │   ├── serviceAreas.ts       Areas served
  │   ├── helpfulResources.ts   Resources section content
+ │   ├── gallery.ts            ⭐ Gallery engine — scans content/gallery/ folders automatically
  │   ├── featuredServices.ts / popularServices.ts   Homepage section content
  │   └── site.ts               Site-wide info (name, contact, links)
  ├── assets/                Images used inside components (photos, icons, logos)
+ ├── content/gallery/       ⭐ GALLERY PHOTOS — one folder per category, see "How to Add Gallery Photos"
  ├── layouts/BaseLayout.astro   Shared page shell (head, nav, footer)
  ├── scripts/               Small browser scripts
  └── styles/                Global styles + design tokens (colors, fonts)
@@ -74,6 +76,38 @@ How the build works:
 3. Rebuild and deploy (next section).
 
 > **Supported formats:** `.webp` (best), `.png`, `.jpg`. Keep images a few hundred kB or less.
+
+---
+
+## How to Add Gallery Photos (no code required)
+
+Gallery photos live in folders — one folder per category:
+
+```
+src/content/gallery/
+├── landscaping/          ← "Landscaping"
+├── seawalls/             ← "Seawalls"
+├── retaining-walls/
+├── patios/
+├── beaches/
+├── decks-boardwalks/     ← "Decks & Boardwalks"
+├── dock-service-repairs/
+└── hoist-service-repairs/
+```
+
+To add a photo (works on github.com, no coding):
+
+1. Open the category folder on github.com (e.g. `src/content/gallery/landscaping`).
+2. Click **Add file → Upload files** and drag the photo in.
+3. Name it with a number so it appears in the right order: `01.webp`, `02.webp`, `03.webp`, … (or `01-shoreline-after.webp` — the filename after the number becomes the photo caption, e.g. "Shoreline after").
+4. Click **Commit changes** to `main`. The site rebuilds automatically and the photo goes live in about a minute.
+
+Rules that make this work:
+
+- **Folder = category.** Photos appear in the gallery of the matching service page and on the `/gallery` page. A brand-new folder automatically becomes a new category (no code changes).
+- **Filename = order.** Sort by the number prefix: `01-`, `02-`, `03-`…
+- **Formats:** `.webp` (best), `.jpg`, `.png`. Keep photos a few hundred kB or less.
+- Deleting a photo from the folder removes it from the site on the next build.
 
 ---
 
