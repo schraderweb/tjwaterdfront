@@ -7,8 +7,6 @@
  * Interaction ported from the Aces Marine reviews section: side arrows,
  * per-page dots, auto-advance with pause on hover/touch, wrap-around.
  */
-import { Picture } from "astro:assets";
-import waterBg from "@/assets/reviews/water-bg.webp";
 import { reviews } from "@/data/reviews";
 
 interface Props {
@@ -30,19 +28,6 @@ const avatarColor = (name: string) => {
 ---
 
 <section class="reviews-band" id="reviews" aria-labelledby="reviews-title">
-  <div class="water-bg" aria-hidden="true">
-    <Picture
-      src={waterBg}
-      alt=""
-      formats={["avif", "webp"]}
-      loading="lazy"
-      class="water-bg__img"
-      widths={[640, 1280, 2000]}
-      sizes="100vw"
-    />
-    <div class="water-bg__overlay"></div>
-  </div>
-
   <div class="wave-divider wave-divider--top" style={`--wave-fill:${topFill};`} aria-hidden="true">
     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
       <path
@@ -133,33 +118,13 @@ const avatarColor = (name: string) => {
     position: relative;
     padding: clamp(6rem, 11vw, 11rem) 0 clamp(5.5rem, 10vw, 10rem);
     overflow: hidden;
+    /* Photo pinned to the viewport: the page scrolls over it (Aces Marine behaviour). */
     background-color: var(--color-navy-900);
-  }
-
-  /* ── Water background ──────────────────────────────── */
-  .water-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  .water-bg :global(picture) {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .water-bg__img,
-  .water-bg__img :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .water-bg__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(30, 62, 104, 0.45), rgba(30, 62, 104, 0.45));
+    background-image: linear-gradient(rgba(30, 62, 104, 0.45), rgba(30, 62, 104, 0.45)),
+      url("/images/reviews-water-bg.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
 
   /* ── Wave dividers ─────────────────────────────────── */
