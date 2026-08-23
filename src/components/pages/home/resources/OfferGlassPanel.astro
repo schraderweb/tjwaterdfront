@@ -144,9 +144,24 @@
 
   .offer-secondary {
     font-family: var(--font-sans);
-    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-    color: rgba(7, 26, 45, 0.7);
-    margin: 0;
+    font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
+    font-weight: 500;
+    color: var(--color-navy-950, #071a2b);
+    margin: 0.25rem auto 0;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid rgba(185, 130, 50, 0.35);
+    border-radius: 999px;
+    background: rgba(198, 146, 61, 0.1);
+    max-width: fit-content;
+  }
+
+  .offer-secondary #dynamic-expiry-date {
+    font-weight: 700;
+    color: var(--color-gold-700, #8a5f1e);
+    text-decoration: underline;
+    text-decoration-color: rgba(198, 146, 61, 0.6);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
   }
 
   @media (max-width: 640px) {
