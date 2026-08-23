@@ -1,145 +1,555 @@
 ---
-import ReviewCarousel from "@/components/shared/ui/ReviewCarousel.astro";
-import Icon from "@/components/shared/ui/Icon.astro";
-import { reviewSummary, reviews } from "@/data/reviews";
+/**
+ * ReviewsTrustSection.astro — "What Our Customers Say" water-band carousel.
+ *
+ * Dark ocean-photo band with wave dividers top/bottom and a Google-review
+ * style card carousel (avatar, name, date, Google mark, stars, text).
+ * Interaction ported from the Aces Marine reviews section: side arrows,
+ * per-page dots, auto-advance with pause on hover/touch, wrap-around.
+ */
+import { Picture } from "astro:assets";
+import waterBg from "@/assets/reviews/water-bg.webp";
+import { reviews } from "@/data/reviews";
+
+interface Props {
+  /** Wave divider fill for the top edge (should match the section above). */
+  topFill?: string;
+  /** Wave divider fill for the bottom edge (should match the section below). */
+  bottomFill?: string;
+}
+
+const { topFill = "var(--color-cream-50)", bottomFill = "var(--color-cream-50)" } = Astro.props;
+
+const AVATAR_COLORS = ["#12344D", "#1C4965", "#245D7C", "#2F7098", "#0B2236"];
+
+const avatarColor = (name: string) => {
+  let hash = 0;
+  for (let i = 0; i < name.length; i += 1) hash = (hash * 31 + name.charCodeAt(i)) % 9973;
+  return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+};
 ---
 
-<section class="reviews-trust-section" id="reviews" aria-labelledby="reviews-title">
-  <div class="site-container">
-    <div class="section-header">
-      <span class="section-eyebrow">REVIEWS &amp; TRUST</span>
-      <h2 id="reviews-title">What Our Customers Say</h2>
-      <div class="header-divider" aria-hidden="true"></div>
-      <p class="review-summary">
-        <span class="review-score">{reviewSummary.rating.toFixed(1)}</span>
-        <span class="review-stars" aria-hidden="true">★★★★★</span>
-        <span class="review-count">Average rating from <strong>{reviewSummary.count} {reviewSummary.source} reviews</strong></span>
-        <a href={reviewSummary.url} target="_blank" rel="noopener noreferrer">
-          Read all reviews
-          <Icon name="arrow-up-right" size={15} strokeWidth={1.75} />
-        </a>
-      </p>
-    </div>
+<section class="reviews-band" id="reviews" aria-labelledby="reviews-title">
+  <div class="water-bg" aria-hidden="true">
+    <Picture
+      src={waterBg}
+      alt=""
+      formats={["avif", "webp"]}
+      loading="lazy"
+      class="water-bg__img"
+      widths={[640, 1280, 2000]}
+      sizes="100vw"
+    />
+    <div class="water-bg__overlay"></div>
+  </div>
 
-    <div class="carousel-container">
-      <ReviewCarousel reviews={reviews} />
+  <div class="wave-divider wave-divider--top" style={`--wave-fill:${topFill};`} aria-hidden="true">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path
+        d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+        opacity=".25"
+        fill="var(--wave-fill)"
+      ></path>
+      <path
+        d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+        opacity=".5"
+        fill="var(--wave-fill)"
+      ></path>
+      <path
+        d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+        fill="var(--wave-fill)"
+      ></path>
+    </svg>
+  </div>
+
+  <div class="reviews-inner">
+    <h2 id="reviews-title">What Our Customers Say</h2>
+    <p class="reviews-sub">Real feedback from the Great Lakes community</p>
+
+    <div class="carousel-outer" data-reviews-carousel>
+      <button type="button" class="review-arrow review-arrow--prev" data-carousel-action="prev" aria-label="Previous reviews">
+        <span aria-hidden="true">&#8249;</span>
+      </button>
+      <button type="button" class="review-arrow review-arrow--next" data-carousel-action="next" aria-label="Next reviews">
+        <span aria-hidden="true">&#8250;</span>
+      </button>
+
+      <div
+        class="review-track"
+        data-review-track
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Customer reviews"
+        tabindex="0"
+      >
+        {
+          reviews.map((review) => (
+            <article class="review-card">
+              <div class="review-header">
+                <div class="avatar" style={`background-color:${avatarColor(review.name)}`} aria-hidden="true">
+                  {review.name.charAt(0)}
+                </div>
+                <div class="user-info">
+                  <span class="user-name">{review.name}</span>
+                  <span class="review-date">{review.timeAgo}</span>
+                </div>
+                <img src="/images/google-review-logo.webp" class="google-logo" alt="Google" loading="lazy" width="32" height="32" />
+              </div>
+              <div class="stars" role="img" aria-label={`Rated ${review.stars} out of 5 stars`}>
+                {"★".repeat(review.stars)}
+              </div>
+              <p class="review-text">{review.content}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="review-dots" data-review-dots></div>
     </div>
+  </div>
+
+  <div class="wave-divider wave-divider--bottom" style={`--wave-fill:${bottomFill};`} aria-hidden="true">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path
+        d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+        opacity=".25"
+        fill="var(--wave-fill)"
+      ></path>
+      <path
+        d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+        opacity=".5"
+        fill="var(--wave-fill)"
+      ></path>
+      <path
+        d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+        fill="var(--wave-fill)"
+      ></path>
+    </svg>
   </div>
 </section>
 
 <style>
-  .reviews-trust-section {
-    background-color: var(--color-cream-50);
-    padding-block: clamp(2.5rem, 3.5vw, 4.5rem);
+  .reviews-band {
     position: relative;
+    padding: clamp(6rem, 11vw, 11rem) 0 clamp(5.5rem, 10vw, 10rem);
+    overflow: hidden;
+    background-color: var(--color-navy-900);
   }
 
-  .reviews-trust-section::before {
-    content: "";
+  /* ── Water background ──────────────────────────────── */
+  .water-bg {
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    opacity: 0.02;
-    /* Basic subtle noise pattern */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     z-index: 0;
   }
 
-  .site-container {
-    position: relative;
-    z-index: 1;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
-  }
-
-  .section-eyebrow {
+  .water-bg :global(picture) {
     display: block;
-    margin-bottom: 0.75rem;
-    color: var(--color-gold-500);
-    font-family: var(--font-sans);
-    font-size: var(--text-eyebrow);
-    font-weight: 700;
-    letter-spacing: var(--tracking-eyebrow);
-    line-height: 1;
-    text-transform: uppercase;
+    width: 100%;
+    height: 100%;
   }
 
-  .section-header h2 {
-    font-family: var(--font-display);
-    color: var(--color-navy-950);
-    font-size: clamp(2rem, 3vw, 3.5rem);
-    font-weight: 400;
-    line-height: 1.1;
+  .water-bg__img,
+  .water-bg__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .water-bg__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(30, 62, 104, 0.45), rgba(30, 62, 104, 0.45));
+  }
+
+  /* ── Wave dividers ─────────────────────────────────── */
+  .wave-divider {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .wave-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: clamp(28px, 4vw, 47px);
+  }
+
+  .wave-divider--top {
+    top: -1px;
+  }
+
+  .wave-divider--bottom {
+    bottom: -1px;
+    transform: rotate(180deg);
+  }
+
+  /* ── Content ───────────────────────────────────────── */
+  .reviews-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: var(--container-gutter);
+    text-align: center;
+  }
+
+  .reviews-inner h2 {
     margin: 0;
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
-  .header-divider {
-    width: 60px;
-    height: 1px;
-    background-color: var(--color-gold-500);
-    margin: 1rem auto 0;
+  .reviews-sub {
+    margin: 0.75rem 0 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
   }
 
-  .review-summary {
+  /* ── Carousel ──────────────────────────────────────── */
+  .carousel-outer {
+    position: relative;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: 0 clamp(2.75rem, 4vw, 3.5rem);
+  }
+
+  .review-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+
+  .review-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-card {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: transform 0.2s ease;
+  }
+
+  .review-card:hover {
+    transform: translateY(-4px);
+  }
+
+  @media (min-width: 36rem) {
+    .review-card {
+      flex-basis: calc((100% - 16px) / 2);
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .review-card {
+      flex-basis: calc((100% - 32px) / 3);
+    }
+  }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    color: var(--color-white);
+    font-size: 22px;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.75rem;
-    margin: 1.5rem auto 0;
-    color: var(--color-text-secondary);
-    font-size: var(--text-small);
+    flex-shrink: 0;
   }
 
-  .review-score {
-    color: var(--color-navy-950);
-    font-family: var(--font-display);
-    font-size: 1.35rem;
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .user-name {
+    font-weight: 600;
+    font-size: 17px;
+    color: #202124;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .review-date {
+    font-size: 13px;
+    color: #70757a;
+  }
+
+  .google-logo {
+    width: 28px;
+    height: auto;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .stars {
+    color: #f5a623;
+    font-size: 21px;
+    letter-spacing: 2px;
     line-height: 1;
+    margin-bottom: 14px;
   }
 
-  .review-stars {
-    color: var(--color-gold-500);
-    letter-spacing: 0.12em;
+  .review-text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #3c4043;
+    flex: 1;
+  }
+
+  /* ── Arrows ────────────────────────────────────────── */
+  .review-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: var(--color-white);
+    font-size: 2rem;
     line-height: 1;
-  }
-
-  .review-summary strong {
-    color: var(--color-navy-950);
-    font-weight: 700;
-  }
-
-  .review-summary .review-count {
-    display: inline-flex;
+    cursor: pointer;
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      border-color var(--duration-fast) var(--ease-premium);
   }
 
-  .review-count::after {
-    content: "";
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--color-gold-500);
-    margin-left: 0.15rem;
+  .review-arrow span {
+    translate: 0 -2px;
   }
 
-  .review-summary a {
-    display: inline-flex;
+  .review-arrow:hover,
+  .review-arrow:focus-visible {
+    background: rgba(255, 255, 255, 0.32);
+    border-color: var(--color-white);
+  }
+
+  .review-arrow--prev {
+    left: 0;
+  }
+
+  .review-arrow--next {
+    right: 0;
+  }
+
+  /* ── Dots ──────────────────────────────────────────── */
+  .review-dots {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 0.4rem;
-    color: var(--color-water-700);
-    font-weight: 700;
-    text-decoration: underline;
-    text-decoration-color: var(--color-gold-400);
-    text-underline-offset: 0.25em;
-    transition: color var(--duration-fast) var(--ease-premium);
+    gap: 8px;
+    margin-top: 18px;
+    min-height: 10px;
   }
 
-  .review-summary a:hover {
-    color: var(--color-gold-700);
+  .review-dots :global(.review-dot) {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.38);
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      transform var(--duration-fast) var(--ease-premium);
+  }
+
+  .review-dots :global(.review-dot.active) {
+    background: var(--color-gold-400);
+    transform: scale(1.3);
+  }
+
+  .review-dots :global(.review-dot:focus-visible) {
+    outline: 2px solid var(--color-gold-400);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 40rem) {
+    .carousel-outer {
+      padding-inline: 0;
+    }
+
+    .review-arrow {
+      display: none;
+    }
+
+    .review-dots {
+      display: none;
+    }
   }
 </style>
+
+<script>
+  const carousels = document.querySelectorAll<HTMLElement>("[data-reviews-carousel]");
+
+  carousels.forEach((root) => {
+    const track = root.querySelector<HTMLElement>("[data-review-track]");
+    const dotsWrap = root.querySelector<HTMLElement>("[data-review-dots]");
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-carousel-action="prev"]');
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-carousel-action="next"]');
+    if (!track || !dotsWrap || !prevBtn || !nextBtn) return;
+
+    const cards = Array.from(track.querySelectorAll<HTMLElement>(".review-card"));
+    if (!cards.length) return;
+
+    const total = cards.length;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const AUTOPLAY_MS = 4500;
+
+    let current = 0;
+    let visibleCount = getVisible();
+    let autoTimer: number | undefined;
+
+    function getVisible() {
+      if (window.matchMedia("(max-width: 35.999rem)").matches) return 1;
+      if (window.matchMedia("(max-width: 61.999rem)").matches) return 2;
+      return 3;
+    }
+
+    const getPageCount = () => Math.max(1, Math.ceil(total / visibleCount));
+
+    const getStep = () => {
+      const gap = parseFloat(window.getComputedStyle(track!).columnGap || "0") || 0;
+      return cards[0]!.getBoundingClientRect().width + gap;
+    };
+
+    const pageStarts = () => {
+      const lastStart = Math.max(0, total - visibleCount);
+      return Array.from({ length: getPageCount() }, (_, index) =>
+        Math.min(index * visibleCount, lastStart)
+      );
+    };
+
+    function buildDots() {
+      dotsWrap!.innerHTML = "";
+      for (let i = 0; i < getPageCount(); i += 1) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = `review-dot${i === current ? " active" : ""}`;
+        dot.setAttribute("aria-label", `Go to review page ${i + 1} of ${getPageCount()}`);
+        if (i === current) dot.setAttribute("aria-current", "true");
+        dot.addEventListener("click", () => {
+          goTo(i);
+          resetAuto();
+        });
+        dotsWrap!.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      dotsWrap!.querySelectorAll(".review-dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === current);
+        if (i === current) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+    }
+
+    function goTo(index: number, behavior: ScrollBehavior = "smooth") {
+      const starts = pageStarts();
+      current = Math.max(0, Math.min(index, starts.length - 1));
+      track!.scrollTo({ left: starts[current]! * getStep(), behavior: reducedMotion.matches ? "auto" : behavior });
+      updateDots();
+    }
+
+    const next = () => goTo(current + 1 >= getPageCount() ? 0 : current + 1);
+    const prev = () => goTo(current > 0 ? current - 1 : getPageCount() - 1);
+
+    function startAuto() {
+      clearInterval(autoTimer);
+      if (reducedMotion.matches || getPageCount() < 2) return;
+      autoTimer = window.setInterval(next, AUTOPLAY_MS);
+    }
+
+    const resetAuto = () => startAuto();
+
+    prevBtn.addEventListener("click", () => {
+      prev();
+      resetAuto();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      next();
+      resetAuto();
+    });
+
+    let scrollTimeout: number | undefined;
+    track.addEventListener(
+      "scroll",
+      () => {
+        if (scrollTimeout !== undefined) window.clearTimeout(scrollTimeout);
+        scrollTimeout = window.setTimeout(() => {
+          const step = getStep() * visibleCount;
+          if (!step) return;
+          current = Math.round(track!.scrollLeft / step);
+          current = Math.max(0, Math.min(current, getPageCount() - 1));
+          updateDots();
+        }, 80);
+      },
+      { passive: true }
+    );
+
+    root.addEventListener("pointerenter", () => clearInterval(autoTimer));
+    root.addEventListener("pointerleave", resetAuto);
+    root.addEventListener("focusin", () => clearInterval(autoTimer));
+    root.addEventListener("focusout", resetAuto);
+    track.addEventListener("touchstart", () => clearInterval(autoTimer), { passive: true });
+    track.addEventListener("touchend", resetAuto, { passive: true });
+
+    let resizeFrame: number | undefined;
+    window.addEventListener(
+      "resize",
+      () => {
+        if (resizeFrame !== undefined) window.cancelAnimationFrame(resizeFrame);
+        resizeFrame = window.requestAnimationFrame(() => {
+          visibleCount = getVisible();
+          buildDots();
+          goTo(current, "auto");
+        });
+      },
+      { passive: true }
+    );
+
+    buildDots();
+    startAuto();
+  });
+</script>
