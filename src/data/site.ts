@@ -26,6 +26,7 @@ export const site = {
 export interface NavChild {
   label: string;
   href: string;
+  children?: NavChild[];
 }
 
 export interface NavLink {
@@ -44,9 +45,36 @@ export const navLinks: NavLink[] = [
       { label: "Retaining Walls", href: "/services/retaining-walls" },
       { label: "Patios", href: "/services/patios" },
       { label: "Beaches", href: "/services/beaches" },
-      { label: "Decks & Boardwalks", href: "/services/decks-boardwalks" },
-      { label: "Dock Service / Repairs", href: "/services/dock-service" },
-      { label: "Hoist Service / Repairs", href: "/services/hoist-service" },
+    ],
+  },
+  {
+    label: "Marine",
+    href: "#",
+    children: [
+      {
+        label: "Docks",
+        href: "#",
+        children: [
+          { label: "Sectional Docks", href: "#" },
+          { label: "Roll-In Docks", href: "#" },
+          { label: "Platinum Docks", href: "#" },
+          { label: "Floating Docks", href: "#" },
+          { label: "Dock Accessories", href: "#" },
+        ],
+      },
+      {
+        label: "Lifts",
+        href: "#",
+        children: [
+          { label: "Boat & Pontoon Lifts", href: "#" },
+          { label: "PWC / Jet Lifts", href: "#" },
+          { label: "Canopies", href: "#" },
+          { label: "Lift Accessories", href: "#" },
+        ],
+      },
+      { label: "Decks & Boardwalks", href: "#" },
+      { label: "Dock Service / Repairs", href: "#" },
+      { label: "Hoist Service / Repairs", href: "#" },
     ],
   },
   { label: "Service Areas", href: "/service-areas" },
