@@ -1,0 +1,36 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import PopularServices from "@/components/shared/sections/PopularServices.astro";
+import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
+import ContactSection from "@/components/shared/sections/ContactSection.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+
+// Hero image
+import heroImage from "@/content/gallery/hoist-service-repairs/01.webp";
+---
+
+<BaseLayout title="Boat Lifts | T&J Waterfront Services">
+  <Navbar />
+
+  <main id="main">
+    <InteriorHero
+      title="Boat Lifts"
+      description="High-quality boat lifts engineered for your shoreline and water depth, installed and serviced by people who know the water."
+      image={heroImage}
+      imageAlt="Boat lift installation by T&J Waterfront Services"
+    />
+
+    <GallerySection category="hoist-service-repairs" />
+
+    <PopularServices />
+
+    <ReviewsTrustSection topFill="var(--color-cream-50)" bottomFill="var(--color-navy-950)" />
+
+    <ContactSection />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

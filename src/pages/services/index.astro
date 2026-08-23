@@ -1,0 +1,36 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import PopularServices from "@/components/shared/sections/PopularServices.astro";
+import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
+import ContactSection from "@/components/shared/sections/ContactSection.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+
+// Hero image
+import heroImage from "@/assets/hero/waterfront-hero.png";
+---
+
+<BaseLayout title="Our Services | T&J Waterfront Services">
+  <Navbar />
+
+  <main id="main">
+    <InteriorHero
+      title="Our Services"
+      description="From docks and hoists to seawalls, patios, beaches and landscaping — one trusted team for your entire lakefront."
+      image={heroImage}
+      imageAlt="Waterfront services by T&J Waterfront Services"
+    />
+
+    <GallerySection />
+
+    <PopularServices />
+
+    <ReviewsTrustSection topFill="var(--color-cream-50)" bottomFill="var(--color-navy-950)" />
+
+    <ContactSection />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
