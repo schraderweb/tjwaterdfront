@@ -18,6 +18,7 @@ export const site = {
   },
   hours: "7:00 AM – 7:00 PM",
   facebook: "https://www.facebook.com/Tjwaterfrontservices/",
+  facebookPixelId: "",
 };
 
 export interface NavChild {

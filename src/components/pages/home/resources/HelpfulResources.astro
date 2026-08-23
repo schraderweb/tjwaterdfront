@@ -25,13 +25,17 @@ import resourcesBg from "@/assets/resources/resources-bg.webp";
         </>
       ))}
     </div>
+
+    <p class="resources-view-all">
+      To View All Of Our Articles Please <a href="/helpful-tips">Click Here</a>.
+    </p>
   </div>
 </section>
 
 <style>
   .helpful-resources {
     position: relative;
-    padding: clamp(2.5rem, 4vw, 4rem) var(--container-gutter, 2rem);
+    padding: clamp(4.5rem, 7vw, 7rem) var(--container-gutter, 2rem);
     display: flex;
     justify-content: center;
     overflow: hidden;
@@ -92,6 +96,30 @@ import resourcesBg from "@/assets/resources/resources-bg.webp";
     margin: 1rem 0;
   }
 
+  .resources-view-all {
+    margin: clamp(3rem, 5vw, 4.5rem) 0 0;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(252, 250, 245, 0.85);
+  }
+
+  .resources-view-all a {
+    color: var(--color-gold-500, #c6923d);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: rgba(198, 146, 61, 0.55);
+    text-underline-offset: 0.2em;
+    transition: color var(--duration-fast, 180ms) ease;
+  }
+
+  .resources-view-all a:hover,
+  .resources-view-all a:focus-visible {
+    color: var(--color-gold-400, #d9ae62);
+  }
+
   @media (max-width: 1024px) {
     .resources-grid {
       flex-wrap: wrap;
@@ -126,7 +154,7 @@ import resourcesBg from "@/assets/resources/resources-bg.webp";
 
   @media (min-width: 64rem) {
     .helpful-resources {
-      padding-block: 1rem;
+      padding-block: clamp(5rem, 8vw, 8rem);
     }
   }
 </style>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import PolicySection from "@/components/shared/sections/PolicySection.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+import { site } from "@/data/site";
+---
+
+<BaseLayout
+  title="Terms & Conditions | T&J Waterfront Services"
+  description="Terms and conditions governing the use of the T&J Waterfront Services website and services."
+  canonicalPath="/terms-and-conditions"
+>
+  <Navbar />
+
+  <main id="main">
+    <PolicySection title="Terms & Conditions" updated="August 23, 2026">
+      <div class="policy-block">
+        <h2>Acceptance of Terms</h2>
+        <p>
+          By accessing or using the {site.legalName} ("we," "us," or "our")
+          website at {site.url}, you agree to be bound by these Terms and
+          Conditions. If you do not agree with any part of these terms, please
+          do not use our website.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Our Services</h2>
+        <p>
+          We provide waterfront construction and repair services, including
+          docks, boat lifts, seawalls, beaches, retaining walls, patios,
+          boardwalks, and related services throughout Michigan. Descriptions of
+          our services on this website are provided for general information and
+          do not constitute a binding offer. Final scopes of work, materials,
+          and pricing are confirmed in writing through quotes and contracts.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Quotes and Payment</h2>
+        <ul>
+          <li>Quotes are valid for the period stated in the quote and are subject to confirmation of site conditions.</li>
+          <li>Payment terms are set out in each written agreement and may require a deposit before work begins.</li>
+          <li>We reserve the right to adjust pricing if site conditions differ materially from those assumed at quoting.</li>
+        </ul>
+      </div>
+
+      <div class="policy-block">
+        <h2>Customer Responsibilities</h2>
+        <p>
+          Customers agree to provide accurate information, ensure reasonable
+          access to their property for the work to be performed, and obtain any
+          permits or approvals required by their local municipality unless
+          otherwise agreed in writing.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Limitation of Liability</h2>
+        <p>
+          To the fullest extent permitted by law, {site.legalName} shall not be
+          liable for any indirect, incidental, special, or consequential
+          damages arising out of or in connection with the use of this website
+          or the services provided. Our total liability for any claim shall not
+          exceed the amount paid by you for the specific service giving rise to
+          the claim.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Intellectual Property</h2>
+        <p>
+          All content on this website, including text, graphics, logos,
+          images, and photographs, is the property of {site.legalName} or its
+          licensors and is protected by applicable copyright and trademark
+          laws. You may not reproduce or use this content without our prior
+          written permission.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Third-Party Links</h2>
+        <p>
+          Our website may contain links to third-party websites. We are not
+          responsible for the content or privacy practices of those websites,
+          and these links are provided for your convenience.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Governing Law</h2>
+        <p>
+          These Terms and Conditions are governed by and construed in
+          accordance with the laws of the State of Michigan, without regard to
+          its conflict of law provisions. Any disputes arising under these
+          terms shall be resolved in the courts of Livingston County, Michigan.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Changes to These Terms</h2>
+        <p>
+          We may revise these Terms and Conditions at any time. Continued use
+          of the website after changes are posted constitutes acceptance of the
+          revised terms.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h2>Contact Us</h2>
+        <p>
+          If you have any questions about these Terms and Conditions, please
+          contact us at{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a> or call{" "}
+          <a href={site.phoneHref}>{site.phoneDisplay}</a>.
+        </p>
+      </div>
+    </PolicySection>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

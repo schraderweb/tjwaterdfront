@@ -11,14 +11,14 @@ export const popularServices = [
     description: "Whether your dock just needs a few updates or total refurbishing, we can help.",
     image: dockRepairImage,
     icon: "wrench", // or sectional-docks
-    href: "/services/dock-services-repair"
+    href: "/services/dock-service"
   },
   {
     title: "Boat & Pontoon Lift Accessories",
     description: "Everything you need for Boat and Pontoon Lifting.",
     image: pontoonAccessoriesImage,
     icon: "anchor",
-    href: "/services/boat-pontoon-lift-accessories"
+    href: "/boat-pontoon-lift-accessories"
   },
   {
     title: "Seawalls",
@@ -32,7 +32,7 @@ export const popularServices = [
     description: "Starr boat lifts (BL) are constructed with heavy gauge aluminum providing great strength and long lasting durability.",
     image: boatLiftImage,
     icon: "anchor", // since boat-lift icon wasn't explicitly present, anchor is a good marine fallback
-    href: "/services/boat-lifts"
+    href: "/boat-lifts"
   },
   {
     title: "Beaches",

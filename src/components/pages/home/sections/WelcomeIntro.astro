@@ -1,0 +1,136 @@
+---
+/**
+ * WelcomeIntro.astro — intro text section directly after the hero.
+ * Welcomes visitors and links out to the interior product pages.
+ */
+import Icon from "@/components/shared/ui/Icon.astro";
+---
+
+<section class="welcome-intro" id="services" aria-labelledby="welcome-intro-title">
+  <div class="welcome-intro-container site-container">
+    <div class="intro-statement">
+      <Icon name="anchor" size={28} strokeWidth={1.35} class="intro-anchor" />
+      <h2 id="welcome-intro-title">
+        We Offer Dock Services &amp; Repair, Boat &amp; Pontoon Lift Accessories,
+        Seawalls, Boat Lifts, Beaches &amp; Retaining Walls, Patios, Boardwalks
+        &amp; Deck Docks in <em>Michigan!</em>
+      </h2>
+    </div>
+
+    <div class="welcome-copy">
+      <p>
+        Welcome to T&amp;J Waterfront Services — from the dock at the water's edge
+        to the seawall protecting your shoreline, we build, repair, and maintain
+        it all. We're a Michigan team that treats your lakefront like our own,
+        with quality materials, honest workmanship, and years of experience on
+        the water.
+      </p>
+      <p>
+        Out on the water, our <a href="/boat-lifts">boat lifts</a> are constructed
+        from heavy-gauge aluminum for great strength and long-lasting durability,
+        while our <a href="/boat-pontoon-lift-accessories">boat &amp; pontoon
+        lift accessories</a> cover everything from canopies to add-ons. And when
+        your <a href="/services/dock-service">dock services &amp; repair</a> need
+        a few updates or a total refurbishing, our team will bring your dock back
+        to life.
+      </p>
+      <p>
+        Around the shoreline, our <a href="/services/seawalls">seawalls</a> are
+        built right the first time to protect your property, and our
+        <a href="/services/beaches">beaches</a> bring the vacation home with Mason
+        Sand, 2NS, and more. Need a little structure in your yard?
+        <a href="/services/retaining-walls">Retaining walls</a> add texture while
+        keeping your soil exactly where it belongs — and we're happy to take on
+        patios, boardwalks, decks, and landscaping as well.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .welcome-intro {
+    background: var(--color-cream-50);
+    color: var(--color-text-primary);
+    padding-block: clamp(3.5rem, 5vw, 6rem);
+  }
+
+  .welcome-intro-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .intro-statement {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1rem, 2vw, 1.75rem);
+    margin-bottom: clamp(2.5rem, 4vw, 4rem);
+  }
+
+  :global(.intro-anchor) {
+    margin-top: 0.55rem;
+    color: var(--color-gold-600);
+  }
+
+  .intro-statement h2 {
+    max-width: 90rem;
+    margin: 0;
+    color: var(--color-navy-950);
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .intro-statement em {
+    color: var(--color-gold-600);
+    font-style: normal;
+  }
+
+  .welcome-copy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 2vw, 1.75rem);
+    max-width: 74ch;
+    margin-left: clamp(0rem, 2vw, 2.5rem);
+  }
+
+  .welcome-copy p {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3rem);
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+  }
+
+  .welcome-copy a {
+    color: var(--color-gold-700);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold-400);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .welcome-copy a:hover,
+  .welcome-copy a:focus-visible {
+    color: var(--color-navy-800);
+  }
+
+  @media (max-width: 39.999rem) {
+    .intro-statement {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .intro-anchor { margin-top: 0; }
+
+    .welcome-copy {
+      margin-left: 0;
+    }
+  }
+</style>
