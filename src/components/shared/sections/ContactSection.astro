@@ -71,10 +71,11 @@ import Icon from "@/components/shared/ui/Icon.astro";
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    background-color: var(--color-navy-900, #0a2540);
+    background-color: rgba(11, 34, 54, 0.6);
+    border: 1px solid rgba(198, 146, 61, 0.2);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
   }
 
   .contact-info-panel {
@@ -82,6 +83,9 @@ import Icon from "@/components/shared/ui/Icon.astro";
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: rgba(11, 34, 54, 0.35);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
   }
 
   .eyebrow {
