@@ -31,6 +31,19 @@ const currentYear = new Date().getFullYear();
             <Icon name="mail" size={20} />
           </a>
         </div>
+        <div class="site-footer__reviews">
+          <span class="site-footer__reviews-label">LEAVE A REVIEW</span>
+          <div class="site-footer__reviews-links">
+            <a href={site.googleReviewUrl} target="_blank" rel="noopener noreferrer" class="site-footer__review-link" aria-label="Review us on Google">
+              <Icon name="star" size={16} class="site-footer__review-star" />
+              Google
+            </a>
+            <a href={site.facebookReviewUrl} target="_blank" rel="noopener noreferrer" class="site-footer__review-link" aria-label="Review us on Facebook">
+              <Icon name="facebook" size={16} />
+              Facebook
+            </a>
+          </div>
+        </div>
       </div>
 
       <!-- Quick Links Column -->
@@ -203,6 +216,45 @@ const currentYear = new Date().getFullYear();
 .site-footer__social {
   display: flex;
   gap: 1rem;
+}
+.site-footer__reviews {
+  margin-top: var(--space-stack-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.site-footer__reviews-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold-500);
+}
+.site-footer__reviews-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.site-footer__review-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--color-text-on-dark);
+  font-size: var(--text-small);
+  opacity: 0.8;
+  transition: color var(--duration-fast) var(--ease-premium), opacity var(--duration-fast) var(--ease-premium);
+}
+.site-footer__review-link:hover {
+  color: var(--color-gold-400);
+  opacity: 1;
+}
+.site-footer__review-link svg {
+  color: var(--color-gold-500);
+  flex-shrink: 0;
+}
+.site-footer__review-star {
+  fill: currentColor;
+  color: var(--color-gold-500);
 }
 .site-footer__social-link {
   display: flex;

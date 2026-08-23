@@ -4,9 +4,7 @@ import Icon from "@/components/shared/ui/Icon.astro";
 import GoldLine from "@/components/shared/ui/GoldLine.astro";
 import googleReviews from "@/assets/reviews/google-review.webp";
 import facebookReviews from "@/assets/reviews/fb-review.webp";
-
-const googleReviewUrl = "https://g.page/r/CcIG8n67r2DxEB0/review";
-const facebookReviewUrl = "https://www.facebook.com/Tjwaterfrontservices/reviews";
+import { site } from "@/data/site";
 ---
 <section class="review-cta">
   <div class="review-cta__container">
@@ -24,10 +22,10 @@ const facebookReviewUrl = "https://www.facebook.com/Tjwaterfrontservices/reviews
     </div>
     
     <div class="review-cta__badges">
-      <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" class="review-cta__badge" aria-label="Review us on Google">
+      <a href={site.googleReviewUrl} target="_blank" rel="noopener noreferrer" class="review-cta__badge" aria-label="Review us on Google">
         <Image src={googleReviews} alt="Review us on Google" />
       </a>
-      <a href={facebookReviewUrl} target="_blank" rel="noopener noreferrer" class="review-cta__badge" aria-label="Review us on Facebook">
+      <a href={site.facebookReviewUrl} target="_blank" rel="noopener noreferrer" class="review-cta__badge" aria-label="Review us on Facebook">
         <Image src={facebookReviews} alt="Review us on Facebook" />
       </a>
     </div>

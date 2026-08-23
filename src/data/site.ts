@@ -18,6 +18,8 @@ export const site = {
   },
   hours: "7:00 AM – 7:00 PM",
   facebook: "https://www.facebook.com/Tjwaterfrontservices/",
+  googleReviewUrl: "https://g.page/r/CcIG8n67r2DxEB0/review",
+  facebookReviewUrl: "https://www.facebook.com/Tjwaterfrontservices/reviews",
   facebookPixelId: "",
 };
 
