@@ -3,7 +3,10 @@
  * WelcomeIntro.astro — intro text section directly after the hero.
  * Welcomes visitors and links out to the interior product pages.
  */
+import { Image } from "astro:assets";
 import Icon from "@/components/shared/ui/Icon.astro";
+import boatLift from "@/assets/services/boat-lift.webp";
+import beach from "@/assets/services/beach.webp";
 ---
 
 <section class="welcome-intro" id="services" aria-labelledby="welcome-intro-title">
@@ -17,32 +20,63 @@ import Icon from "@/components/shared/ui/Icon.astro";
       </h2>
     </div>
 
-    <div class="welcome-copy">
-      <p>
-        Welcome to T&amp;J Waterfront Services — from the dock at the water's edge
-        to the seawall protecting your shoreline, we build, repair, and maintain
-        it all. We're a Michigan team that treats your lakefront like our own,
-        with quality materials, honest workmanship, and years of experience on
-        the water.
-      </p>
-      <p>
-        Out on the water, our <a href="/boat-lifts">boat lifts</a> are constructed
-        from heavy-gauge aluminum for great strength and long-lasting durability,
-        while our <a href="/boat-pontoon-lift-accessories">boat &amp; pontoon
-        lift accessories</a> cover everything from canopies to add-ons. And when
-        your <a href="/services/dock-service">dock services &amp; repair</a> need
-        a few updates or a total refurbishing, our team will bring your dock back
-        to life.
-      </p>
-      <p>
-        Around the shoreline, our <a href="/services/seawalls">seawalls</a> are
-        built right the first time to protect your property, and our
-        <a href="/services/beaches">beaches</a> bring the vacation home with Mason
-        Sand, 2NS, and more. Need a little structure in your yard?
-        <a href="/services/retaining-walls">Retaining walls</a> add texture while
-        keeping your soil exactly where it belongs — and we're happy to take on
-        patios, boardwalks, decks, and landscaping as well.
-      </p>
+    <div class="welcome-grid">
+      <div class="welcome-copy">
+        <p>
+          Welcome to T&amp;J Waterfront Services — from the dock at the water's edge
+          to the seawall protecting your shoreline, we build, repair, and maintain
+          it all. We're a Michigan team that treats your lakefront like our own,
+          with quality materials, honest workmanship, and years of experience on
+          the water.
+        </p>
+        <p>
+          Out on the water, our <a href="/boat-lifts">boat lifts</a> are constructed
+          from heavy-gauge aluminum for great strength and long-lasting durability,
+          while our <a href="/boat-pontoon-lift-accessories">boat &amp; pontoon
+          lift accessories</a> cover everything from canopies to add-ons. And when
+          your <a href="/services/dock-service">dock services &amp; repair</a> need
+          a few updates or a total refurbishing, our team will bring your dock back
+          to life.
+        </p>
+        <p>
+          Around the shoreline, our <a href="/services/seawalls">seawalls</a> are
+          built right the first time to protect your property, and our
+          <a href="/services/beaches">beaches</a> bring the vacation home with Mason
+          Sand, 2NS, and more. Need a little structure in your yard?
+          <a href="/services/retaining-walls">Retaining walls</a> add texture while
+          keeping your soil exactly where it belongs — and we're happy to take on
+          patios, boardwalks, decks, and landscaping as well.
+        </p>
+      </div>
+
+      <div class="welcome-media">
+        <figure class="media-main">
+          <Image
+            src={boatLift}
+            alt="Heavy-gauge aluminum boat lift on a Michigan lake"
+            widths={[480, 640, 800, 1200]}
+            sizes="(min-width: 64rem) 40vw, 100vw"
+            quality={78}
+            format="webp"
+            loading="lazy"
+            decoding="async"
+            class="media-image"
+          />
+        </figure>
+        <figure class="media-accent">
+          <Image
+            src={beach}
+            alt="Freshly built sandy beach shoreline"
+            widths={[320, 480, 640]}
+            sizes="(min-width: 64rem) 18vw, 45vw"
+            quality={78}
+            format="webp"
+            loading="lazy"
+            decoding="async"
+            class="media-image"
+          />
+        </figure>
+      </div>
     </div>
   </div>
 </section>
@@ -94,7 +128,6 @@ import Icon from "@/components/shared/ui/Icon.astro";
     flex-direction: column;
     gap: clamp(1.25rem, 2vw, 1.75rem);
     max-width: 74ch;
-    margin-left: clamp(0rem, 2vw, 2.5rem);
   }
 
   .welcome-copy p {
@@ -121,6 +154,61 @@ import Icon from "@/components/shared/ui/Icon.astro";
     color: var(--color-navy-800);
   }
 
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2.5rem, 4vw, 4rem);
+  }
+
+  .welcome-media {
+    position: relative;
+    min-width: 0;
+  }
+
+  .media-main {
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-panel);
+  }
+
+  .media-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .media-accent {
+    position: absolute;
+    bottom: -1.75rem;
+    left: -1.75rem;
+    width: 42%;
+    aspect-ratio: 1 / 1;
+    margin: 0;
+    overflow: hidden;
+    border: 0.4rem solid var(--color-cream-50);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+  }
+
+  .media-accent::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--color-gold-400);
+    border-radius: calc(var(--radius-md) - 0.4rem);
+    pointer-events: none;
+  }
+
+  @media (min-width: 64rem) {
+    .welcome-grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      align-items: center;
+    }
+  }
+
   @media (max-width: 39.999rem) {
     .intro-statement {
       grid-template-columns: 1fr;
@@ -131,6 +219,12 @@ import Icon from "@/components/shared/ui/Icon.astro";
 
     .welcome-copy {
       margin-left: 0;
+    }
+
+    .media-accent {
+      bottom: -1.25rem;
+      left: -1.25rem;
+      border-width: 0.3rem;
     }
   }
 </style>
