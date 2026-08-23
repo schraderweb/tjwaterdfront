@@ -1,0 +1,36 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import PopularServices from "@/components/shared/sections/PopularServices.astro";
+import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
+import ContactSection from "@/components/shared/sections/ContactSection.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+
+// Hero image
+import heroImage from "@/content/gallery/retaining-walls/01.webp";
+---
+
+<BaseLayout title="Retaining Walls | T&J Waterfront Services">
+  <Navbar />
+
+  <main id="main">
+    <InteriorHero
+      title="Retaining Walls"
+      description="Structural retaining walls that stabilize slopes, define your landscaping, and stand strong against Michigan's weather."
+      image={heroImage}
+      imageAlt="Retaining wall project by T&J Waterfront Services"
+    />
+
+    <GallerySection category="retaining-walls" />
+
+    <PopularServices />
+
+    <ReviewsTrustSection topFill="var(--color-cream-50)" bottomFill="var(--color-navy-950)" />
+
+    <ContactSection />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

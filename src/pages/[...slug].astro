@@ -6,7 +6,6 @@
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
-import GallerySection from "@/components/shared/sections/GallerySection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 
 export function getStaticPaths() {
@@ -15,14 +14,6 @@ export function getStaticPaths() {
     "service-areas",
     "about",
     "contact",
-    "services/landscaping",
-    "services/seawalls",
-    "services/retaining-walls",
-    "services/patios",
-    "services/beaches",
-    "services/decks-boardwalks",
-    "services/dock-service",
-    "services/hoist-service",
     "services/dock-services",
     "services/lift-accessories",
     "services/boat-lifts",
@@ -43,14 +34,6 @@ const pageNames: Record<string, string> = {
   "service-areas": "Service Areas",
   "about": "About Us",
   "contact": "Contact Us",
-  "services/landscaping": "Landscaping",
-  "services/seawalls": "Seawalls",
-  "services/retaining-walls": "Retaining Walls",
-  "services/patios": "Patios",
-  "services/beaches": "Beaches",
-  "services/decks-boardwalks": "Decks & Boardwalks",
-  "services/dock-service": "Dock Service / Repairs",
-  "services/hoist-service": "Hoist Service / Repairs",
   "services/dock-services": "Dock Services & Repair",
   "services/lift-accessories": "Boat & Pontoon Lift Accessories",
   "services/boat-lifts": "Boat Lifts",
@@ -64,18 +47,6 @@ const pageNames: Record<string, string> = {
 };
 const pageName =
   pageNames[slug] ?? slug.split("/").pop()!.replace(/-/g, " ");
-
-const galleryCategoryBySlug: Record<string, string> = {
-  "services/seawalls": "seawalls",
-  "services/retaining-walls": "retaining-walls",
-  "services/patios": "patios",
-  "services/beaches": "beaches",
-  "services/decks-boardwalks": "decks-boardwalks",
-  "services/dock-service": "dock-service-repairs",
-  "services/hoist-service": "hoist-service-repairs",
-};
-
-const galleryCategory = galleryCategoryBySlug[slug];
 ---
 
 
@@ -89,7 +60,6 @@ const galleryCategory = galleryCategoryBySlug[slug];
         <p>We&rsquo;re putting the finishing touches on this page.</p>
       </div>
     </section>
-    {galleryCategory && <GallerySection category={galleryCategory} />}
   </main>
   <SiteFooter />
 </BaseLayout>
