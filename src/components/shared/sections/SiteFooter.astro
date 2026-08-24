@@ -120,24 +120,24 @@ const currentYear = new Date().getFullYear();
 </footer>
 
 <div class="schrader-bar" aria-label="Copyright and legal links">
-  <span>
-    &copy; {currentYear} T&amp;J Waterfront Services. All Rights Reserved.
-  </span>
-  <span class="schrader-bar__divider" aria-hidden="true"></span>
-  <span class="schrader-bar__legal">
-    <a href="/privacy-policy">Privacy Policy</a>
-    <span class="schrader-bar__divider" aria-hidden="true"></span>
-    <a href="/terms-and-conditions">Terms &amp; Conditions</a>
-    <span class="schrader-bar__divider" aria-hidden="true"></span>
-    <a href="/cookie-policy">Cookie Policy</a>
-  </span>
-  <span class="schrader-bar__divider" aria-hidden="true"></span>
-  <span>
-    Website Design by{" "}
-    <a href="https://schrader.co/" target="_blank" rel="noopener noreferrer">
-      Schrader Web Design
-    </a>
-  </span>
+  <div class="schrader-bar__inner">
+    <p class="schrader-bar__copyright">
+      &copy; {currentYear} T&amp;J Waterfront Services. All Rights Reserved.
+    </p>
+    <nav class="schrader-bar__legal" aria-label="Legal">
+      <a href="/privacy-policy">Privacy Policy</a>
+      <span class="schrader-bar__divider" aria-hidden="true"></span>
+      <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+      <span class="schrader-bar__divider" aria-hidden="true"></span>
+      <a href="/cookie-policy">Cookie Policy</a>
+    </nav>
+    <p class="schrader-bar__credit">
+      Website Design by{" "}
+      <a href="https://schrader.co/" target="_blank" rel="noopener noreferrer">
+        Schrader Web Solutions
+      </a>
+    </p>
+  </div>
 </div>
 
 <style>
@@ -424,17 +424,48 @@ const currentYear = new Date().getFullYear();
 
 /* Schrader Web credit bar */
 .schrader-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.875rem clamp(1rem, 3.5vw, 5rem);
   background-color: #040d17;
-  color: rgba(246, 241, 231, 0.55);
+  border-top: 1px solid rgba(246, 241, 231, 0.08);
   font-family: var(--font-sans);
-  font-size: calc(var(--text-tiny) * 1.3);
-  text-align: center;
+  font-size: 0.8125rem;
+}
+
+.schrader-bar__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 4rem;
+  width: min(calc(100% - 2 * var(--container-gutter)), var(--container-xl));
+  margin-inline: auto;
+  padding-block: 0.75rem;
+}
+
+.schrader-bar__copyright {
+  justify-self: start;
+}
+
+.schrader-bar__legal {
+  justify-self: center;
+}
+
+.schrader-bar__credit {
+  justify-self: end;
+}
+
+.schrader-bar__copyright,
+.schrader-bar__credit {
+  margin: 0;
+  color: rgba(246, 241, 231, 0.5);
+  white-space: nowrap;
+}
+
+.schrader-bar__legal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .schrader-bar__divider {
@@ -446,24 +477,29 @@ const currentYear = new Date().getFullYear();
 }
 
 .schrader-bar a {
-  color: rgba(246, 241, 231, 0.8);
+  color: rgba(246, 241, 231, 0.75);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-premium);
-}
-
-.schrader-bar__legal {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .schrader-bar a:hover,
 .schrader-bar a:focus-visible {
   color: var(--color-gold-400);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+}
+
+@media (max-width: 1199px) {
+  .schrader-bar__inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0.625rem;
+    padding-block: 1.25rem;
+    text-align: center;
+  }
+
+  .schrader-bar__copyright,
+  .schrader-bar__credit {
+    white-space: normal;
+  }
 }
 </style>
 
