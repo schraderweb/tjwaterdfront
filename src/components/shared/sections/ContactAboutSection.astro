@@ -23,7 +23,7 @@ import bgImage from "@/assets/hero/contact-us-about.png";
           </div>
           <div class="contact-about__method-content">
             <span class="contact-about__method-label">CALL US</span>
-            <span class="contact-about__method-value">{site.phoneDisplay}</span>
+            <span class="contact-about__method-value contact-about__method-value--phone">{site.phoneDisplay}</span>
             <a href={site.phoneHref} class="contact-about__method-link">
               <span>Speak directly with our team</span>
               <span aria-hidden="true">&rarr;</span>
@@ -106,8 +106,14 @@ import bgImage from "@/assets/hero/contact-us-about.png";
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgba(246, 241, 231, 0.18) 0%, rgba(246, 241, 231, 0) 58%),
-      linear-gradient(0deg, rgba(246, 241, 231, 0.35) 0%, rgba(246, 241, 231, 0) 24%);
+      linear-gradient(
+        90deg,
+        rgba(246, 241, 231, 0.98) 0%,
+        rgba(246, 241, 231, 0.92) 42%,
+        rgba(246, 241, 231, 0.65) 68%,
+        rgba(246, 241, 231, 0) 90%
+      ),
+      linear-gradient(0deg, rgba(246, 241, 231, 0.4) 0%, rgba(246, 241, 231, 0) 25%);
   }
 
   .contact-about__eyebrow {
@@ -172,6 +178,8 @@ import bgImage from "@/assets/hero/contact-us-about.png";
   }
 
   .contact-about__method-icon {
+    display: flex;
+    align-items: center;
     height: 2rem;
     margin-bottom: clamp(2rem, 2.7vw, 2.75rem);
     color: var(--color-gold-700);
@@ -180,6 +188,7 @@ import bgImage from "@/assets/hero/contact-us-about.png";
   .contact-about__method-content {
     display: flex;
     min-width: 0;
+    flex: 1;
     flex-direction: column;
     align-items: flex-start;
   }
@@ -199,9 +208,13 @@ import bgImage from "@/assets/hero/contact-us-about.png";
     margin-bottom: 1.5rem;
     color: var(--color-navy-950);
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 2.4vw, 2.75rem);
+    font-size: clamp(1.75rem, 2.2vw, 2.625rem);
     line-height: 1.15;
-    text-shadow: 0 0 24px rgba(246, 241, 231, 1), 0 0 12px rgba(246, 241, 231, 0.8);
+    white-space: nowrap;
+    text-shadow:
+      0 0 20px rgba(246, 241, 231, 1),
+      0 0 35px rgba(246, 241, 231, 0.95),
+      0 0 55px rgba(246, 241, 231, 0.85);
   }
 
   .contact-about__method-link {
@@ -210,6 +223,7 @@ import bgImage from "@/assets/hero/contact-us-about.png";
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    margin-top: auto;
     padding-bottom: 0.8rem;
     border-bottom: 1px solid rgba(180, 125, 47, 0.6);
     color: var(--color-text-primary);
@@ -236,11 +250,7 @@ import bgImage from "@/assets/hero/contact-us-about.png";
     opacity: 0.45;
   }
 
-  @media (min-width: 64rem) {
-    .contact-about__method-value {
-      white-space: nowrap;
-    }
-  }
+
 
   @media (max-width: 63.99rem) {
     .contact-about {
@@ -324,6 +334,7 @@ import bgImage from "@/assets/hero/contact-us-about.png";
     .contact-about__method-value {
       margin-bottom: 1.25rem;
       font-size: clamp(1.75rem, 7vw, 2.5rem);
+      white-space: normal;
     }
 
     .contact-about__background {
