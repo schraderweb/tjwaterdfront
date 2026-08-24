@@ -1,0 +1,332 @@
+---
+import { Image } from "astro:assets";
+import { site } from "@/data/site";
+import Icon from "@/components/shared/ui/Icon.astro";
+import bgImage from "@/assets/hero/contact-us-about.png";
+---
+
+<section class="contact-about" aria-labelledby="contact-about-title">
+  <div class="site-container contact-about__container">
+    <div class="contact-about__content">
+      <span class="contact-about__eyebrow">LET'S CONNECT</span>
+      <h2 id="contact-about-title">Let's talk about<br /><em>your waterfront.</em></h2>
+      <p class="contact-about__description">
+        Every great project starts with a conversation.<br />
+        Tell us about your plans and we'll help turn them<br />
+        into something exceptional.
+      </p>
+
+      <div class="contact-about__methods">
+        <div class="contact-about__method">
+          <div class="contact-about__method-icon">
+            <Icon name="phone" size={28} strokeWidth={1.5} />
+          </div>
+          <div class="contact-about__method-content">
+            <span class="contact-about__method-label">CALL US</span>
+            <span class="contact-about__method-value">{site.phoneDisplay}</span>
+            <a href={site.phoneHref} class="contact-about__method-link">
+              <span>Speak directly with our team</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-about__method-divider" aria-hidden="true"></div>
+
+        <div class="contact-about__method">
+          <div class="contact-about__method-icon">
+            <Icon name="mail" size={28} strokeWidth={1.5} />
+          </div>
+          <div class="contact-about__method-content">
+            <span class="contact-about__method-label">SEND AN ENQUIRY</span>
+            <span class="contact-about__method-value">Tell us about your project</span>
+            <a href="/contact" class="contact-about__method-link">
+              <span>Start your enquiry</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-about__background" aria-hidden="true">
+    <Image
+      src={bgImage}
+      alt=""
+      class="contact-about__image"
+      widths={[640, 960, 1280, 1600, 1920]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="contact-about__fade"></div>
+  </div>
+</section>
+
+<style>
+  .contact-about {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: clamp(48rem, 100svh, 64rem);
+    overflow: hidden;
+    background-color: var(--color-cream-100);
+    color: var(--color-navy-950);
+  }
+
+  .contact-about__container {
+    position: relative;
+    z-index: 1;
+    width: calc(100% - 2 * var(--hero-gutter));
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-block: clamp(5.5rem, 9vw, 8rem) clamp(5rem, 8vw, 7.5rem);
+  }
+
+  .contact-about__content {
+    max-width: 54rem;
+  }
+
+  .contact-about__background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .contact-about__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .contact-about__fade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(246, 241, 231, 0.18) 0%, rgba(246, 241, 231, 0) 58%),
+      linear-gradient(0deg, rgba(246, 241, 231, 0.35) 0%, rgba(246, 241, 231, 0) 24%);
+  }
+
+  .contact-about__eyebrow {
+    display: block;
+    width: fit-content;
+    margin-bottom: clamp(2.75rem, 4vw, 3.5rem);
+    color: var(--color-gold-700);
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 0.8vw, 0.9375rem);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .contact-about__eyebrow::after {
+    content: "";
+    display: block;
+    width: 3.25rem;
+    height: 1px;
+    margin-top: 1.75rem;
+    background-color: var(--color-gold-600);
+    opacity: 0.6;
+  }
+
+  .contact-about h2 {
+    max-width: 52rem;
+    margin: 0 0 clamp(2.5rem, 4vw, 4rem);
+    color: var(--color-navy-950);
+    font-family: var(--font-display);
+    font-size: clamp(3.25rem, 6.4vw, 6.75rem);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+
+  .contact-about h2 em {
+    font-style: italic;
+  }
+
+  .contact-about__description {
+    max-width: 36rem;
+    margin: 0 0 clamp(4rem, 6vw, 5rem);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    line-height: 1.65;
+  }
+
+  .contact-about__methods {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    column-gap: clamp(3rem, 7vw, 6.5rem);
+    align-items: stretch;
+    max-width: 54rem;
+  }
+
+  .contact-about__method {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .contact-about__method-icon {
+    height: 2rem;
+    margin-bottom: clamp(2rem, 2.7vw, 2.75rem);
+    color: var(--color-gold-700);
+  }
+
+  .contact-about__method-content {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-about__method-label {
+    margin-bottom: 0.75rem;
+    color: var(--color-navy-950);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1.4;
+  }
+
+  .contact-about__method-value {
+    margin-bottom: 1.5rem;
+    color: var(--color-navy-950);
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 2.4vw, 2.75rem);
+    line-height: 1.15;
+  }
+
+  .contact-about__method-link {
+    display: flex;
+    width: min(100%, 20rem);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(180, 125, 47, 0.6);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    line-height: 1.4;
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-premium),
+      color var(--duration-fast) var(--ease-premium);
+  }
+
+  .contact-about__method-link:hover,
+  .contact-about__method-link:focus-visible {
+    border-color: var(--color-gold-700);
+    color: var(--color-gold-700);
+  }
+
+  .contact-about__method-divider {
+    width: 1px;
+    margin-block: 0.25rem;
+    background-color: var(--color-gold-600);
+    opacity: 0.45;
+  }
+
+  @media (min-width: 64rem) {
+    .contact-about__method-value {
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 63.99rem) {
+    .contact-about {
+      display: block;
+      min-height: auto;
+    }
+
+    .contact-about__container {
+      padding-bottom: 0;
+    }
+
+    .contact-about__background {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: clamp(20rem, 50vw, 32rem);
+      margin-top: clamp(4rem, 8vw, 6rem);
+    }
+
+    .contact-about__image {
+      object-position: center;
+    }
+
+    .contact-about__fade {
+      background: linear-gradient(
+        180deg,
+        var(--color-cream-100) 0%,
+        rgba(246, 241, 231, 0.72) 18%,
+        rgba(246, 241, 231, 0) 58%
+      );
+    }
+
+    .contact-about__methods {
+      column-gap: clamp(2rem, 5vw, 4rem);
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .contact-about__container {
+      width: calc(100% - 2 * var(--container-gutter));
+      padding-block: clamp(4.5rem, 10vw, 6rem) 0;
+    }
+
+    .contact-about__eyebrow {
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-about h2 {
+      font-size: clamp(3rem, 12vw, 4.5rem);
+      line-height: 0.99;
+    }
+
+    .contact-about__description {
+      margin-bottom: 3.75rem;
+    }
+
+    .contact-about__description br {
+      display: none;
+    }
+
+    .contact-about__methods {
+      grid-template-columns: 1fr;
+      row-gap: 2.5rem;
+    }
+
+    .contact-about__method-divider {
+      width: 100%;
+      height: 1px;
+      margin: 0;
+    }
+
+    .contact-about__method-icon {
+      margin-bottom: 1.75rem;
+    }
+
+    .contact-about__method-value {
+      margin-bottom: 1.25rem;
+      font-size: clamp(1.75rem, 7vw, 2.5rem);
+    }
+
+    .contact-about__background {
+      height: clamp(16rem, 68vw, 26rem);
+      margin-top: 4.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-about__method-link {
+      transition: none;
+    }
+  }
+</style>

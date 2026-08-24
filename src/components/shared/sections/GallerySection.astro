@@ -91,7 +91,7 @@ const categoryLabel = category
               formats={["avif", "webp"]}
               class="gallery-image"
               widths={[400, 800, 1200]}
-              sizes="(max-width: 480px) calc(100vw - 2rem), (max-width: 768px) calc(50vw - 1.5rem), 240px"
+              sizes="(max-width: 48rem) calc(50vw - 1.25rem), (max-width: 64rem) calc(33.33vw - 2rem), calc(25vw - 2.5rem)"
             />
           </div>
         ))
@@ -157,7 +157,7 @@ const categoryLabel = category
 
 <style>
   .gallery-section {
-    background-color: #f3f4f6;
+    background-color: var(--color-cream-50);
     padding-block: 0 clamp(4rem, 8vw, 8rem);
   }
 
@@ -278,15 +278,12 @@ const categoryLabel = category
   .gallery-item {
     position: relative;
     overflow: hidden;
-    height: 12.5rem;
+    aspect-ratio: 4 / 3;
+    height: auto;
     background-color: var(--color-cream-200, #e0d8c8);
     box-shadow: 0 0 1rem rgba(7, 26, 43, 0.2);
     border-radius: 4px;
     cursor: zoom-in;
-    transition:
-      transform 300ms ease,
-      box-shadow 300ms ease;
-    will-change: transform;
   }
 
   .gallery-item.is-hidden {
@@ -303,12 +300,16 @@ const categoryLabel = category
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 600ms var(--ease-premium);
   }
 
   .gallery-item:hover {
     z-index: 2;
-    transform: scale(1.2);
     box-shadow: 0 0 2rem rgba(7, 26, 43, 0.34);
+  }
+
+  .gallery-item:hover .gallery-image {
+    transform: scale(1.07);
   }
 
   /* ── Empty state ───────────────────────────────────── */
@@ -463,10 +464,6 @@ const categoryLabel = category
       gap: 1.5rem;
     }
 
-    .gallery-item {
-      height: 11.25rem;
-    }
-
     .lightbox-nav {
       width: 2.75rem;
       height: 2.75rem;
@@ -487,19 +484,22 @@ const categoryLabel = category
       gap: 1rem;
     }
 
-    .gallery-item {
-      height: 11.25rem;
-    }
-
     .gallery-tabs {
       flex-wrap: nowrap;
       overflow-x: auto;
-      padding-bottom: 0.5rem;
-      scrollbar-width: thin;
+      scroll-snap-type: x proximity;
+      padding-bottom: 0.25rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .gallery-tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .gallery-tab {
       white-space: nowrap;
+      scroll-snap-align: start;
     }
 
     .lightbox-nav {
@@ -514,16 +514,6 @@ const categoryLabel = category
 
     .lightbox-next {
       right: 1rem;
-    }
-  }
-
-  @media (max-width: 30rem) {
-    .gallery-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .gallery-item {
-      height: 13.75rem;
     }
   }
 </style>
