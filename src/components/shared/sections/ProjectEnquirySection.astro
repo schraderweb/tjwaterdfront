@@ -197,10 +197,10 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
     background: linear-gradient(
       90deg,
       #F5F0E7 0%,
-      #F5F0E7 50%,
-      rgba(245, 240, 231, 0.85) 65%,
-      rgba(245, 240, 231, 0.3) 85%,
-      rgba(245, 240, 231, 0) 100%
+      #F5F0E7 48%,
+      rgba(245, 240, 231, 0.92) 65%,
+      rgba(245, 240, 231, 0.65) 85%,
+      rgba(245, 240, 231, 0.35) 100%
     );
   }
 
@@ -367,9 +367,11 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
     justify-content: center;
     text-align: center;
     height: clamp(115px, 10vw, 145px);
-    border: 1px solid rgba(170, 130, 70, 0.28); /* Muted border */
+    border: 1px solid rgba(170, 130, 70, 0.32);
     border-radius: 2px;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 16px 8px;
@@ -392,7 +394,7 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
 
   .service-tile:hover .service-tile__content {
     border-color: #C9953D;
-    background-color: rgba(201, 149, 61, 0.03);
+    background-color: rgba(255, 255, 255, 0.92);
   }
 
   .service-tile:hover .service-tile__icon {
@@ -401,7 +403,8 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
 
   input[type="radio"]:checked + .service-tile__content {
     border-color: #C9953D;
-    background-color: rgba(201, 149, 61, 0.08);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 1px #C9953D;
   }
 
   /* Form Inputs */
@@ -423,8 +426,10 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
   .form-group input,
   .form-group textarea {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(12, 33, 53, 0.18);
+    background-color: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(12, 33, 53, 0.22);
     border-radius: 2px;
     padding: 16px 20px;
     font-family: var(--font-sans, "Manrope", sans-serif);
@@ -444,15 +449,15 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
 
   .form-group input::placeholder,
   .form-group textarea::placeholder {
-    color: rgba(12, 33, 53, 0.4);
+    color: rgba(12, 33, 53, 0.45);
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
     border-color: #C9953D;
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 0 0 1px rgba(201, 149, 61, 0.2);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 1px rgba(201, 149, 61, 0.3);
   }
 
   /* Submit Button */
