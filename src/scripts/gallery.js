@@ -1,5 +1,10 @@
 /**
- * gallery.js — powers the gallery grid: category tabs + lightbox.
+ * gallery.js — powers the gallery grid: category tabs, incremental "view more"
+ * loading, and lightbox.
+ *
+ * The first batch of photos is server-rendered; the remainder is shipped as a
+ * JSON manifest (`[data-gallery-manifest]`) and appended 20 at a time when the
+ * "VIEW MORE PHOTOS" button is clicked, so images load in the background.
  *
  * Lightbox controls:
  *  - X button (top-right) closes
@@ -9,6 +14,8 @@
  *  - clicking the dimmed backdrop closes
  */
 const WHEEL_THROTTLE_MS = 350;
+const BATCH_SIZE = 20;
+const IMG_SIZES = "(max-width: 48rem) calc(50vw - 1.25rem), (max-width: 64rem) calc(33.33vw - 2rem), calc(25vw - 2.5rem)";
 
 function initGallery(root) {
   const grid = root.querySelector("[data-gallery-grid]");
@@ -18,13 +25,93 @@ function initGallery(root) {
   const lightboxCounter = lightbox?.querySelector("[data-lightbox-counter]");
   const emptyState = root.querySelector("[data-gallery-empty]");
   const tabButtons = root.querySelectorAll("[data-gallery-tab]");
+  const moreWrap = root.querySelector("[data-gallery-more]");
+  const moreButton = moreWrap?.querySelector("[data-gallery-more-button]");
+  const moreCount = moreWrap?.querySelector("[data-gallery-more-count]");
 
+  let manifest = [];
+  try {
+    manifest = JSON.parse(root.querySelector("[data-gallery-manifest]")?.textContent || "[]");
+  } catch {
+    manifest = [];
+  }
+
+  let activeCategory = "all";
+  let offset = 0;
   let currentIndex = 0;
   let lastTrigger = null;
   let wheelLock = false;
 
+  const currentItems = () =>
+    activeCategory === "all" ? manifest : manifest.filter((item) => item.category === activeCategory);
+
   const getVisibleItems = () =>
     [...grid.querySelectorAll("[data-gallery-item]")].filter((item) => !item.classList.contains("is-hidden"));
+
+  function itemNode(data) {
+    const item = document.createElement("div");
+    item.className = "gallery-item";
+    item.dataset.galleryItem = "";
+    item.dataset.category = data.category;
+    item.dataset.full = data.full;
+    item.dataset.caption = data.alt;
+    item.setAttribute("role", "button");
+    item.setAttribute("tabindex", "0");
+    item.setAttribute("aria-label", `View ${data.alt}`);
+
+    const picture = document.createElement("picture");
+    if (data.avifSrcset) {
+      const sourceAvif = document.createElement("source");
+      sourceAvif.type = "image/avif";
+      sourceAvif.srcset = data.avifSrcset;
+      picture.append(sourceAvif);
+    }
+    if (data.webpSrcset) {
+      const sourceWebp = document.createElement("source");
+      sourceWebp.type = "image/webp";
+      sourceWebp.srcset = data.webpSrcset;
+      picture.append(sourceWebp);
+    }
+
+    const img = document.createElement("img");
+    img.className = "gallery-image";
+    img.alt = data.alt;
+    img.loading = "lazy";
+    img.width = data.width;
+    img.height = data.height;
+    img.sizes = IMG_SIZES;
+    img.src = data.src;
+    picture.append(img);
+    item.append(picture);
+    return item;
+  }
+
+  function renderBatch(start, end) {
+    const fragment = document.createDocumentFragment();
+    currentItems()
+      .slice(start, end)
+      .forEach((data) => fragment.append(itemNode(data)));
+    grid.append(fragment);
+  }
+
+  function updateMore() {
+    if (!moreWrap) return;
+    const total = currentItems().length;
+    const loaded = Math.min(offset, total);
+    const hasMore = loaded < total;
+    moreWrap.hidden = !hasMore;
+    if (moreCount) moreCount.textContent = `Showing ${loaded} of ${total}`;
+  }
+
+  function resetGrid(category) {
+    activeCategory = category;
+    offset = BATCH_SIZE;
+    grid.querySelectorAll("[data-gallery-item]").forEach((item) => item.remove());
+    renderBatch(0, BATCH_SIZE);
+    updateMore();
+    if (emptyState) emptyState.hidden = currentItems().length > 0;
+    closeLightbox();
+  }
 
   function showImage(index) {
     const items = getVisibleItems();
@@ -37,8 +124,8 @@ function initGallery(root) {
     lightboxCaption.textContent = item.dataset.caption || "";
     lightboxCounter.textContent = `${currentIndex + 1} / ${items.length}`;
 
-    const neighbor = (offset) => {
-      const next = items[(currentIndex + offset + items.length) % items.length];
+    const neighbor = (itemOffset) => {
+      const next = items[(currentIndex + itemOffset + items.length) % items.length];
       if (next?.dataset.full) {
         const preload = new Image();
         preload.src = next.dataset.full;
@@ -119,7 +206,7 @@ function initGallery(root) {
     else if (event.key === "ArrowLeft") step(-1);
   });
 
-  // Category tabs
+  // Category tabs → rebuild grid with the category's first batch
   tabButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const category = button.dataset.galleryTab;
@@ -130,17 +217,23 @@ function initGallery(root) {
         tab.setAttribute("aria-pressed", String(active));
       });
 
-      let visibleCount = 0;
-      grid.querySelectorAll("[data-gallery-item]").forEach((item) => {
-        const show = category === "all" || item.dataset.category === category;
-        item.classList.toggle("is-hidden", !show);
-        if (show) visibleCount += 1;
-      });
-
-      if (emptyState) emptyState.hidden = visibleCount > 0;
-      closeLightbox();
+      resetGrid(category);
     });
   });
+
+  // "View more" → append the next batch
+  moreButton?.addEventListener("click", () => {
+    const total = currentItems().length;
+    if (offset >= total) return;
+    const next = Math.min(offset + BATCH_SIZE, total);
+    renderBatch(offset, next);
+    offset = next;
+    updateMore();
+  });
+
+  // The first batch is already server-rendered
+  offset = BATCH_SIZE;
+  updateMore();
 }
 
 document.querySelectorAll("[data-gallery]").forEach(initGallery);

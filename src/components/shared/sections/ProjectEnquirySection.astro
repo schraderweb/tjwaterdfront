@@ -1,0 +1,576 @@
+---
+import { Image } from "astro:assets";
+import Icon from "@/components/shared/ui/Icon.astro";
+import bgImage from "@/assets/hero/waterfront-hero.png";
+---
+
+<section class="project-enquiry" aria-labelledby="project-enquiry-title">
+  <div class="project-enquiry__bg-wrapper" aria-hidden="true">
+    <Image
+      src={bgImage}
+      alt=""
+      class="project-enquiry__bg-image"
+      widths={[640, 960, 1280, 1920]}
+      sizes="(max-width: 767px) 0vw, 50vw"
+      loading="lazy"
+    />
+    <div class="project-enquiry__bg-fade"></div>
+  </div>
+
+  <div class="site-container project-enquiry__container">
+    <div class="project-enquiry__layout">
+      <!-- Left Column -->
+      <div class="project-enquiry__left">
+        <div class="project-enquiry__header">
+          <div class="project-enquiry__eyebrow-wrapper">
+            <span class="project-enquiry__eyebrow">YOUR PROJECT</span>
+            <span class="project-enquiry__eyebrow-line"></span>
+          </div>
+          <h2 id="project-enquiry-title" class="project-enquiry__title">
+            Tell us what<br /><em>you're working on.</em>
+          </h2>
+          <p class="project-enquiry__description">
+            Every waterfront project is different.<br />
+            Tell us a little about what you have in mind,<br />
+            and our team will help you find the right solution.
+          </p>
+        </div>
+
+        <div class="project-enquiry__trust-items">
+          <div class="trust-item">
+            <div class="trust-item__icon-wrapper">
+              <Icon name="map-pinned" size={28} strokeWidth={1.5} />
+            </div>
+            <div class="trust-item__line"></div>
+            <div class="trust-item__content">
+              <h3 class="trust-item__title">LOCAL EXPERTISE</h3>
+              <p class="trust-item__description">Deep knowledge of Michigan waterfronts and the unique conditions they bring.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-item__icon-wrapper">
+              <Icon name="shield-check" size={28} strokeWidth={1.5} />
+            </div>
+            <div class="trust-item__line"></div>
+            <div class="trust-item__content">
+              <h3 class="trust-item__title">QUALITY CRAFTSMANSHIP</h3>
+              <p class="trust-item__description">Built to last with attention to every detail, every time.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-item__icon-wrapper">
+              <Icon name="user-round" size={28} strokeWidth={1.5} />
+            </div>
+            <div class="trust-item__line"></div>
+            <div class="trust-item__content">
+              <h3 class="trust-item__title">PERSONAL SERVICE</h3>
+              <p class="trust-item__description">We're with you from the first conversation to the final build and beyond.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="project-enquiry__right">
+        <form class="enquiry-form" id="project-enquiry-form">
+          <fieldset class="enquiry-form__service-selection">
+            <legend class="enquiry-form__legend">I'M INTERESTED IN</legend>
+            <div class="service-tiles">
+              <label class="service-tile">
+                <input type="radio" name="service" value="docks-seawall" class="sr-only" />
+                <span class="service-tile__content">
+                  <Icon name="anchor" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                  <span class="service-tile__label">DOCKS &<br/>SEAWALL</span>
+                </span>
+              </label>
+              <label class="service-tile">
+                <input type="radio" name="service" value="boat-lifts" class="sr-only" />
+                <span class="service-tile__content">
+                  <Icon name="arrow-up-from-line" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                  <span class="service-tile__label">BOAT<br/>LIFTS</span>
+                </span>
+              </label>
+              <label class="service-tile">
+                <input type="radio" name="service" value="marine-services" class="sr-only" />
+                <span class="service-tile__content">
+                  <Icon name="ship-wheel" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                  <span class="service-tile__label">MARINE<br/>SERVICES</span>
+                </span>
+              </label>
+              <label class="service-tile">
+                <input type="radio" name="service" value="waterfront-property" class="sr-only" />
+                <span class="service-tile__content">
+                  <Icon name="house" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                  <span class="service-tile__label">WATERFRONT<br/>PROPERTY</span>
+                </span>
+              </label>
+              <label class="service-tile service-tile--other">
+                <input type="radio" name="service" value="other" class="sr-only" />
+                <span class="service-tile__content">
+                  <Icon name="ellipsis" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                  <span class="service-tile__label">OTHER</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="enquiry-form__grid">
+            <div class="form-group">
+              <label for="enquiry-name">YOUR NAME</label>
+              <input type="text" id="enquiry-name" name="name" required placeholder="Full name" />
+            </div>
+            <div class="form-group">
+              <label for="enquiry-email">EMAIL ADDRESS</label>
+              <input type="email" id="enquiry-email" name="email" required placeholder="Email address" />
+            </div>
+            <div class="form-group">
+              <label for="enquiry-phone">PHONE NUMBER</label>
+              <input type="tel" id="enquiry-phone" name="phone" required placeholder="Phone number" />
+            </div>
+            <div class="form-group">
+              <label for="enquiry-location">LOCATION</label>
+              <input type="text" id="enquiry-location" name="location" placeholder="City, State" />
+            </div>
+          </div>
+
+          <div class="form-group form-group--full">
+            <label for="enquiry-details">TELL US ABOUT YOUR PROJECT</label>
+            <textarea id="enquiry-details" name="details" required placeholder="Share details about your project, timeline, and what you're looking to accomplish."></textarea>
+          </div>
+
+          <button type="submit" class="enquiry-form__submit">
+            <span>SEND ENQUIRY</span>
+            <Icon name="arrow-right" size={20} strokeWidth={2} class="submit-arrow" />
+          </button>
+
+          <div class="enquiry-form__security">
+            <Icon name="lock-keyhole" size={14} strokeWidth={1.5} />
+            <span>Your information is secure and will never be shared.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .project-enquiry {
+    position: relative;
+    background-color: #F5F0E7; /* Warm Ivory */
+    color: var(--color-navy-950, #0C2135);
+    overflow: hidden;
+    padding: clamp(64px, 8vw, 96px) 0;
+  }
+
+  /* Background Image Fade */
+  .project-enquiry__bg-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .project-enquiry__bg-image {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  .project-enquiry__bg-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      #F5F0E7 0%,
+      #F5F0E7 50%,
+      rgba(245, 240, 231, 0.85) 65%,
+      rgba(245, 240, 231, 0.3) 85%,
+      rgba(245, 240, 231, 0) 100%
+    );
+  }
+
+  .project-enquiry__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1380px;
+    margin-inline: auto;
+    padding-inline: clamp(24px, 5vw, 88px);
+  }
+
+  .project-enquiry__layout {
+    display: flex;
+    gap: clamp(40px, 6vw, 80px);
+    justify-content: space-between;
+  }
+
+  .project-enquiry__left {
+    width: 38%;
+    flex-shrink: 0;
+  }
+
+  .project-enquiry__right {
+    width: 62%;
+    flex-shrink: 1;
+  }
+
+  /* Header & Typography */
+  .project-enquiry__eyebrow-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .project-enquiry__eyebrow {
+    color: #C9953D; /* TJ Gold */
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 0.8vw, 0.9375rem);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .project-enquiry__eyebrow-line {
+    width: 3.25rem;
+    height: 1px;
+    background-color: #C9953D;
+    opacity: 0.6;
+  }
+
+  .project-enquiry__title {
+    font-family: "Cormorant Garamond", var(--font-display, serif);
+    font-size: clamp(42px, 4.4vw, 76px);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    color: var(--color-navy-950, #0C2135);
+    margin-bottom: clamp(32px, 3.5vw, 44px);
+  }
+
+  .project-enquiry__title em {
+    font-style: italic;
+  }
+
+  .project-enquiry__description {
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: clamp(16px, 1.2vw, 18px);
+    line-height: 1.65;
+    color: var(--color-navy-950, #0C2135);
+    max-width: 480px;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+
+  /* Trust Items */
+  .project-enquiry__trust-items {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(30px, 3.5vw, 42px);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .trust-item__icon-wrapper {
+    color: #C9953D;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .trust-item__line {
+    width: 1px;
+    height: clamp(48px, 5vw, 64px);
+    background-color: #C9953D;
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+
+  .trust-item__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .trust-item__title {
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-navy-950, #0C2135);
+    margin: 0;
+  }
+
+  .trust-item__description {
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: clamp(14px, 1vw, 16px);
+    line-height: 1.5;
+    color: var(--color-navy-800, #1A365D);
+    margin: 0;
+    max-width: 320px;
+  }
+
+  /* Form Section */
+  .enquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background: transparent;
+  }
+
+  .enquiry-form__legend,
+  .form-group label {
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-navy-950, #0C2135);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .enquiry-form__service-selection {
+    border: none;
+    padding: 0;
+    margin: 0 0 8px 0;
+  }
+
+  /* Service Tiles */
+  .service-tiles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  .service-tile__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: clamp(115px, 10vw, 145px);
+    border: 1px solid rgba(170, 130, 70, 0.28); /* Muted border */
+    border-radius: 2px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 16px 8px;
+    gap: 12px;
+  }
+
+  .service-tile__icon {
+    color: #C9953D;
+    transition: all 0.3s ease;
+  }
+
+  .service-tile__label {
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    color: var(--color-navy-950, #0C2135);
+  }
+
+  .service-tile:hover .service-tile__content {
+    border-color: #C9953D;
+    background-color: rgba(201, 149, 61, 0.03);
+  }
+
+  .service-tile:hover .service-tile__icon {
+    filter: brightness(1.1);
+  }
+
+  input[type="radio"]:checked + .service-tile__content {
+    border-color: #C9953D;
+    background-color: rgba(201, 149, 61, 0.08);
+  }
+
+  /* Form Inputs */
+  .enquiry-form__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group--full {
+    grid-column: 1 / -1;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(12, 33, 53, 0.18);
+    border-radius: 2px;
+    padding: 16px 20px;
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: 16px;
+    color: var(--color-navy-950, #0C2135);
+    transition: all 0.3s ease;
+  }
+
+  .form-group input {
+    height: clamp(62px, 5vw, 68px);
+  }
+
+  .form-group textarea {
+    height: clamp(150px, 12vw, 175px);
+    resize: vertical;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(12, 33, 53, 0.4);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #C9953D;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0 1px rgba(201, 149, 61, 0.2);
+  }
+
+  /* Submit Button */
+  .enquiry-form__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    height: clamp(62px, 5vw, 68px);
+    background-color: #C9953D;
+    color: var(--color-navy-950, #0C2135);
+    border: none;
+    border-radius: 2px;
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+  }
+
+  .enquiry-form__submit:hover {
+    background-color: #b58535;
+  }
+
+  .enquiry-form__submit:hover .submit-arrow {
+    transform: translateX(4px);
+  }
+
+  .submit-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  /* Security Message */
+  .enquiry-form__security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(12, 33, 53, 0.6);
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: 13px;
+    margin-top: -8px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1199px) {
+    .project-enquiry__layout {
+      flex-direction: column;
+    }
+
+    .project-enquiry__left,
+    .project-enquiry__right {
+      width: 100%;
+    }
+
+    .project-enquiry__bg-image {
+      width: 100%;
+      opacity: 0.15;
+    }
+
+    .project-enquiry__bg-fade {
+      background: linear-gradient(
+        180deg,
+        #F5F0E7 0%,
+        rgba(245, 240, 231, 0.8) 40%,
+        rgba(245, 240, 231, 0.3) 100%
+      );
+    }
+    
+    .project-enquiry__description {
+      max-width: 100%;
+    }
+    
+    .project-enquiry__trust-items {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    
+    .trust-item {
+      flex: 1 1 300px;
+    }
+    
+    .service-tiles {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .service-tile--other {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .project-enquiry__bg-wrapper {
+      display: none;
+    }
+
+    .project-enquiry__trust-items {
+      flex-direction: column;
+    }
+    
+    .service-tiles {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .service-tile--other {
+      grid-column: span 2;
+    }
+
+    .enquiry-form__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-group input {
+      height: 56px;
+    }
+  }
+</style>

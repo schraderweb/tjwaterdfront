@@ -8,13 +8,15 @@
  * Photos live in `src/content/gallery/<category>/` — they are discovered at
  * build time. Adding or removing photos requires no code changes.
  */
-import { Picture } from "astro:assets";
+import { getImage, Picture } from "astro:assets";
 import Icon from "@/components/shared/ui/Icon.astro";
 import { getGalleryCategories, getGalleryImages } from "@/data/gallery";
 
 interface Props {
   category?: string;
 }
+
+const BATCH_SIZE = 20;
 
 const { category } = Astro.props;
 const images = getGalleryImages(category);
@@ -23,6 +25,27 @@ const showTabs = !category;
 const categoryLabel = category
   ? getGalleryCategories().find((item) => item.slug === category)?.label ?? category
   : "";
+
+/** First batch is server-rendered; the rest ship as a JSON manifest. */
+const initialImages = images.slice(0, BATCH_SIZE);
+const manifest = await Promise.all(
+  images.map(async (img) => {
+    const [avif, webp] = await Promise.all([
+      getImage({ src: img.src, widths: [400, 800, 1200], format: "avif" }),
+      getImage({ src: img.src, widths: [400, 800, 1200], format: "webp" }),
+    ]);
+    return {
+      avifSrcset: avif.srcSet.attribute,
+      webpSrcset: webp.srcSet.attribute,
+      src: webp.src,
+      width: webp.attributes.width,
+      height: webp.attributes.height,
+      full: img.fullSrc,
+      alt: img.alt,
+      category: img.category,
+    };
+  })
+);
 ---
 
 <section data-gallery class="gallery-section">
@@ -74,7 +97,7 @@ const categoryLabel = category
 
     <div data-gallery-grid class="gallery-grid">
       {
-        images.map((img) => (
+        initialImages.map((img) => (
           <div
             data-gallery-item
             data-category={img.category}
@@ -98,6 +121,13 @@ const categoryLabel = category
       }
     </div>
 
+    <div class="gallery-more" data-gallery-more hidden>
+      <button type="button" class="gallery-more__button" data-gallery-more-button>
+        VIEW MORE PHOTOS
+      </button>
+      <p class="gallery-more__count" data-gallery-more-count aria-live="polite"></p>
+    </div>
+
     {
       showTabs && (
         <p class="gallery-empty" data-gallery-empty hidden>
@@ -106,6 +136,8 @@ const categoryLabel = category
       )
     }
   </div>
+
+  <script type="application/json" data-gallery-manifest set:html={JSON.stringify(manifest)}></script>
 
   <div
     class="lightbox"
@@ -265,6 +297,55 @@ const categoryLabel = category
     color: var(--color-gold-400);
   }
 
+  /* ── Load more ──────────────────────────────────── */
+  .gallery-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .gallery-more[hidden] {
+    display: none;
+  }
+
+  .gallery-more__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 2.25rem;
+    border: 1px solid var(--color-navy-950);
+    border-radius: 999px;
+    background: var(--color-navy-950);
+    color: var(--color-text-on-dark);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-premium),
+      border-color var(--duration-fast) var(--ease-premium),
+      color var(--duration-fast) var(--ease-premium);
+  }
+
+  .gallery-more__button:hover,
+  .gallery-more__button:focus-visible {
+    background: var(--color-gold-600);
+    border-color: var(--color-gold-600);
+    color: var(--color-navy-950);
+  }
+
+  .gallery-more__count {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-tiny);
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+  }
+
   /* ── Uniform gallery grid ──────────────────────────── */
   .gallery-grid {
     display: grid;
@@ -275,7 +356,9 @@ const categoryLabel = category
     margin-inline: auto;
   }
 
-  .gallery-item {
+  /* Items and images are created client-side for later batches, so these
+     rules must be global (Astro-scoped styles would not apply to them). */
+  :global(.gallery-item) {
     position: relative;
     overflow: hidden;
     aspect-ratio: 4 / 3;
@@ -286,16 +369,16 @@ const categoryLabel = category
     cursor: zoom-in;
   }
 
-  .gallery-item.is-hidden {
+  :global(.gallery-item.is-hidden) {
     display: none;
   }
 
-  .gallery-item:focus-visible {
+  :global(.gallery-item:focus-visible) {
     outline: 2px solid var(--color-gold-500);
     outline-offset: 3px;
   }
 
-  .gallery-image {
+  :global(.gallery-image) {
     display: block;
     width: 100%;
     height: 100%;
@@ -303,12 +386,12 @@ const categoryLabel = category
     transition: transform 600ms var(--ease-premium);
   }
 
-  .gallery-item:hover {
+  :global(.gallery-item:hover) {
     z-index: 2;
     box-shadow: 0 0 2rem rgba(7, 26, 43, 0.34);
   }
 
-  .gallery-item:hover .gallery-image {
+  :global(.gallery-item:hover .gallery-image) {
     transform: scale(1.07);
   }
 
