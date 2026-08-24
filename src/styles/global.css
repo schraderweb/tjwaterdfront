@@ -184,3 +184,47 @@
     transform: translateY(24px);
   }
 }
+
+/* ─────────────────────────────────────────────
+   Page curtains — cinematic navigation transition
+   Navy panel sweeps across, page name shows at full
+   cover, then the panel sweeps away to reveal.
+   ───────────────────────────────────────────── */
+.page-curtains {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.page-curtains.is-active {
+  visibility: visible;
+}
+
+.page-curtains__panel {
+  position: absolute;
+  top: -30vh;
+  left: 0;
+  width: 100%;
+  height: 160vh;
+  background-color: var(--color-navy-950);
+  clip-path: polygon(0 0, 100% 18vh, 100% 160vh, 0 calc(160vh - 18vh));
+  will-change: transform;
+}
+
+.page-curtains__title {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0 5vw;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--color-gold-400);
+  will-change: opacity, transform;
+}
