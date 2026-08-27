@@ -6,6 +6,7 @@
 import Button from "@/components/shared/ui/Button.astro";
 import GoldLine from "@/components/shared/ui/GoldLine.astro";
 import Icon from "@/components/shared/ui/Icon.astro";
+import SubmitSuccess from "@/components/shared/ui/SubmitSuccess.astro";
 
 const projectTypes = [
   "Dock Installation",
@@ -20,14 +21,14 @@ const projectTypes = [
 ];
 ---
 
-<div class="quote-form">
-  <div class="quote-heading">
+<div class="quote-form" data-success-root>
+  <div class="quote-heading" data-success-hide>
     <p class="eyebrow">Get Started</p>
     <h2 class="quote-title">Request a Free Quote</h2>
     <GoldLine align="center" />
   </div>
 
-  <form action="/api/quote" method="post" class="quote-fields">
+  <form action="/api/quote" method="post" class="quote-fields" data-submit-success>
     <p class="hp-field" aria-hidden="true">
       <label>
         Company
@@ -128,6 +129,14 @@ const projectTypes = [
       <span>Your information is secure and never shared.</span>
     </p>
   </form>
+
+  <SubmitSuccess
+    class="quote-form__success"
+    variant="dark"
+    title="Thank You"
+    message="We've received your request — our team will be in touch with a free quote shortly."
+    resetLabel="Send Another Request"
+  />
 </div>
 
 <style>
@@ -294,6 +303,10 @@ const projectTypes = [
     color: var(--color-navy-800);
   }
 
+  .quote-form__success {
+    min-height: clamp(26rem, 30vw, 34rem);
+  }
+
   @media (min-width: 40rem) {
     .form-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -345,3 +358,8 @@ const projectTypes = [
     }
   }
 </style>
+
+<script>
+  import { initSubmitSuccess } from "@/scripts/submit-success.js";
+  initSubmitSuccess();
+</script>

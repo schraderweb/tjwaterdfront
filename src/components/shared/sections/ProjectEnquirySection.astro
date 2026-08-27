@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Icon from "@/components/shared/ui/Icon.astro";
+import SubmitSuccess from "@/components/shared/ui/SubmitSuccess.astro";
 import bgImage from "@/assets/hero/waterfront-hero.png";
 ---
 
@@ -72,82 +73,91 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
 
       <!-- Right Column -->
       <div class="project-enquiry__right">
-        <form class="enquiry-form" id="project-enquiry-form">
-          <fieldset class="enquiry-form__service-selection">
-            <legend class="enquiry-form__legend">I'M INTERESTED IN</legend>
-            <div class="service-tiles">
-              <label class="service-tile">
-                <input type="radio" name="service" value="docks-seawall" class="sr-only" />
-                <span class="service-tile__content">
-                  <Icon name="anchor" size={28} strokeWidth={1.5} class="service-tile__icon" />
-                  <span class="service-tile__label">DOCKS &<br/>SEAWALL</span>
-                </span>
-              </label>
-              <label class="service-tile">
-                <input type="radio" name="service" value="boat-lifts" class="sr-only" />
-                <span class="service-tile__content">
-                  <Icon name="arrow-up-from-line" size={28} strokeWidth={1.5} class="service-tile__icon" />
-                  <span class="service-tile__label">BOAT<br/>LIFTS</span>
-                </span>
-              </label>
-              <label class="service-tile">
-                <input type="radio" name="service" value="marine-services" class="sr-only" />
-                <span class="service-tile__content">
-                  <Icon name="ship-wheel" size={28} strokeWidth={1.5} class="service-tile__icon" />
-                  <span class="service-tile__label">MARINE<br/>SERVICES</span>
-                </span>
-              </label>
-              <label class="service-tile">
-                <input type="radio" name="service" value="waterfront-property" class="sr-only" />
-                <span class="service-tile__content">
-                  <Icon name="house" size={28} strokeWidth={1.5} class="service-tile__icon" />
-                  <span class="service-tile__label">WATERFRONT<br/>PROPERTY</span>
-                </span>
-              </label>
-              <label class="service-tile service-tile--other">
-                <input type="radio" name="service" value="other" class="sr-only" />
-                <span class="service-tile__content">
-                  <Icon name="ellipsis" size={28} strokeWidth={1.5} class="service-tile__icon" />
-                  <span class="service-tile__label">OTHER</span>
-                </span>
-              </label>
-            </div>
-          </fieldset>
+        <div class="enquiry-form-root" data-success-root>
+          <form class="enquiry-form" id="project-enquiry-form" data-submit-success>
+            <fieldset class="enquiry-form__service-selection">
+              <legend class="enquiry-form__legend">I'M INTERESTED IN</legend>
+              <div class="service-tiles">
+                <label class="service-tile">
+                  <input type="radio" name="service" value="docks-seawall" class="sr-only" />
+                  <span class="service-tile__content">
+                    <Icon name="anchor" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                    <span class="service-tile__label">DOCKS &<br/>SEAWALL</span>
+                  </span>
+                </label>
+                <label class="service-tile">
+                  <input type="radio" name="service" value="boat-lifts" class="sr-only" />
+                  <span class="service-tile__content">
+                    <Icon name="arrow-up-from-line" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                    <span class="service-tile__label">BOAT<br/>LIFTS</span>
+                  </span>
+                </label>
+                <label class="service-tile">
+                  <input type="radio" name="service" value="marine-services" class="sr-only" />
+                  <span class="service-tile__content">
+                    <Icon name="ship-wheel" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                    <span class="service-tile__label">MARINE<br/>SERVICES</span>
+                  </span>
+                </label>
+                <label class="service-tile">
+                  <input type="radio" name="service" value="waterfront-property" class="sr-only" />
+                  <span class="service-tile__content">
+                    <Icon name="house" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                    <span class="service-tile__label">WATERFRONT<br/>PROPERTY</span>
+                  </span>
+                </label>
+                <label class="service-tile service-tile--other">
+                  <input type="radio" name="service" value="other" class="sr-only" />
+                  <span class="service-tile__content">
+                    <Icon name="ellipsis" size={28} strokeWidth={1.5} class="service-tile__icon" />
+                    <span class="service-tile__label">OTHER</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
 
-          <div class="enquiry-form__grid">
-            <div class="form-group">
-              <label for="enquiry-name">YOUR NAME</label>
-              <input type="text" id="enquiry-name" name="name" required placeholder="Full name" />
+            <div class="enquiry-form__grid">
+              <div class="form-group">
+                <label for="enquiry-name">YOUR NAME</label>
+                <input type="text" id="enquiry-name" name="name" required placeholder="Full name" />
+              </div>
+              <div class="form-group">
+                <label for="enquiry-email">EMAIL ADDRESS</label>
+                <input type="email" id="enquiry-email" name="email" required placeholder="Email address" />
+              </div>
+              <div class="form-group">
+                <label for="enquiry-phone">PHONE NUMBER</label>
+                <input type="tel" id="enquiry-phone" name="phone" required placeholder="Phone number" />
+              </div>
+              <div class="form-group">
+                <label for="enquiry-location">LOCATION</label>
+                <input type="text" id="enquiry-location" name="location" placeholder="City, State" />
+              </div>
             </div>
-            <div class="form-group">
-              <label for="enquiry-email">EMAIL ADDRESS</label>
-              <input type="email" id="enquiry-email" name="email" required placeholder="Email address" />
-            </div>
-            <div class="form-group">
-              <label for="enquiry-phone">PHONE NUMBER</label>
-              <input type="tel" id="enquiry-phone" name="phone" required placeholder="Phone number" />
-            </div>
-            <div class="form-group">
-              <label for="enquiry-location">LOCATION</label>
-              <input type="text" id="enquiry-location" name="location" placeholder="City, State" />
-            </div>
-          </div>
 
-          <div class="form-group form-group--full">
-            <label for="enquiry-details">TELL US ABOUT YOUR PROJECT</label>
-            <textarea id="enquiry-details" name="details" required placeholder="Share details about your project, timeline, and what you're looking to accomplish."></textarea>
-          </div>
+            <div class="form-group form-group--full">
+              <label for="enquiry-details">TELL US ABOUT YOUR PROJECT</label>
+              <textarea id="enquiry-details" name="details" required placeholder="Share details about your project, timeline, and what you're looking to accomplish."></textarea>
+            </div>
 
-          <button type="submit" class="enquiry-form__submit">
-            <span>SEND ENQUIRY</span>
-            <Icon name="arrow-right" size={20} strokeWidth={2} class="submit-arrow" />
-          </button>
+            <button type="submit" class="enquiry-form__submit">
+              <span>SEND ENQUIRY</span>
+              <Icon name="arrow-right" size={20} strokeWidth={2} class="submit-arrow" />
+            </button>
 
-          <div class="enquiry-form__security">
-            <Icon name="lock-keyhole" size={14} strokeWidth={1.5} />
-            <span>Your information is secure and will never be shared.</span>
-          </div>
-        </form>
+            <div class="enquiry-form__security">
+              <Icon name="lock-keyhole" size={14} strokeWidth={1.5} />
+              <span>Your information is secure and will never be shared.</span>
+            </div>
+          </form>
+
+          <SubmitSuccess
+            class="enquiry-form__success"
+            title="Thank You"
+            message="We've received your enquiry — our team will be in touch within one business day."
+            resetLabel="Send Another Enquiry"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -333,6 +343,14 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
     flex-direction: column;
     gap: 32px;
     background: transparent;
+  }
+
+  .enquiry-form-root {
+    position: relative;
+  }
+
+  .enquiry-form__success {
+    min-height: clamp(360px, 26vw, 460px);
   }
 
   .enquiry-form__legend,
@@ -579,3 +597,8 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
     }
   }
 </style>
+
+<script>
+  import { initSubmitSuccess } from "@/scripts/submit-success.js";
+  initSubmitSuccess();
+</script>
