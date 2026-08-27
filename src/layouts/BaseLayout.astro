@@ -6,7 +6,6 @@
 import "../styles/global.css";
 import "@fontsource-variable/manrope";
 import "@fontsource/dm-serif-display/400.css";
-import { ClientRouter } from "astro:transitions";
 import { site } from "@/data/site";
 
 interface Props {
@@ -46,11 +45,10 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <ClientRouter />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -110,8 +108,5 @@ const jsonLd = {
   </head>
   <body>
     <slot />
-    <script>
-      import "@/scripts/page-curtains.js";
-    </script>
   </body>
 </html>
