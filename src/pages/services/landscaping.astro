@@ -3,13 +3,14 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
 import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import ServiceDetail from "@/components/shared/sections/ServiceDetail.astro";
 import PopularServices from "@/components/shared/sections/PopularServices.astro";
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 
 // Hero image
-import heroImage from "@/assets/hero/waterfront-hero.png";
+import heroImage from "@/content/gallery/landscaping/01.webp";
 ---
 
 <BaseLayout title="Waterfront Landscaping | T&J Waterfront Services">
@@ -22,6 +23,8 @@ import heroImage from "@/assets/hero/waterfront-hero.png";
       image={heroImage}
       imageAlt="Beautiful waterfront landscaping by T&J Waterfront Services"
     />
+
+    <ServiceDetail slug="landscaping" image={heroImage} imageAlt="Waterfront landscaping by T&J Waterfront Services" />
 
     <GallerySection category="landscaping" />
 

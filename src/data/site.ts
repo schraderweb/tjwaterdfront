@@ -21,6 +21,8 @@ export const site = {
   googleReviewUrl: "https://g.page/r/CcIG8n67r2DxEB0/review",
   facebookReviewUrl: "https://www.facebook.com/Tjwaterfrontservices/reviews",
   facebookPixelId: "",
+  gtmId: "GTM-P7FMJFW",
+  ga4Id: "",
 };
 
 export interface NavChild {

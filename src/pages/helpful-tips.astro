@@ -7,9 +7,26 @@ import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 import { helpfulResources } from "@/data/helpfulResources";
 
 import heroImage from "@/assets/hero/waterfront-hero.png";
+
+const { site } = await import("@/data/site");
+
+const itemListSchema = {
+  "@type": "ItemList",
+  name: "Helpful Tips & Articles",
+  itemListElement: helpfulResources.map((resource, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: resource.description,
+    url: new URL(resource.url, site.url).toString(),
+  })),
+};
 ---
 
-<BaseLayout title="Helpful Tips & Articles | T&J Waterfront Services">
+<BaseLayout
+  title="Helpful Tips & Articles | T&J Waterfront Services"
+  canonicalPath="/helpful-tips"
+  schema={itemListSchema}
+>
   <Navbar />
 
   <main id="main">

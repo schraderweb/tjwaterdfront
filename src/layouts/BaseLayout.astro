@@ -6,41 +6,128 @@
 import "../styles/global.css";
 import "@fontsource-variable/manrope";
 import "@fontsource/dm-serif-display/400.css";
-import { site } from "@/data/site";
+import { site, navLinks } from "@/data/site";
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
   canonicalPath?: string;
+  schema?: object;
 }
 
 const {
   title = site.title,
   description = site.description,
   ogImage = "/og.jpg",
-  canonicalPath = "/",
+  canonicalPath = Astro.url.pathname,
+  schema,
 } = Astro.props;
 
 const canonical = new URL(canonicalPath, site.url).toString();
 
+const breadcrumbPath = canonicalPath === "/" ? [] : canonicalPath.split("/").filter(Boolean);
+const breadcrumbItems = [
+  { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+  ...breadcrumbPath.map((segment, i) => ({
+    "@type": "ListItem",
+    position: i + 2,
+    name: segment.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+    item: `${site.url}/${breadcrumbPath.slice(0, i + 1).join("/")}`,
+  })),
+];
+
+const servicePaths = new Set([
+  "sectional-docks",
+  "roll-in-docks",
+  "platinum-docks",
+  "floating-docks",
+  "boat-lifts",
+  "boat-pontoon-lift-accessories",
+  "dock-accessories",
+  "lift-accessories",
+  "dock-services",
+  "dock-services-repair",
+  "personal-watercraft-lift",
+  "power-canopy",
+  "canopy-systems",
+]);
+
+const serviceSlug =
+  breadcrumbPath.join("/").startsWith("services/")
+    ? breadcrumbPath[breadcrumbPath.length - 1]
+    : breadcrumbPath.length === 1 && servicePaths.has(breadcrumbPath[0])
+      ? breadcrumbPath[0]
+      : null;
+
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: site.legalName,
-  url: site.url,
-  telephone: `+1-${site.phone}`,
-  email: site.email,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: site.address.street,
-    addressLocality: site.address.city,
-    addressRegion: site.address.state,
-    postalCode: site.address.zip,
-    addressCountry: "US",
-  },
-  openingHours: "Mo-Su 07:00-19:00",
-  sameAs: [site.facebook],
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": `${site.url}/#business`,
+      name: site.legalName,
+      url: site.url,
+      telephone: `+1-${site.phone}`,
+      email: site.email,
+      image: `${site.url}/og.jpg`,
+      priceRange: "$$",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: site.address.street,
+        addressLocality: site.address.city,
+        addressRegion: site.address.state,
+        postalCode: site.address.zip,
+        addressCountry: "US",
+      },
+      openingHours: "Mo-Su 07:00-19:00",
+      sameAs: [site.facebook, site.googleReviewUrl],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Waterfront Services",
+        itemListElement: navLinks
+          .flatMap((link) => (link.children ?? []).map((child) => ({ label: child.label, href: child.href })))
+          .filter((child) => child.href && child.href !== "#")
+          .map((child) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: child.label,
+              url: new URL(child.href, site.url).toString(),
+            },
+          })),
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      description: site.description,
+      publisher: { "@id": `${site.url}/#business` },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonical}#breadcrumb`,
+      itemListElement: breadcrumbItems,
+    },
+    ...(serviceSlug
+      ? [
+          {
+            "@type": "Service",
+            "@id": `${canonical}#service`,
+            name: title,
+            description,
+            url: canonical,
+            provider: { "@id": `${site.url}/#business` },
+            areaServed: { "@type": "State", name: "Michigan" },
+            serviceType: serviceSlug,
+          },
+        ]
+      : []),
+    ...(schema ? [schema] : []),
+  ],
 };
 ---
 
@@ -102,6 +189,43 @@ const jsonLd = {
             alt=""
           />
         </noscript>
+      )
+    }
+    {
+      site.gtmId && (
+        <script
+          is:inline
+          set:html={`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${site.gtmId}');
+          `}
+        />
+      )
+    }
+    {
+      site.gtmId && (
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${site.gtmId}`}
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+            title="Google Tag Manager"
+          />
+        </noscript>
+      )
+    }
+    {
+      site.ga4Id && (
+        <script is:inline set:html={`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${site.ga4Id}');
+        `} />
       )
     }
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

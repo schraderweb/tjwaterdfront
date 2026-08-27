@@ -1,0 +1,233 @@
+---
+/**
+ * ServiceDetail.astro — rich text section for service & about pages.
+ * Pulls copy from src/data/serviceContent.ts keyed by slug.
+ * Optional image renders in the left column beneath the heading.
+ */
+import { Picture } from "astro:assets";
+import Button from "@/components/shared/ui/Button.astro";
+import Icon from "@/components/shared/ui/Icon.astro";
+import { serviceContent } from "@/data/serviceContent";
+
+interface Props {
+  slug: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+}
+
+const { slug, image, imageAlt } = Astro.props;
+
+const content = serviceContent[slug];
+if (!content) {
+  throw new Error(`No service content found for slug "${slug}"`);
+}
+
+const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
+---
+
+<section class="service-detail" aria-labelledby="service-detail-title">
+  <div class="site-container">
+    <div class="service-detail__inner">
+      <header class="service-detail__header">
+        <span class="service-detail__eyebrow">{content.eyebrow}</span>
+        <h2 id="service-detail-title" class="service-detail__title">{content.heading}</h2>
+        {
+          image && (
+            <figure class="service-detail__figure">
+              <Picture
+                src={image}
+                alt={imageAlt ?? ""}
+                formats={["avif", "webp"]}
+                widths={[480, 640, 960, 1280]}
+                sizes="(max-width: 56rem) 100vw, 36vw"
+                class="service-detail__image"
+                loading="lazy"
+              />
+            </figure>
+          )
+        }
+      </header>
+
+      <div class="service-detail__body">
+        {
+          content.paragraphs.map((paragraph) => (
+            <p class="service-detail__paragraph">{paragraph}</p>
+          ))
+        }
+
+        {
+          content.bullets && (
+            <ul class="service-detail__bullets">
+              {content.bullets.map((bullet) => (
+                <li class="service-detail__bullet">
+                  <Icon name="check" size={16} class="service-detail__bullet-icon" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+
+        {
+          content.note && (
+            <div class="service-detail__note">
+              <Icon name="info" size={18} class="service-detail__note-icon" />
+              <span>{content.note}</span>
+            </div>
+          )
+        }
+
+        <div class="service-detail__cta">
+          <Button href={cta.href} variant="gold" size="md">
+            {cta.label}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-detail {
+    background-color: var(--color-cream-50);
+    padding-block: clamp(4rem, 7vw, 6.5rem);
+  }
+
+  .service-detail__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .service-detail__header {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .service-detail__eyebrow {
+    display: block;
+    width: fit-content;
+    margin-bottom: clamp(1.5rem, 2.5vw, 2rem);
+    color: var(--color-gold-700);
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 0.8vw, 0.875rem);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .service-detail__eyebrow::after {
+    content: "";
+    display: block;
+    width: 3.25rem;
+    height: 1px;
+    margin-top: 1.5rem;
+    background-color: var(--color-gold-600);
+    opacity: 0.6;
+  }
+
+  .service-detail__title {
+    margin: 0;
+    color: var(--color-navy-950);
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .service-detail__figure {
+    margin: clamp(2rem, 3vw, 2.75rem) 0 0;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .service-detail__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .service-detail__body {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 2vw, 1.75rem);
+  }
+
+  .service-detail__paragraph {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: var(--leading-body);
+  }
+
+  .service-detail__bullets {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem 1.5rem;
+    margin: clamp(0.5rem, 1.5vw, 1.25rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-detail__bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.5;
+  }
+
+  .service-detail__bullet-icon {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    color: var(--color-gold-600);
+  }
+
+  .service-detail__note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: clamp(0.5rem, 1.5vw, 1.25rem);
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(198, 146, 61, 0.45);
+    border-radius: var(--radius-sm);
+    background-color: rgba(198, 146, 61, 0.08);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    line-height: 1.5;
+  }
+
+  .service-detail__note-icon {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color-gold-600);
+  }
+
+  .service-detail__cta {
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  @media (max-width: 56rem) {
+    .service-detail__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .service-detail__header {
+      position: static;
+    }
+
+    .service-detail__bullets {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
