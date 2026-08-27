@@ -57,12 +57,28 @@ const isActive = (href: string) =>
                           {child.children && (
                             <ul class="submenu">
                               {child.children.map((sub) => (
-                                <li>
+                                <li class:list={sub.children && "has-submenu"}>
                                   <a
                                     href={sub.href}
                                     class:list={["dropdown-link", isActive(sub.href) && "is-active-child"]}
                                     {...(isActive(sub.href) ? { "aria-current": "page" } : {})}
-                                  >{sub.label}</a>
+                                  >
+                                    {sub.label}
+                                    {sub.children && <Icon name="chevron-right" size={10} class="submenu-chevron" />}
+                                  </a>
+                                  {sub.children && (
+                                    <ul class="submenu">
+                                      {sub.children.map((deep) => (
+                                        <li>
+                                          <a
+                                            href={deep.href}
+                                            class:list={["dropdown-link", isActive(deep.href) && "is-active-child"]}
+                                            {...(isActive(deep.href) ? { "aria-current": "page" } : {})}
+                                          >{deep.label}</a>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
                                 </li>
                               ))}
                             </ul>
@@ -131,6 +147,17 @@ const isActive = (href: string) =>
                             <a href={sub.href} class:list={["mobile-sublink", isActive(sub.href) && "is-active-child"]}>
                               {sub.label}
                             </a>
+                            {sub.children && (
+                              <ul class="mobile-subsub">
+                                {sub.children.map((deep) => (
+                                  <li>
+                                    <a href={deep.href} class:list={["mobile-sublink", isActive(deep.href) && "is-active-child"]}>
+                                      {deep.label}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -415,8 +442,8 @@ const isActive = (href: string) =>
       visibility var(--duration-base) var(--ease-premium);
   }
 
-  .has-submenu:hover .submenu,
-  .has-submenu:focus-within .submenu {
+  .has-submenu:hover > .submenu,
+  .has-submenu:focus-within > .submenu {
     opacity: 1;
     visibility: visible;
     transform: translateX(0);

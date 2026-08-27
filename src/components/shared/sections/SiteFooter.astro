@@ -11,13 +11,6 @@ const currentYear = new Date().getFullYear();
       
       <!-- Brand Column -->
       <div class="site-footer__col site-footer__brand-col">
-        <div class="site-footer__logo">
-          <Icon name="anchor" class="site-footer__logo-icon" size={32} />
-          <div class="site-footer__logo-text">
-            <span class="site-footer__logo-name">T&J WATERFRONT</span>
-            <span class="site-footer__logo-sub">SERVICES</span>
-          </div>
-        </div>
         <p class="site-footer__brand-text">
           Built for Michigan. Built to last.<br>
           Premium waterfront solutions you can<br>
@@ -99,6 +92,13 @@ const currentYear = new Date().getFullYear();
 
       <!-- Newsletter Column -->
       <div class="site-footer__col">
+        <div class="site-footer__logo">
+          <Icon name="anchor" class="site-footer__logo-icon" size={32} />
+          <div class="site-footer__logo-text">
+            <span class="site-footer__logo-name">T&J WATERFRONT</span>
+            <span class="site-footer__logo-sub">SERVICES</span>
+          </div>
+        </div>
         <h3 class="site-footer__heading">STAY UPDATED</h3>
         <p class="site-footer__newsletter-text">Subscribe for tips, updates, and special offers.</p>
         <form class="site-footer__form" action="#" method="POST" data-newsletter-form novalidate>
@@ -277,6 +277,7 @@ const currentYear = new Date().getFullYear();
 .site-footer__heading {
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow);
+  font-weight: 700;
   letter-spacing: var(--tracking-eyebrow);
   color: var(--color-gold-500);
   margin-bottom: var(--space-stack-md);
@@ -427,7 +428,8 @@ const currentYear = new Date().getFullYear();
   background-color: #040d17;
   border-top: 1px solid rgba(246, 241, 231, 0.08);
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
 }
 
 .schrader-bar__inner {
