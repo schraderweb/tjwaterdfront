@@ -1,9 +1,13 @@
 --- 
 import Icon from "@/components/shared/ui/Icon.astro";
 import Button from "@/components/shared/ui/Button.astro";
-import { site } from "@/data/site";
+import { site, navLinks } from "@/data/site";
 
 const currentYear = new Date().getFullYear();
+
+const quickLinks = navLinks.filter((link) => !link.children);
+const services = navLinks.find((link) => link.label === "Services");
+const marine = navLinks.find((link) => link.label === "Marine");
 ---
 <footer class="site-footer">
   <div class="site-footer__container">
@@ -11,6 +15,13 @@ const currentYear = new Date().getFullYear();
       
       <!-- Brand Column -->
       <div class="site-footer__col site-footer__brand-col">
+        <div class="site-footer__logo">
+          <Icon name="anchor" class="site-footer__logo-icon" size={32} />
+          <div class="site-footer__logo-text">
+            <span class="site-footer__logo-name">T&J WATERFRONT</span>
+            <span class="site-footer__logo-sub">SERVICES</span>
+          </div>
+        </div>
         <p class="site-footer__brand-text">
           Built for Michigan. Built to last.<br>
           Premium waterfront solutions you can<br>
@@ -37,31 +48,46 @@ const currentYear = new Date().getFullYear();
             </a>
           </div>
         </div>
+        <div class="site-footer__trust">
+          <Icon name="shield" class="site-footer__trust-icon" size={20} />
+          <span class="site-footer__trust-text">Licensed & Insured | Michigan Based</span>
+        </div>
+      </div>
+
+      <!-- Services Column -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">SERVICES</h3>
+        <ul class="site-footer__list">
+          {
+            services?.children?.map((child) => (
+              <li><a href={child.href} class="site-footer__link"><Icon name="chevron-right" size={14}/> {child.label}</a></li>
+            ))
+          }
+          <li><a href="/services" class="site-footer__link"><Icon name="chevron-right" size={14}/> View All Services</a></li>
+        </ul>
+      </div>
+
+      <!-- Marine Column -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">MARINE</h3>
+        <ul class="site-footer__list">
+          {
+            marine?.children?.map((child) => (
+              <li><a href={child.href} class="site-footer__link"><Icon name="chevron-right" size={14}/> {child.label}</a></li>
+            ))
+          }
+        </ul>
       </div>
 
       <!-- Quick Links Column -->
       <div class="site-footer__col">
         <h3 class="site-footer__heading">QUICK LINKS</h3>
         <ul class="site-footer__list">
-          <li><a href="/" class="site-footer__link"><Icon name="chevron-right" size={14}/> Home</a></li>
-          <li><a href="/services" class="site-footer__link"><Icon name="chevron-right" size={14}/> Services</a></li>
-          <li><a href="/service-areas" class="site-footer__link"><Icon name="chevron-right" size={14}/> Service Areas</a></li>
-          <li><a href="/gallery" class="site-footer__link"><Icon name="chevron-right" size={14}/> Gallery</a></li>
-          <li><a href="/about" class="site-footer__link"><Icon name="chevron-right" size={14}/> About Us</a></li>
-          <li><a href="/contact" class="site-footer__link"><Icon name="chevron-right" size={14}/> Contact Us</a></li>
-        </ul>
-      </div>
-
-      <!-- Services Column -->
-      <div class="site-footer__col">
-        <h3 class="site-footer__heading">OUR SERVICES</h3>
-        <ul class="site-footer__list">
-          <li><a href="/services/dock-services" class="site-footer__link"><Icon name="chevron-right" size={14}/> Dock Services & Repair</a></li>
-          <li><a href="/services/lift-accessories" class="site-footer__link"><Icon name="chevron-right" size={14}/> Boat & Pontoon Lift Accessories</a></li>
-          <li><a href="/services/seawalls" class="site-footer__link"><Icon name="chevron-right" size={14}/> Seawalls</a></li>
-          <li><a href="/services/boat-lifts" class="site-footer__link"><Icon name="chevron-right" size={14}/> Boat Lifts</a></li>
-          <li><a href="/services/beaches" class="site-footer__link"><Icon name="chevron-right" size={14}/> Beaches</a></li>
-          <li><a href="/services/retaining-walls" class="site-footer__link"><Icon name="chevron-right" size={14}/> Retaining Walls</a></li>
+          {
+            quickLinks.map((link) => (
+              <li><a href={link.href} class="site-footer__link"><Icon name="chevron-right" size={14}/> {link.label}</a></li>
+            ))
+          }
         </ul>
       </div>
 
@@ -87,31 +113,6 @@ const currentYear = new Date().getFullYear();
         </ul>
         <div class="site-footer__cta">
           <Button href="/contact" variant="navy-outline" size="sm">GET A FREE QUOTE</Button>
-        </div>
-      </div>
-
-      <!-- Newsletter Column -->
-      <div class="site-footer__col">
-        <div class="site-footer__logo">
-          <Icon name="anchor" class="site-footer__logo-icon" size={32} />
-          <div class="site-footer__logo-text">
-            <span class="site-footer__logo-name">T&J WATERFRONT</span>
-            <span class="site-footer__logo-sub">SERVICES</span>
-          </div>
-        </div>
-        <h3 class="site-footer__heading">STAY UPDATED</h3>
-        <p class="site-footer__newsletter-text">Subscribe for tips, updates, and special offers.</p>
-        <form class="site-footer__form" action="#" method="POST" data-newsletter-form novalidate>
-          <input type="email" name="email" placeholder="Enter your email address" required class="site-footer__input" />
-          <button type="submit" aria-label="Subscribe" class="site-footer__submit">
-            <Icon name="arrow-right" size={18} />
-          </button>
-        </form>
-        <p class="site-footer__form-status" data-newsletter-status role="status" aria-live="polite"></p>
-        
-        <div class="site-footer__trust">
-          <Icon name="shield" class="site-footer__trust-icon" size={20} />
-          <span class="site-footer__trust-text">Licensed & Insured | Michigan Based</span>
         </div>
       </div>
 
@@ -201,13 +202,14 @@ const currentYear = new Date().getFullYear();
 }
 .site-footer__logo-sub {
   font-family: var(--font-sans);
-  font-size: var(--text-tiny);
+  font-size: 0.875rem;
+  font-weight: 700;
   letter-spacing: 0.2em;
   color: var(--color-gold-500);
 }
 .site-footer__brand-text {
   font-family: var(--font-sans);
-  font-size: var(--text-small);
+  font-size: 0.9375rem;
   line-height: var(--leading-body);
   color: var(--color-text-on-dark);
   margin-bottom: var(--space-stack-md);
@@ -240,7 +242,7 @@ const currentYear = new Date().getFullYear();
   gap: 0.5rem;
   text-decoration: none;
   color: var(--color-text-on-dark);
-  font-size: var(--text-small);
+  font-size: 0.9375rem;
   opacity: 0.8;
   transition: color var(--duration-fast) var(--ease-premium), opacity var(--duration-fast) var(--ease-premium);
 }
@@ -276,9 +278,9 @@ const currentYear = new Date().getFullYear();
 /* Headings */
 .site-footer__heading {
   font-family: var(--font-sans);
-  font-size: var(--text-eyebrow);
-  font-weight: 700;
-  letter-spacing: var(--tracking-eyebrow);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   color: var(--color-gold-500);
   margin-bottom: var(--space-stack-md);
 }
@@ -298,7 +300,7 @@ const currentYear = new Date().getFullYear();
   gap: 0.5rem;
   text-decoration: none;
   color: var(--color-text-on-dark);
-  font-size: var(--text-small);
+  font-size: 0.9375rem;
   transition: color var(--duration-fast) var(--ease-premium);
   opacity: 0.8;
 }
@@ -335,7 +337,7 @@ const currentYear = new Date().getFullYear();
 }
 .site-footer__contact-text,
 .site-footer__contact-link {
-  font-size: var(--text-small);
+  font-size: 0.9375rem;
   color: var(--color-text-on-dark);
   opacity: 0.8;
   display: flex;
@@ -350,77 +352,18 @@ const currentYear = new Date().getFullYear();
   opacity: 1;
 }
 
-/* Newsletter */
-.site-footer__newsletter-text {
-  font-size: var(--text-small);
-  color: var(--color-text-on-dark);
-  opacity: 0.8;
-  margin-bottom: var(--space-stack-md);
-}
-.site-footer__form {
-  display: flex;
-  position: relative;
-  margin-bottom: var(--space-stack-lg);
-}
-.site-footer__input {
-  width: 100%;
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-sm);
-  padding: 0.75rem 3rem 0.75rem 1rem;
-  color: var(--color-cream-50);
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  transition: border-color var(--duration-fast) var(--ease-premium);
-}
-.site-footer__input:focus {
-  outline: none;
-  border-color: var(--color-gold-500);
-}
-.site-footer__input::placeholder {
-  color: rgba(246, 241, 231, 0.4);
-}
-.site-footer__submit {
-  position: absolute;
-  right: 0.25rem;
-  top: 0.25rem;
-  bottom: 0.25rem;
-  width: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-gold-500);
-  color: var(--color-navy-950);
-  border: none;
-  border-radius: calc(var(--radius-sm) - 2px);
-  cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-premium);
-}
-.site-footer__submit:hover {
-  background-color: var(--color-gold-400);
-}
-
+/* Trust badge */
 .site-footer__trust {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-top: var(--space-stack-md);
   color: var(--color-gold-500);
 }
 .site-footer__trust-text {
-  font-size: var(--text-tiny);
+  font-size: 0.875rem;
   color: var(--color-cream-100);
   opacity: 0.8;
-}
-
-.site-footer__form-status {
-  min-height: 1.5rem;
-  margin: 0.5rem 0 0;
-  font-size: var(--text-tiny);
-  color: var(--color-gold-400);
-}
-
-.site-footer__form-status.is-error {
-  color: #e08b8b;
 }
 
 /* Schrader Web credit bar */
@@ -505,25 +448,3 @@ const currentYear = new Date().getFullYear();
   }
 }
 </style>
-
-<script>
-  const form = document.querySelector<HTMLFormElement>("[data-newsletter-form]");
-  const status = document.querySelector<HTMLElement>("[data-newsletter-status]");
-  if (form && status) {
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const input = form.querySelector<HTMLInputElement>('input[type="email"]');
-      const value = input?.value.trim() ?? "";
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      if (!emailOk) {
-        status.textContent = "Please enter a valid email address.";
-        status.classList.add("is-error");
-        input?.focus();
-        return;
-      }
-      status.classList.remove("is-error");
-      status.textContent = "Thanks for subscribing! We'll be in touch.";
-      form.reset();
-    });
-  }
-</script>
