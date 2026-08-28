@@ -27,28 +27,30 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
 
 <section class="service-detail" aria-labelledby="service-detail-title">
   <div class="site-container">
-    <div class="service-detail__inner">
-      <header class="service-detail__header">
-        <span class="service-detail__eyebrow">{content.eyebrow}</span>
-        <h2 id="service-detail-title" class="service-detail__title">{content.heading}</h2>
-        {
-          image && (
-            <figure class="service-detail__figure">
-              <Picture
-                src={image}
-                alt={imageAlt ?? ""}
-                formats={["avif", "webp"]}
-                widths={[480, 640, 960, 1280]}
-                sizes="(max-width: 56rem) 100vw, 36vw"
-                class="service-detail__image"
-                loading="lazy"
-              />
-            </figure>
-          )
-        }
-      </header>
+    <div class:list={["service-detail__inner", !image && "service-detail__inner--no-image"]}>
+      {
+        image && (
+          <figure class="service-detail__figure">
+            <Picture
+              src={image}
+              alt={imageAlt ?? ""}
+              formats={["avif", "webp"]}
+              widths={[480, 640, 960, 1280]}
+              sizes="(max-width: 56rem) 100vw, 36vw"
+              class="service-detail__image"
+              loading="lazy"
+            />
+          </figure>
+        )
+      }
 
-      <div class="service-detail__body">
+      <div class="service-detail__content">
+        <header class="service-detail__header">
+          <span class="service-detail__eyebrow">{content.eyebrow}</span>
+          <h2 id="service-detail-title" class="service-detail__title">{content.heading}</h2>
+        </header>
+
+        <div class="service-detail__body">
         {
           content.paragraphs.map((paragraph) => (
             <p class="service-detail__paragraph">{paragraph}</p>
@@ -82,6 +84,7 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
             {cta.label}
           </Button>
         </div>
+        </div>
       </div>
     </div>
   </div>
@@ -95,14 +98,32 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
 
   .service-detail__inner {
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: clamp(2.5rem, 5vw, 5rem);
     align-items: start;
   }
 
-  .service-detail__header {
+  .service-detail__inner--no-image {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+
+  .service-detail__figure {
     position: sticky;
     top: 7rem;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .service-detail__header {
+    margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  }
+
+  .service-detail__content {
+    min-width: 0;
   }
 
   .service-detail__eyebrow {
@@ -136,13 +157,6 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     font-weight: 400;
     letter-spacing: -0.02em;
     line-height: 1.05;
-  }
-
-  .service-detail__figure {
-    margin: clamp(2rem, 3vw, 2.75rem) 0 0;
-    overflow: hidden;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lift);
   }
 
   .service-detail__image {
@@ -217,12 +231,13 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     margin-top: clamp(1.25rem, 2.5vw, 2rem);
   }
 
+  /* Keep the image and copy stacked on smaller screens. */
   @media (max-width: 56rem) {
     .service-detail__inner {
       grid-template-columns: 1fr;
     }
 
-    .service-detail__header {
+    .service-detail__figure {
       position: static;
     }
 
@@ -230,4 +245,5 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
       grid-template-columns: 1fr;
     }
   }
+
 </style>
