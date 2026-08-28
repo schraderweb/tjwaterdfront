@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import ServiceDetail from "@/components/shared/sections/ServiceDetail.astro";
 import GallerySection from "@/components/shared/sections/GallerySection.astro";
 import PopularServices from "@/components/shared/sections/PopularServices.astro";
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
@@ -22,6 +23,8 @@ import heroImage from "@/content/gallery/dock-service-repairs/01.webp";
       image={heroImage}
       imageAlt="Roll-in dock by T&J Waterfront Services"
     />
+
+    <ServiceDetail slug="roll-in-docks" image={heroImage} imageAlt="Roll-in dock by T&J Waterfront Services" />
 
     <GallerySection category="dock-service-repairs" />
 

@@ -19,7 +19,7 @@ export const featuredService = {
   title: "Starr Boat Lifts",
   description:
     'Starr boat lifts (BLs) are constructed with heavy gauge aluminum providing great strength and long lasting durability. Standard inside width of "120" wide.',
-  href: "/services/boat-lifts",
+  href: "/boat-lifts",
 };
 
 export const showcaseImages: FeaturedServiceImage[] = [
@@ -62,7 +62,7 @@ export const dockEssentials = {
     "Everything you need for a safer, stronger, and more enjoyable dock.",
   imageSrc: dockEssentialsImage,
   imageAlt: "A finished dock and boat lift extending over a Michigan lake",
-  href: "/services/dock-accessories",
+  href: "/dock-accessories",
   benefits: [
     {
       icon: "anchor",

@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
 import ServiceDetail from "@/components/shared/sections/ServiceDetail.astro";
+import AboutVideoSection from "@/components/shared/sections/AboutVideoSection.astro";
 import PopularServices from "@/components/shared/sections/PopularServices.astro";
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
@@ -24,6 +25,8 @@ import heroImage from "@/assets/hero/waterfront-hero.png";
     />
 
     <ServiceDetail slug="about" image={heroImage} imageAlt="T&J Waterfront Services — Michigan waterfront" />
+
+    <AboutVideoSection />
 
     <PopularServices />
 

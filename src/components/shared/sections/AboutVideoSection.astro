@@ -1,0 +1,178 @@
+---
+/**
+ * AboutVideoSection.astro — cinematic lazy-loaded video band.
+ *
+ * The poster (small webp) renders immediately; the actual video file only
+ * starts downloading once the section nears the viewport (video-lazy.js),
+ * so it never competes with above-the-fold resources.
+ */
+import Icon from "@/components/shared/ui/Icon.astro";
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  poster?: string;
+  webmSrc?: string;
+  mp4Src?: string;
+  caption?: string;
+}
+
+const {
+  eyebrow = "OUR STORY",
+  title = "See T&J In Action",
+  description = "A quick look at what it's like to work with T&J Waterfront Services — getting docks, lifts, and shorelines ready for the season.",
+  poster = "/videos/about-us-poster.webp",
+  webmSrc = "/videos/about-us.webm",
+  mp4Src = "/videos/about-us.mp4",
+  caption = "T&J Waterfront Services on the water",
+} = Astro.props;
+---
+
+<section class="about-video" aria-labelledby="about-video-title">
+  <div class="site-container">
+    <header class="about-video__header">
+      <span class="about-video__eyebrow">{eyebrow}</span>
+      <h2 id="about-video-title" class="about-video__title">{title}</h2>
+      <p class="about-video__description">{description}</p>
+    </header>
+
+    <figure class="about-video__figure">
+      <div class="about-video__stage" data-video-lazy>
+        <video
+          class="about-video__video"
+          preload="none"
+          poster={poster}
+          controls
+          muted
+          playsinline
+          aria-label={title}
+        >
+          <source src={webmSrc} type="video/webm" />
+          <source src={mp4Src} type="video/mp4" />
+        </video>
+
+        <button class="about-video__play" type="button" data-video-play aria-label="Play video">
+          <Icon name="play" size={28} class="about-video__play-icon" />
+        </button>
+      </div>
+      <figcaption class="about-video__caption">{caption}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  import "@/scripts/video-lazy.js";
+</script>
+
+<style>
+  .about-video {
+    background-color: var(--color-navy-950);
+    padding-block: clamp(5rem, 4rem + 5vw, 9rem);
+  }
+
+  .about-video__header {
+    max-width: 44rem;
+    margin: 0 auto clamp(2.5rem, 4vw, 4rem);
+    text-align: center;
+  }
+
+  .about-video__eyebrow {
+    display: block;
+    margin-bottom: clamp(1.25rem, 2vw, 1.5rem);
+    color: var(--color-gold-400);
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .about-video__title {
+    margin: 0 0 1.25rem;
+    color: var(--color-text-on-dark);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .about-video__description {
+    margin: 0;
+    color: rgba(246, 241, 231, 0.75);
+    font-family: var(--font-sans);
+    font-size: var(--text-lead);
+    line-height: var(--leading-body);
+  }
+
+  .about-video__figure {
+    margin: 0;
+  }
+
+  .about-video__stage {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-panel);
+    background-color: var(--color-navy-900);
+    aspect-ratio: 16 / 9;
+  }
+
+  .about-video__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: var(--color-navy-900);
+  }
+
+  .about-video__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: clamp(4.5rem, 6vw, 6rem);
+    height: clamp(4.5rem, 6vw, 6rem);
+    padding: 0;
+    border: 0;
+    border-radius: 9999px;
+    background-color: var(--color-gold-500);
+    color: var(--color-navy-950);
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition:
+      transform var(--duration-base) var(--ease-premium),
+      background-color var(--duration-base) ease,
+      opacity var(--duration-base) ease;
+    box-shadow: 0 12px 32px -8px rgba(7, 26, 43, 0.55);
+  }
+
+  .about-video__play:hover,
+  .about-video__play:focus-visible {
+    background-color: var(--color-gold-400);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .about-video__play-icon {
+    margin-left: 0.2em;
+  }
+
+  .about-video__play.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  .about-video__caption {
+    margin-top: 1.25rem;
+    text-align: center;
+    color: rgba(246, 241, 231, 0.55);
+    font-family: var(--font-sans);
+    font-size: var(--text-tiny);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

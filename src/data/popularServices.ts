@@ -18,7 +18,7 @@ export const popularServices = [
     description: "Everything you need for Boat and Pontoon Lifting.",
     image: pontoonAccessoriesImage,
     icon: "anchor",
-    href: "/boat-pontoon-lift-accessories"
+    href: "/lift-accessories"
   },
   {
     title: "Seawalls",

@@ -21,6 +21,8 @@ export function initSubmitSuccess() {
     const resetButton = root.querySelector("[data-success-reset]");
     const hideables = Array.from(root.querySelectorAll("[data-success-hide]"));
     const firstField = form.querySelector('input:not(.sr-only), select, textarea');
+    const errorMessage = root.querySelector("[data-submit-error]");
+    const submitButton = form.querySelector('[type="submit"]');
 
     let state = "idle";
     let ambient = null;
@@ -182,13 +184,47 @@ export function initSubmitSuccess() {
       });
     };
 
-    form.addEventListener("submit", (event) => {
+    const showError = (text) => {
+      if (!errorMessage) return;
+      errorMessage.textContent = text || "Something went wrong. Please try again.";
+      errorMessage.hidden = false;
+    };
+
+    const clearError = () => {
+      if (!errorMessage) return;
+      errorMessage.hidden = true;
+      errorMessage.textContent = "";
+    };
+
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
-      showSuccess();
+      clearError();
+
+      const originalLabel = submitButton?.textContent ?? "";
+      submitButton?.setAttribute("disabled", "");
+      if (submitButton) submitButton.textContent = "Sending…";
+
+      try {
+        const body = new FormData(form);
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(body.entries())),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.ok !== true) {
+          throw new Error(data.error || "Could not save your request.");
+        }
+        showSuccess();
+      } catch (err) {
+        showError(err.message);
+        submitButton?.removeAttribute("disabled");
+        if (submitButton) submitButton.textContent = originalLabel;
+      }
     });
 
     resetButton?.addEventListener("click", resetForm);

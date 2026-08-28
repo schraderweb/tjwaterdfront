@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 /**
  * Merges the @astrojs/sitemap chunk files (sitemap-0.xml, sitemap-1.xml, …)
@@ -40,6 +41,8 @@ const mergeSitemaps = () => ({
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tjwaterfrontservices.com',
+  output: 'server',
+  adapter: vercel(),
   vite: {
     plugins: [tailwindcss()]
   },
