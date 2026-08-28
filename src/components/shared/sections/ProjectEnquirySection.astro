@@ -74,7 +74,7 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
       <!-- Right Column -->
       <div class="project-enquiry__right">
         <div class="enquiry-form-root" data-success-root>
-          <form class="enquiry-form" id="project-enquiry-form" data-submit-success>
+          <form class="enquiry-form" id="project-enquiry-form" data-submit-success action="/api/quote" method="post">
             <fieldset class="enquiry-form__service-selection">
               <legend class="enquiry-form__legend">I'M INTERESTED IN</legend>
               <div class="service-tiles">
@@ -137,8 +137,10 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
 
             <div class="form-group form-group--full">
               <label for="enquiry-details">TELL US ABOUT YOUR PROJECT</label>
-              <textarea id="enquiry-details" name="details" required placeholder="Share details about your project, timeline, and what you're looking to accomplish."></textarea>
+              <textarea id="enquiry-details" name="message" required placeholder="Share details about your project, timeline, and what you're looking to accomplish."></textarea>
             </div>
+
+            <input type="hidden" name="project_type" id="enquiry-project-type" />
 
             <button type="submit" class="enquiry-form__submit">
               <span>SEND ENQUIRY</span>
@@ -601,4 +603,27 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
 <script>
   import { initSubmitSuccess } from "@/scripts/submit-success.js";
   initSubmitSuccess();
+
+  const form = document.getElementById("project-enquiry-form");
+  const projectTypeField = document.getElementById("enquiry-project-type");
+  if (form && projectTypeField) {
+    const labels = {
+      "docks-seawall": "Docks & Seawall",
+      "boat-lifts": "Boat Lifts",
+      "marine-services": "Marine Services",
+      "waterfront-property": "Waterfront Property",
+      "other": "Other",
+    };
+    form.addEventListener("change", (event) => {
+      if (event.target.name === "service" && labels[event.target.value]) {
+        projectTypeField.value = labels[event.target.value];
+      }
+    });
+    form.addEventListener("submit", () => {
+      const checked = form.querySelector('input[name="service"]:checked');
+      if (checked && labels[checked.value]) {
+        projectTypeField.value = labels[checked.value];
+      }
+    });
+  }
 </script>
