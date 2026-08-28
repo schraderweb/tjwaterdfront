@@ -8,6 +8,7 @@ import { Picture } from "astro:assets";
 import Button from "@/components/shared/ui/Button.astro";
 import Icon from "@/components/shared/ui/Icon.astro";
 import { serviceContent } from "@/data/serviceContent";
+import type { ContentLine } from "@/data/serviceContent";
 
 interface Props {
   slug: string;
@@ -51,39 +52,51 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
         </header>
 
         <div class="service-detail__body">
-        {
-          content.paragraphs.map((paragraph) => (
-            <p class="service-detail__paragraph">{paragraph}</p>
-          ))
-        }
+          {
+            content.paragraphs.map((paragraph: ContentLine) => (
+              <p class="service-detail__paragraph">
+                {typeof paragraph === "string"
+                  ? paragraph
+                  : paragraph.map((segment) =>
+                      segment.strong ? <strong>{segment.text}</strong> : segment.text
+                    )}
+              </p>
+            ))
+          }
 
-        {
-          content.bullets && (
-            <ul class="service-detail__bullets">
-              {content.bullets.map((bullet) => (
+          {
+            content.bullets && (
+              <ul class="service-detail__bullets">
+              {content.bullets.map((bullet: ContentLine) => (
                 <li class="service-detail__bullet">
                   <Icon name="check" size={16} class="service-detail__bullet-icon" />
-                  <span>{bullet}</span>
+                  <span>
+                    {typeof bullet === "string"
+                      ? bullet
+                      : bullet.map((segment) =>
+                          segment.strong ? <strong>{segment.text}</strong> : segment.text
+                        )}
+                  </span>
                 </li>
-              ))}
-            </ul>
-          )
-        }
+                ))}
+              </ul>
+            )
+          }
 
-        {
-          content.note && (
-            <div class="service-detail__note">
-              <Icon name="info" size={18} class="service-detail__note-icon" />
-              <span>{content.note}</span>
-            </div>
-          )
-        }
+          {
+            content.note && (
+              <div class="service-detail__note">
+                <Icon name="info" size={18} class="service-detail__note-icon" />
+                <strong>{content.note}</strong>
+              </div>
+            )
+          }
 
-        <div class="service-detail__cta">
-          <Button href={cta.href} variant="gold" size="md">
-            {cta.label}
-          </Button>
-        </div>
+          <div class="service-detail__cta">
+            <Button href={cta.href} variant="gold" size="md">
+              {cta.label}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -100,36 +113,45 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: clamp(2.5rem, 5vw, 5rem);
-    align-items: start;
+    align-items: stretch;
+    min-height: clamp(26rem, 34vw, 40rem);
   }
 
   .service-detail__inner--no-image {
     grid-template-columns: minmax(0, 1fr);
     max-width: 52rem;
     margin-inline: auto;
+    min-height: 0;
   }
 
   .service-detail__figure {
     position: sticky;
     top: 7rem;
+    align-self: stretch;
+    display: flex;
     margin: 0;
     overflow: hidden;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lift);
+    min-height: 100%;
   }
 
   .service-detail__header {
-    margin-bottom: clamp(2rem, 3.5vw, 3rem);
+    margin-bottom: clamp(2rem, 3vw, 2.5rem);
   }
 
   .service-detail__content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
     min-width: 0;
+    max-width: 45rem;
   }
 
   .service-detail__eyebrow {
     display: block;
     width: fit-content;
-    margin-bottom: clamp(1.5rem, 2.5vw, 2rem);
+    margin-bottom: clamp(1.25rem, 2vw, 1.5rem);
     color: var(--color-gold-700);
     font-family: var(--font-sans);
     font-size: clamp(0.75rem, 0.8vw, 0.875rem);
@@ -144,7 +166,7 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     display: block;
     width: 3.25rem;
     height: 1px;
-    margin-top: 1.5rem;
+    margin-top: 0.875rem;
     background-color: var(--color-gold-600);
     opacity: 0.6;
   }
@@ -162,13 +184,14 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
   .service-detail__image {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
   }
 
   .service-detail__body {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: clamp(1.25rem, 2vw, 1.75rem);
   }
@@ -179,6 +202,11 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     font-family: var(--font-sans);
     font-size: clamp(1rem, 1.2vw, 1.125rem);
     line-height: var(--leading-body);
+  }
+
+  .service-detail__paragraph strong {
+    color: var(--color-navy-950);
+    font-weight: 800;
   }
 
   .service-detail__bullets {
@@ -197,6 +225,7 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     color: var(--color-text-primary);
     font-family: var(--font-sans);
     font-size: var(--text-body);
+    font-weight: 700;
     line-height: 1.5;
   }
 
@@ -227,22 +256,43 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     color: var(--color-gold-600);
   }
 
+  .service-detail__note strong {
+    font-weight: 800;
+  }
+
   .service-detail__cta {
-    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+    margin-top: auto;
+    padding-top: clamp(1.25rem, 2.5vw, 2rem);
   }
 
   /* Keep the image and copy stacked on smaller screens. */
   @media (max-width: 56rem) {
     .service-detail__inner {
       grid-template-columns: 1fr;
+      min-height: 0;
     }
 
     .service-detail__figure {
       position: static;
+      min-height: 0;
+      display: block;
+    }
+
+    .service-detail__content {
+      height: auto;
+      max-width: none;
+    }
+
+    .service-detail__body {
+      flex: none;
     }
 
     .service-detail__bullets {
       grid-template-columns: 1fr;
+    }
+
+    .service-detail__cta {
+      margin-top: 0;
     }
   }
 
