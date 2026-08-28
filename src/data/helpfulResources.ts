@@ -15,7 +15,7 @@ export const helpfulResources: HelpfulResource[] = [
     ctaTextPre: "Click ",
     ctaTextEmphasized: "here",
     ctaTextPost: " To Learn How.",
-    url: "/warranty",
+    url: "/contact",
     iconName: "warranty",
   },
   {
@@ -24,7 +24,7 @@ export const helpfulResources: HelpfulResource[] = [
     ctaTextPre: "Click ",
     ctaTextEmphasized: "here",
     ctaTextPost: " To Learn How.",
-    url: "/boat-lift-maintenance",
+    url: "/services/hoist-service",
     iconName: "boatLift",
   },
   {
@@ -33,7 +33,7 @@ export const helpfulResources: HelpfulResource[] = [
     ctaTextPre: "Click ",
     ctaTextEmphasized: "here",
     ctaTextPost: " To Learn How.",
-    url: "/seawall-maintenance",
+    url: "/services/seawalls",
     iconName: "seawall",
   },
   {
@@ -42,7 +42,7 @@ export const helpfulResources: HelpfulResource[] = [
     ctaTextPre: "Click ",
     ctaTextEmphasized: "here",
     ctaTextPost: " To Learn More.",
-    url: "/dock-types",
+    url: "/docks",
     iconName: "dock",
   },
 ];

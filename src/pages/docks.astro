@@ -2,28 +2,33 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
-import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import HubGrid from "@/components/shared/sections/HubGrid.astro";
 import PopularServices from "@/components/shared/sections/PopularServices.astro";
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+import { docksCards } from "@/data/hubCards";
 
-// Hero image
-import heroImage from "@/content/gallery/dock-service-repairs/01.webp";
+import heroImage from "@/content/gallery/dock-service-repairs/02.webp";
 ---
 
-<BaseLayout title="Dock Services & Repair | T&J Waterfront Services">
+<BaseLayout title="Docks | T&J Waterfront Services">
   <Navbar />
 
   <main id="main">
     <InteriorHero
-      title="Dock Services & Repair"
-      description="Full-service dock care — seasonal installs and removals, maintenance, repairs, and replacement when it's time."
+      title="Docks"
+      description="Sectional, roll-in, platinum, and floating dock systems — plus the accessories that complete them."
       image={heroImage}
-      imageAlt="Dock services by T&J Waterfront Services"
+      imageAlt="Dock systems by T&J Waterfront Services"
     />
 
-    <GallerySection category="dock-service-repairs" />
+    <HubGrid
+      eyebrow="DOCKS"
+      title="Dock Systems"
+      description="Explore our dock systems and find the right fit for your shoreline."
+      services={docksCards}
+    />
 
     <PopularServices />
 

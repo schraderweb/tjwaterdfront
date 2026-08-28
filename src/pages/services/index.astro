@@ -2,11 +2,11 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
-import GallerySection from "@/components/shared/sections/GallerySection.astro";
-import PopularServices from "@/components/shared/sections/PopularServices.astro";
+import HubGrid from "@/components/shared/sections/HubGrid.astro";
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+import { allServicesCards } from "@/data/hubCards";
 
 // Hero image
 import heroImage from "@/assets/hero/waterfront-hero.png";
@@ -23,9 +23,12 @@ import heroImage from "@/assets/hero/waterfront-hero.png";
       imageAlt="Waterfront services by T&J Waterfront Services"
     />
 
-    <GallerySection />
-
-    <PopularServices />
+    <HubGrid
+      eyebrow="OUR SERVICES"
+      title="Waterfront Services"
+      description="Explore everything we offer — one trusted team for your entire lakefront."
+      services={allServicesCards}
+    />
 
     <ReviewsTrustSection topFill="var(--color-cream-50)" bottomFill="var(--color-navy-950)" />
 

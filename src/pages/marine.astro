@@ -2,31 +2,33 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
-import ServiceAreasSection from "@/components/shared/sections/ServiceAreasSection.astro";
-import LocationMap from "@/components/shared/sections/LocationMap.astro";
+import HubGrid from "@/components/shared/sections/HubGrid.astro";
 import PopularServices from "@/components/shared/sections/PopularServices.astro";
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+import { marineCards } from "@/data/hubCards";
 
-// Hero image
-import heroImage from "@/assets/hero/waterfront-hero.png";
+import heroImage from "@/content/gallery/dock-service-repairs/01.webp";
 ---
 
-<BaseLayout title="Service Areas | T&J Waterfront Services">
+<BaseLayout title="Marine Services | T&J Waterfront Services">
   <Navbar />
 
   <main id="main">
     <InteriorHero
-      title="Service Areas"
-      description="Proudly serving lakefront communities across Michigan. No matter where your waterfront is, our team travels to you."
+      title="Marine"
+      description="Docks, lifts, boardwalks, and repairs — everything your lakefront needs, installed and serviced by one trusted team."
       image={heroImage}
-      imageAlt="Service areas covered by T&J Waterfront Services"
+      imageAlt="Marine services by T&J Waterfront Services"
     />
 
-    <ServiceAreasSection />
-
-    <LocationMap />
+    <HubGrid
+      eyebrow="MARINE"
+      title="Marine Services"
+      description="From dock systems and boat lifts to boardwalks and repairs, explore our marine services below."
+      services={marineCards}
+    />
 
     <PopularServices />
 

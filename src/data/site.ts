@@ -51,40 +51,40 @@ export const navLinks: NavLink[] = [
   },
   {
     label: "Marine",
-    href: "#",
+    href: "/marine",
     children: [
       {
         label: "Docks",
-        href: "#",
+        href: "/docks",
         children: [
-          { label: "Sectional Docks", href: "#" },
+          { label: "Sectional Docks", href: "/sectional-docks" },
           {
             label: "Connect a Dock",
             href: "#",
             children: [
               { label: "Floating Dock", href: "/floating-docks" },
-              { label: "Personal Watercraft Lift", href: "/boat-lifts" },
+              { label: "Personal Watercraft Lift", href: "/personal-watercraft-lift" },
             ],
           },
-          { label: "Roll-In Docks", href: "#" },
-          { label: "Platinum Docks", href: "#" },
-          { label: "Floating Docks", href: "#" },
-          { label: "Dock Accessories", href: "#" },
+          { label: "Roll-In Docks", href: "/roll-in-docks" },
+          { label: "Platinum Docks", href: "/platinum-docks" },
+          { label: "Floating Docks", href: "/floating-docks" },
+          { label: "Dock Accessories", href: "/dock-accessories" },
         ],
       },
       {
         label: "Lifts",
-        href: "#",
+        href: "/lifts",
         children: [
-          { label: "Boat & Pontoon Lifts", href: "#" },
-          { label: "PWC / Jet Lifts", href: "#" },
-          { label: "Canopies", href: "#" },
-          { label: "Lift Accessories", href: "#" },
+          { label: "Boat & Pontoon Lifts", href: "/boat-lifts" },
+          { label: "PWC / Jet Lifts", href: "/personal-watercraft-lift" },
+          { label: "Canopies", href: "/canopies" },
+          { label: "Lift Accessories", href: "/lift-accessories" },
         ],
       },
-      { label: "Decks & Boardwalks", href: "#" },
-      { label: "Dock Service / Repairs", href: "#" },
-      { label: "Hoist Service / Repairs", href: "#" },
+      { label: "Decks & Boardwalks", href: "/services/decks-boardwalks" },
+      { label: "Dock Service / Repairs", href: "/services/dock-service" },
+      { label: "Hoist Service / Repairs", href: "/services/hoist-service" },
     ],
   },
   { label: "Service Areas", href: "/service-areas" },
@@ -106,26 +106,26 @@ export const heroServices: HeroService[] = [
     description:
       "Our best seller! With its strength and light weight, this is easily the industry leader for dock.",
     icon: "sectional-docks",
-    href: "/services/sectional-docks",
+    href: "/sectional-docks",
   },
   {
     title: "Roll-In Docks",
     description: "In most situations, the easiest dock to install.",
     icon: "roll-in-docks",
-    href: "/services/roll-in-docks",
+    href: "/roll-in-docks",
   },
   {
     title: "Platinum Docks",
     description:
       "The soft edges and classy look took this high-end dock system to a whole new level.",
     icon: "platinum-docks",
-    href: "/services/platinum-docks",
+    href: "/platinum-docks",
   },
   {
     title: "Floating Docks",
     description:
       "Free-standing docks can get unstable in deeper water, while a floating system maintains its stability.",
     icon: "floating-docks",
-    href: "/services/floating-docks",
+    href: "/floating-docks",
   },
 ];

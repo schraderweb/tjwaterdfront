@@ -109,4 +109,33 @@ export const serviceContent: Record<string, ServiceContent> = {
       href: "/contact",
     },
   },
+  "personal-watercraft-lift": {
+    eyebrow: "PWC / JET LIFTS",
+    heading: "Personal Watercraft Lift",
+    paragraphs: [
+      "Need a place to dock your PWC or jet ski? T&J Waterfront Services offers PWC docking to add a safe harbor for your one-, two-, three-, or four-place personal watercraft — just roll off and you're ready to go!",
+      "The Connect-A-Port XL6 features a six-foot-plus walking surface around the edges, with a universal hull design and adjustable Stoltz rollers that make it easy to launch and dock — idle up to dock, roll off to launch. It connects to 2000 Series docks, floating docks, or fixed docks.",
+    ],
+    bullets: [
+      'Model: CAPXL6',
+      '72" x 156" x 23"',
+      "Maximum flotation: 2,000 lbs",
+      "Weight: 375 lbs",
+    ],
+  },
+  canopies: {
+    eyebrow: "CANOPIES",
+    heading: "Canopy Systems",
+    paragraphs: [
+      "Starr Pro Canopy Systems now offer even more coverage for your investment, as well as different boarding options.",
+    ],
+    bullets: [
+      '12" drop side gives 50" of coverage from peak to bottom of valance',
+      '24" drop side gives maximum coverage of 60" from peak of canopy to bottom of valance — the most coverage in the industry',
+      "Front boarding access",
+      "Rear boarding access",
+      "Side boarding access",
+      "Options that allow you to leave the bimini in travel position, or leave the arch up",
+    ],
+  },
 };

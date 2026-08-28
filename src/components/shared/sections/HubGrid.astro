@@ -1,0 +1,120 @@
+---
+/**
+ * HubGrid.astro — cross-linking card grid used on hub/index pages
+ * (/marine, /docks, /lifts, /services).
+ */
+import Icon from "@/components/shared/ui/Icon.astro";
+import ServicesGrid from "@/components/pages/services/ServicesGrid.astro";
+import type { HubCard } from "@/data/hubCards";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  services: HubCard[];
+}
+
+const { eyebrow, title, description, services } = Astro.props;
+---
+
+<section class="hub-grid" aria-labelledby="hub-grid-title">
+  <div class="site-container">
+    <header class="hub-grid__header">
+      <div class="hub-grid__eyebrow">
+        <Icon name="anchor" size={16} strokeWidth={2} class="hub-grid__eyebrow-icon" />
+        <span>{eyebrow}</span>
+      </div>
+      <h2 id="hub-grid-title" class="hub-grid__title">{title}</h2>
+      <div class="hub-grid__divider" aria-hidden="true">
+        <div class="hub-grid__divider-line hub-grid__divider-line-left"></div>
+        <div class="hub-grid__divider-segment hub-grid__divider-gold"></div>
+        <div class="hub-grid__divider-segment hub-grid__divider-navy"></div>
+        <div class="hub-grid__divider-line hub-grid__divider-line-right"></div>
+      </div>
+      {description && <p class="hub-grid__description">{description}</p>}
+    </header>
+
+    <ServicesGrid services={services} />
+  </div>
+</section>
+
+<style>
+  .hub-grid {
+    background-color: var(--color-cream-50);
+    padding-block: clamp(4rem, 6vw, 6.5rem);
+  }
+
+  .hub-grid__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .hub-grid__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--color-gold-600);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .hub-grid__eyebrow-icon {
+    color: var(--color-gold-600);
+  }
+
+  .hub-grid__title {
+    margin: 0;
+    color: var(--color-navy-950);
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hub-grid__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 240px;
+    margin-bottom: 1.75rem;
+  }
+
+  .hub-grid__divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: rgba(7, 26, 45, 0.1);
+  }
+
+  .hub-grid__divider-segment {
+    height: 3px;
+    width: 24px;
+  }
+
+  .hub-grid__divider-gold {
+    background-color: var(--color-gold-500);
+  }
+
+  .hub-grid__divider-navy {
+    background-color: var(--color-navy-800);
+  }
+
+  .hub-grid__description {
+    margin: 0;
+    color: var(--color-navy-800);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.6;
+    max-width: 48rem;
+  }
+</style>

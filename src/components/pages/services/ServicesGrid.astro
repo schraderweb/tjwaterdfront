@@ -1,10 +1,17 @@
 ---
 import { popularServices } from "@/data/popularServices";
+import type { HubCard } from "@/data/hubCards";
 import ServiceCard from "@/components/pages/services/ServiceCard.astro";
+
+interface Props {
+  services?: HubCard[];
+}
+
+const { services = popularServices } = Astro.props;
 ---
 
 <div class="services-grid">
-  {popularServices.map((service) => (
+  {services.map((service) => (
     <ServiceCard 
       title={service.title}
       description={service.description}
