@@ -447,6 +447,18 @@ const isActive = (href: string) =>
 
   .has-submenu { position: relative; }
 
+  /* Invisible bridge spanning the gap between a submenu and its parent item,
+     so the submenu stays open while the pointer crosses the spacing. */
+  .has-submenu::after {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    right: calc(-1 * (1rem + 1px));
+    width: calc(1rem + 1px);
+    height: calc(100% + 0.5rem);
+    z-index: 1;
+  }
+
   .has-submenu:hover .submenu-chevron,
   .has-submenu:focus-within .submenu-chevron {
     color: var(--color-gold-400);
@@ -456,7 +468,7 @@ const isActive = (href: string) =>
   .submenu {
     position: absolute;
     top: -0.5rem;
-    left: calc(100% - 0.25rem);
+    left: calc(100% + 1rem);
     min-width: 14rem;
     padding: 0.5rem;
     margin: 0;
