@@ -172,7 +172,18 @@ const projectTypes = [
   }
 
   .quote-heading .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.85rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.95);
     color: var(--color-gold-700);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    box-shadow: 0 1px 3px rgba(7, 26, 43, 0.08);
   }
 
   .quote-title {
@@ -219,7 +230,7 @@ const projectTypes = [
     top: 50%;
     translate: 0 -50%;
     pointer-events: none;
-    color: var(--color-gold-600);
+    color: var(--color-gold-700);
   }
 
   :global(.field-icon) {
@@ -228,7 +239,7 @@ const projectTypes = [
 
   :global(.select-icon) {
     right: 0.9rem;
-    color: var(--color-navy-800);
+    color: var(--color-navy-900);
   }
 
   .field input,
@@ -236,13 +247,15 @@ const projectTypes = [
   .field textarea {
     display: block;
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.85);
     border-radius: 0.45rem;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.88);
     padding: 0.85rem 0.9rem 0.85rem 2.7rem;
     font-family: var(--font-sans);
     font-size: 0.8125rem;
+    font-weight: 500;
     color: var(--color-navy-950);
+    box-shadow: 0 1px 4px rgba(7, 26, 43, 0.08);
     transition:
       border-color var(--duration-fast) var(--ease-premium),
       background-color var(--duration-fast) var(--ease-premium),
@@ -258,7 +271,8 @@ const projectTypes = [
   .field input::placeholder,
   .field textarea::placeholder,
   .field select:invalid {
-    color: rgba(16, 34, 53, 0.78);
+    color: rgba(7, 26, 43, 0.82);
+    font-weight: 500;
     opacity: 1;
   }
 
@@ -267,8 +281,8 @@ const projectTypes = [
   .field textarea:focus {
     outline: none;
     border-color: var(--color-gold-600);
-    background: rgba(255, 255, 255, 0.42);
-    box-shadow: 0 0 0 3px rgba(198, 146, 61, 0.15);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(198, 146, 61, 0.25), 0 2px 8px rgba(7, 26, 43, 0.1);
   }
 
   .select-wrap select {
@@ -306,20 +320,27 @@ const projectTypes = [
   }
 
   .quote-privacy {
-    display: flex;
+    display: inline-flex;
+    align-self: center;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin: 0;
-    color: rgba(16, 34, 53, 0.72);
-    font-size: 0.7rem;
+    margin: 0 auto;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    color: var(--color-navy-950);
+    font-size: 0.75rem;
+    font-weight: 600;
     line-height: 1.4;
     text-align: center;
+    box-shadow: 0 1px 3px rgba(7, 26, 43, 0.06);
   }
 
   .quote-privacy :global(svg) {
     flex: none;
-    color: var(--color-navy-800);
+    color: var(--color-navy-950);
   }
 
   .quote-form__success {
