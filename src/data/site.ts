@@ -58,9 +58,6 @@ export const navLinks: NavLink[] = [
         href: "/docks",
         children: [
           { label: "Sectional Docks", href: "/sectional-docks" },
-          { label: "Roll-In Docks", href: "/roll-in-docks" },
-          { label: "Platinum Docks", href: "/platinum-docks" },
-          { label: "Dock Accessories", href: "/dock-accessories" },
           {
             label: "Connect a Dock",
             href: "/docks",
@@ -69,6 +66,9 @@ export const navLinks: NavLink[] = [
               { label: "Personal Watercraft Lift", href: "/personal-watercraft-lift" },
             ],
           },
+          { label: "Roll-In Docks", href: "/roll-in-docks" },
+          { label: "Platinum Docks", href: "/platinum-docks" },
+          { label: "Dock Accessories", href: "/dock-accessories" },
         ],
       },
       {
