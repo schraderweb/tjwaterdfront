@@ -15,6 +15,7 @@ import { Picture } from "astro:assets";
 import heroImage from "@/assets/hero/new-home-hero.webp";
 import HeroContent from "@/components/pages/home/hero/HeroContent.astro";
 import QuoteForm from "@/components/pages/home/hero/QuoteForm.astro";
+import HeroServicesBar from "@/components/pages/home/hero/HeroServicesBar.astro";
 ---
 
 <section class="hero" id="hero" aria-label="Introduction">
@@ -43,6 +44,8 @@ import QuoteForm from "@/components/pages/home/hero/QuoteForm.astro";
       <QuoteForm />
     </div>
   </div>
+
+  <HeroServicesBar />
 </section>
 
 <style>
@@ -50,8 +53,10 @@ import QuoteForm from "@/components/pages/home/hero/QuoteForm.astro";
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
+    height: 100svh;
     min-height: 100svh;
+    max-height: 100svh;
     overflow: hidden;
     background: var(--color-navy-900);
     /*
@@ -114,18 +119,19 @@ import QuoteForm from "@/components/pages/home/hero/QuoteForm.astro";
   .hero-main {
     position: relative;
     z-index: var(--z-content);
-    flex: 1;
-    display: grid;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
     align-items: center;
     width: 100%;
-    padding-top: calc(4rem + clamp(1rem, 4vh, 2.5rem));
-    padding-bottom: clamp(1.5rem, 4vh, 3rem);
+    padding-top: calc(4.25rem + clamp(0.25rem, 1vh, 1.25rem));
+    padding-bottom: clamp(0.25rem, 0.75vh, 0.75rem);
   }
 
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2rem, 2rem + 4vh, 3.5rem);
+    gap: 1.5rem;
     align-items: center;
     width: calc(100% - 2 * var(--hero-gutter));
     max-width: var(--container-xl);
@@ -134,11 +140,12 @@ import QuoteForm from "@/components/pages/home/hero/QuoteForm.astro";
   /* Two-column split once the form panel has room to breathe */
   @media (min-width: 64rem) {
     .hero-main {
-      padding-top: calc(5rem + clamp(1rem, 4vh, 2.5rem));
+      padding-top: calc(4.5rem + clamp(0.25rem, 1vh, 1.25rem));
+      padding-bottom: clamp(0.25rem, 0.75vh, 0.75rem);
     }
     .hero-grid {
-      grid-template-columns: minmax(0, 1.12fr) minmax(28rem, 0.78fr);
-      gap: clamp(2rem, 5vw, 6rem);
+      grid-template-columns: minmax(0, 1.15fr) minmax(26rem, 0.85fr);
+      gap: clamp(1.5rem, 3.5vw, 4.5rem);
     }
   }
 
@@ -146,12 +153,18 @@ import QuoteForm from "@/components/pages/home/hero/QuoteForm.astro";
      first viewport stays composed without clipping. */
   @media (min-width: 64rem) and (max-height: 920px) {
     .hero-main {
-      padding-top: calc(4.5rem + 1rem);
-      padding-bottom: 1.25rem;
+      padding-top: calc(4.25rem + 0.5rem);
+      padding-bottom: 0.5rem;
     }
   }
 
   @media (max-width: 63.999rem) {
+    .hero {
+      height: auto;
+      max-height: none;
+      min-height: 100svh;
+      overflow: visible;
+    }
     .hero-grid {
       width: calc(100% - 2 * var(--container-gutter));
     }
