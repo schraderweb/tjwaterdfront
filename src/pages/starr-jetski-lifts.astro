@@ -246,16 +246,25 @@ const upgrades = [
   }
 
   .cantilever-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    background: var(--color-navy-950, #041525);
-    color: var(--color-gold-300, #edd49a);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0;
+    background: transparent;
+    color: var(--color-gold-600, #966b1a);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .cantilever-badge::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 1.5px;
+    background: currentColor;
   }
 
   .cantilever-card h3 {

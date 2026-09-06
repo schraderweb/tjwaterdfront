@@ -224,20 +224,30 @@ const pwcProductCards: [any, any] = [
 
   .model-badge {
     align-self: flex-start;
-    padding: 0.3rem 0.8rem;
-    border-radius: 999px;
-    background: var(--color-gold-500, #c6923d);
-    color: var(--color-navy-950, #041525);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    padding: 0;
+    background: transparent;
+    color: var(--color-gold-600, #966b1a);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .model-badge::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 1.5px;
+    background: currentColor;
   }
 
   .model-badge.badge-compact {
-    background: var(--color-navy-900, #071a2d);
-    color: var(--color-white, #ffffff);
+    background: transparent;
+    color: var(--color-navy-700, #071a2d);
   }
 
   .model-title {
