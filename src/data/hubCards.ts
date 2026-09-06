@@ -1,17 +1,16 @@
 import type { ImageMetadata } from "astro";
 
-import galleryDock01 from "@/content/gallery/dock-service-repairs/01.webp";
-import galleryDock02 from "@/content/gallery/dock-service-repairs/02.webp";
-import galleryDock03 from "@/content/gallery/dock-service-repairs/03.webp";
-import galleryDock04 from "@/content/gallery/dock-service-repairs/04.webp";
-import galleryDock05 from "@/content/gallery/dock-service-repairs/05.webp";
-import galleryDock06 from "@/content/gallery/dock-service-repairs/06.webp";
-import galleryDock07 from "@/content/gallery/dock-service-repairs/07.webp";
+import gallerySectionalDock from "@/content/gallery/sectional-docks/01.webp";
+import galleryRollInDock from "@/content/gallery/roll-in-docks/01.webp";
+import galleryPlatinumDock from "@/content/gallery/platinum-docks/01.webp";
+import galleryFloatingDock from "@/content/gallery/starr-floating-dock/01.webp";
+import galleryDockAccessories from "@/content/gallery/dock-accessories/01.webp";
+import galleryDockService from "@/content/gallery/dock-service-repairs/01.webp";
 
-import galleryHoist01 from "@/content/gallery/hoist-service-repairs/01.webp";
-import galleryHoist02 from "@/content/gallery/hoist-service-repairs/02.webp";
-import galleryHoist03 from "@/content/gallery/hoist-service-repairs/03.webp";
-import galleryHoist04 from "@/content/gallery/hoist-service-repairs/04.webp";
+import galleryBoatLift from "@/content/gallery/boat-lifts/01.webp";
+import galleryPwcLift from "@/content/gallery/pwc-jetski-lifts/01.webp";
+import galleryCanopies from "@/content/gallery/canopies/01.webp";
+import galleryHoistService from "@/content/gallery/hoist-service-repairs/01.webp";
 
 import galleryDecks01 from "@/content/gallery/decks-boardwalks/01.webp";
 import galleryLandscaping01 from "@/content/gallery/landscaping/01.webp";
@@ -37,7 +36,7 @@ export const marineCards: HubCard[] = [
     title: "Docks",
     description:
       "From sectional and roll-in to platinum and floating, we offer a dock system for every shoreline.",
-    image: galleryDock01,
+    image: gallerySectionalDock,
     icon: "sectional-docks",
     href: "/docks",
   },
@@ -45,7 +44,7 @@ export const marineCards: HubCard[] = [
     title: "Lifts",
     description:
       "Boat and pontoon lifts, PWC lifts, canopies, and accessories for effortless launching.",
-    image: galleryHoist01,
+    image: galleryBoatLift,
     icon: "anchor",
     href: "/lifts",
   },
@@ -61,7 +60,7 @@ export const marineCards: HubCard[] = [
     title: "Dock Service / Repairs",
     description:
       "Yearly installs and removals, repairs, add-ons, storm damage, and insurance claim assistance.",
-    image: galleryDock02,
+    image: galleryDockService,
     icon: "wrench",
     href: "/services/dock-service",
   },
@@ -69,7 +68,7 @@ export const marineCards: HubCard[] = [
     title: "Hoist Service / Repairs",
     description:
       "Cable, winch, and pulley repair, hoist trade-ins, lake-to-lake transport, and new boat adjustments.",
-    image: galleryHoist02,
+    image: galleryHoistService,
     icon: "wrench",
     href: "/services/hoist-service",
   },
@@ -80,14 +79,14 @@ export const docksCards: HubCard[] = [
     title: "Sectional Docks",
     description:
       "Our best seller — strength and light weight make this the industry leader for dock.",
-    image: galleryDock03,
+    image: gallerySectionalDock,
     icon: "sectional-docks",
     href: "/sectional-docks",
   },
   {
     title: "Roll-In Docks",
     description: "In most situations, the easiest dock to install.",
-    image: galleryDock04,
+    image: galleryRollInDock,
     icon: "roll-in-docks",
     href: "/roll-in-docks",
   },
@@ -95,7 +94,7 @@ export const docksCards: HubCard[] = [
     title: "Platinum Docks",
     description:
       "Soft edges and a classy look take this high-end dock system to a whole new level.",
-    image: galleryDock05,
+    image: galleryPlatinumDock,
     icon: "platinum-docks",
     href: "/platinum-docks",
   },
@@ -103,14 +102,14 @@ export const docksCards: HubCard[] = [
     title: "Floating Docks",
     description:
       "Free-standing docks can get unstable in deeper water, while a floating system maintains its stability.",
-    image: galleryDock06,
+    image: galleryFloatingDock,
     icon: "floating-docks",
     href: "/floating-docks",
   },
   {
     title: "Dock Accessories",
     description: "Everything you need to complete your dock.",
-    image: galleryDock07,
+    image: galleryDockAccessories,
     icon: "briefcase",
     href: "/dock-accessories",
   },
@@ -129,7 +128,7 @@ export const liftsCards: HubCard[] = [
     title: "PWC / Jetski Lifts",
     description:
       "A safe harbor for your personal watercraft — drive-on docking and vertical lifts.",
-    image: galleryHoist03,
+    image: galleryPwcLift,
     icon: "ship-wheel",
     href: "/pwc-jetski-lifts",
   },
@@ -137,7 +136,7 @@ export const liftsCards: HubCard[] = [
     title: "Canopies",
     description:
       "Starr Pro canopy systems offer maximum coverage and multiple boarding options.",
-    image: galleryHoist04,
+    image: galleryCanopies,
     icon: "shield-check",
     href: "/canopies",
   },

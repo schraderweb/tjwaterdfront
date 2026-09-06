@@ -5,10 +5,14 @@
  */
 import GoldLine from "@/components/shared/ui/GoldLine.astro";
 import HeroActions from "@/components/pages/home/hero/HeroActions.astro";
+import Icon from "@/components/shared/ui/Icon.astro";
 ---
 
 <div class="hero-content">
-  <p class="eyebrow hero-eyebrow">Built for Michigan. Built to last.</p>
+  <p class="hero-eyebrow">
+    <Icon name="anchor" size={13} strokeWidth={2} class="hero-eyebrow-icon" />
+    <span>Built for Michigan. Built to last.</span>
+  </p>
 
   <h1 class="hero-title">
     <span>Premium</span>
@@ -37,9 +41,26 @@ import HeroActions from "@/components/pages/home/hero/HeroActions.astro";
   }
 
   .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     margin: 0;
-    color: var(--color-gold-700);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    font-family: var(--font-sans);
+    font-size: clamp(0.85rem, 0.9vw, 0.95rem);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-navy-950);
+    text-shadow: 
+      0 0 12px #fff,
+      0 0 24px #fff,
+      0 1px 3px rgba(255, 255, 255, 0.9);
+  }
+
+  .hero-eyebrow-icon {
+    color: var(--color-gold-600);
+    filter: drop-shadow(0 0 8px #fff);
+    flex-shrink: 0;
   }
 
   .hero-title {

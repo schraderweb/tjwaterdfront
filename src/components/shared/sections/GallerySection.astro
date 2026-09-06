@@ -10,7 +10,7 @@
  */
 import { getImage, Picture } from "astro:assets";
 import Icon from "@/components/shared/ui/Icon.astro";
-import { getGalleryCategories, getGalleryImages } from "@/data/gallery";
+import { getGalleryCategories, getGalleryImages, humanize } from "@/data/gallery";
 
 interface Props {
   category?: string;
@@ -22,9 +22,7 @@ const { category } = Astro.props;
 const images = getGalleryImages(category);
 const categories = category ? [] : getGalleryCategories();
 const showTabs = !category;
-const categoryLabel = category
-  ? getGalleryCategories().find((item) => item.slug === category)?.label ?? category
-  : "";
+const categoryLabel = category ? humanize(category) : "";
 
 /** First batch is server-rendered; the rest ship as a JSON manifest. */
 const initialImages = images.slice(0, BATCH_SIZE);
@@ -43,6 +41,7 @@ const manifest = await Promise.all(
       full: img.fullSrc,
       alt: img.alt,
       category: img.category,
+      parentCategory: img.parentCategory,
     };
   })
 );
@@ -101,6 +100,7 @@ const manifest = await Promise.all(
           <div
             data-gallery-item
             data-category={img.category}
+            data-parent-category={img.parentCategory}
             data-full={img.fullSrc}
             data-caption={img.alt}
             class="gallery-item"
