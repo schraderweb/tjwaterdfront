@@ -9,6 +9,7 @@ import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 import Button from "@/components/shared/ui/Button.astro";
 import Icon from "@/components/shared/ui/Icon.astro";
+import CheckCircleIcon from "@/components/shared/ui/CheckCircleIcon.astro";
 
 import heroImage from "@/assets/services/starr-floating-dock.webp";
 ---
@@ -87,35 +88,35 @@ import heroImage from "@/assets/services/starr-floating-dock.webp";
             <ul class="benefits-list">
               <li>
                 <div class="benefit-title-row">
-                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
+                  <CheckCircleIcon class="check-icon" />
                   <strong>Adjusts to fluctuating water conditions</strong>
                 </div>
                 <p class="benefit-desc">Always sits at the correct height relative to your boat.</p>
               </li>
               <li>
                 <div class="benefit-title-row">
-                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
+                  <CheckCircleIcon class="check-icon" />
                   <strong>Truss or Platinum Style Docks</strong>
                 </div>
                 <p class="benefit-desc">Available in rugged open-sided Truss or sleek, soft-edged Platinum profiles.</p>
               </li>
               <li>
                 <div class="benefit-title-row">
-                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
+                  <CheckCircleIcon class="check-icon" />
                   <strong>Modular Design & Add-On Capability</strong>
                 </div>
                 <p class="benefit-desc">Easily expand or modify your dock layout as your waterfront needs grow.</p>
               </li>
               <li>
                 <div class="benefit-title-row">
-                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
+                  <CheckCircleIcon class="check-icon" />
                   <strong>15-Year Manufacturer Warranty</strong>
                 </div>
                 <p class="benefit-desc">Backed by industry-leading quality assurance and long-term durability.</p>
               </li>
               <li>
                 <div class="benefit-title-row">
-                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
+                  <CheckCircleIcon class="check-icon" />
                   <strong>Salt Water Safe & Corrosion Resistant</strong>
                 </div>
                 <p class="benefit-desc">Heavy-gauge marine aluminum stands up to weathering, UV, and wave energy.</p>
@@ -314,23 +315,8 @@ import heroImage from "@/assets/services/starr-floating-dock.webp";
     gap: 0.75rem;
   }
 
-  .check-wrap {
+  .check-icon {
     flex-shrink: 0;
-    width: 1.4rem;
-    height: 1.4rem;
-    border-radius: 50%;
-    background: rgba(198, 146, 61, 0.15);
-    border: 1px solid rgba(198, 146, 61, 0.35);
-    color: var(--color-gold-600, #b98232);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .check-wrap :global(svg) {
-    display: block;
-    flex-shrink: 0;
-    transform: translateY(0.5px);
   }
 
   .benefit-title-row strong {
