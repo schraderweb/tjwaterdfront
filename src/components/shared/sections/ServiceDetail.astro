@@ -109,6 +109,11 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     padding-block: clamp(4rem, 7vw, 6.5rem);
   }
 
+  .service-detail > .site-container {
+    max-width: clamp(75rem, 85vw, 86rem);
+    margin-inline: auto;
+  }
+
   .service-detail__inner {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -154,9 +159,9 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     margin-bottom: clamp(1.25rem, 2vw, 1.5rem);
     color: var(--color-gold-700);
     font-family: var(--font-sans);
-    font-size: clamp(0.75rem, 0.8vw, 0.875rem);
+    font-size: clamp(0.8125rem, 0.78rem + 0.2vw, 0.9375rem);
     font-weight: 700;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.2em;
     line-height: 1.4;
     text-transform: uppercase;
   }
@@ -200,7 +205,7 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     margin: 0;
     color: var(--color-text-secondary);
     font-family: var(--font-sans);
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.1875rem);
     line-height: var(--leading-body);
   }
 
@@ -224,7 +229,7 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     gap: 0.75rem;
     color: var(--color-text-primary);
     font-family: var(--font-sans);
-    font-size: var(--text-body);
+    font-size: clamp(0.975rem, 0.92rem + 0.2vw, 1.075rem);
     font-weight: 700;
     line-height: 1.5;
   }
@@ -246,7 +251,7 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
     background-color: rgba(198, 146, 61, 0.08);
     color: var(--color-text-primary);
     font-family: var(--font-sans);
-    font-size: var(--text-small);
+    font-size: clamp(0.925rem, 0.88rem + 0.15vw, 1rem);
     line-height: 1.5;
   }
 

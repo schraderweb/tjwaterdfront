@@ -169,32 +169,37 @@ const pwcProductCards: [any, any] = [
     background: var(--color-white, #ffffff);
   }
 
+  .connect-port-section > .site-container {
+    max-width: clamp(75rem, 85vw, 86rem);
+    margin-inline: auto;
+  }
+
   .port-intro-header {
-    max-width: 48rem;
+    max-width: 52rem;
     margin: 0 auto clamp(2.5rem, 4vw, 3.5rem);
   }
 
   .section-eyebrow {
     display: inline-block;
     color: var(--color-gold-600, #b98232);
-    font-size: var(--text-tiny, 0.75rem);
+    font-size: clamp(0.8125rem, 0.78rem + 0.2vw, 0.9375rem);
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.65rem;
   }
 
   .section-heading {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3vw, 2.75rem);
+    font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.25rem);
     color: var(--color-navy-950, #041525);
     line-height: 1.15;
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
   }
 
   .section-lead {
-    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
-    line-height: 1.6;
+    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3rem);
+    line-height: 1.65;
     color: var(--color-text-secondary, #4a5568);
     margin: 0;
   }
@@ -227,7 +232,7 @@ const pwcProductCards: [any, any] = [
     padding: 0;
     background: transparent;
     color: var(--color-gold-600, #966b1a);
-    font-size: 0.78rem;
+    font-size: clamp(0.8rem, 0.76rem + 0.15vw, 0.9rem);
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -252,17 +257,17 @@ const pwcProductCards: [any, any] = [
 
   .model-title {
     font-family: var(--font-sans);
-    font-size: clamp(1.35rem, 1.8vw, 1.65rem);
+    font-size: clamp(1.45rem, 1.3rem + 0.5vw, 1.85rem);
     font-weight: 800;
     color: var(--color-navy-950, #041525);
-    margin: 0 0 0.85rem;
+    margin: 0 0 1rem;
   }
 
   .model-desc {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: clamp(1.025rem, 0.96rem + 0.2vw, 1.15rem);
+    line-height: 1.65;
     color: var(--color-text-secondary, #4a5568);
-    margin: 0 0 1.75rem;
+    margin: 0 0 2rem;
   }
 
   .specs-list {
@@ -276,9 +281,9 @@ const pwcProductCards: [any, any] = [
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-block: 0.75rem;
+    padding-block: 0.85rem;
     border-bottom: 1px solid var(--color-border-light, #e2e8f0);
-    font-size: 0.925rem;
+    font-size: clamp(0.975rem, 0.92rem + 0.2vw, 1.075rem);
   }
 
   .spec-label {
@@ -296,7 +301,7 @@ const pwcProductCards: [any, any] = [
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: clamp(1.5rem, 2.5vw, 2.25rem);
+    padding: clamp(1.75rem, 2.5vw, 2.5rem);
     background: var(--color-navy-950, #041525);
     border-radius: var(--radius-md, 12px);
     border: 1px solid rgba(198, 146, 61, 0.4);
@@ -305,17 +310,17 @@ const pwcProductCards: [any, any] = [
 
   .crosslink-text h4 {
     font-family: var(--font-sans);
-    font-size: 1.25rem;
+    font-size: clamp(1.3rem, 1.2rem + 0.4vw, 1.55rem);
     font-weight: 700;
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.4rem;
     color: var(--color-white);
   }
 
   .crosslink-text p {
     margin: 0;
-    font-size: 0.95rem;
-    color: rgba(246, 241, 231, 0.85);
-    line-height: 1.5;
+    font-size: clamp(0.975rem, 0.92rem + 0.2vw, 1.075rem);
+    color: rgba(246, 241, 231, 0.88);
+    line-height: 1.55;
   }
 
   @media (max-width: 860px) {
