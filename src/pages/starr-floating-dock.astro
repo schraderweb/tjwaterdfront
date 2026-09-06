@@ -86,39 +86,39 @@ import heroImage from "@/assets/services/starr-floating-dock.webp";
 
             <ul class="benefits-list">
               <li>
-                <span class="check-wrap"><Icon name="check" size={18} /></span>
-                <div>
+                <div class="benefit-title-row">
+                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
                   <strong>Adjusts to fluctuating water conditions</strong>
-                  <span>Always sits at the correct height relative to your boat.</span>
                 </div>
+                <p class="benefit-desc">Always sits at the correct height relative to your boat.</p>
               </li>
               <li>
-                <span class="check-wrap"><Icon name="check" size={18} /></span>
-                <div>
+                <div class="benefit-title-row">
+                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
                   <strong>Truss or Platinum Style Docks</strong>
-                  <span>Available in rugged open-sided Truss or sleek, soft-edged Platinum profiles.</span>
                 </div>
+                <p class="benefit-desc">Available in rugged open-sided Truss or sleek, soft-edged Platinum profiles.</p>
               </li>
               <li>
-                <span class="check-wrap"><Icon name="check" size={18} /></span>
-                <div>
+                <div class="benefit-title-row">
+                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
                   <strong>Modular Design & Add-On Capability</strong>
-                  <span>Easily expand or modify your dock layout as your waterfront needs grow.</span>
                 </div>
+                <p class="benefit-desc">Easily expand or modify your dock layout as your waterfront needs grow.</p>
               </li>
               <li>
-                <span class="check-wrap"><Icon name="check" size={18} /></span>
-                <div>
+                <div class="benefit-title-row">
+                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
                   <strong>15-Year Manufacturer Warranty</strong>
-                  <span>Backed by industry-leading quality assurance and long-term durability.</span>
                 </div>
+                <p class="benefit-desc">Backed by industry-leading quality assurance and long-term durability.</p>
               </li>
               <li>
-                <span class="check-wrap"><Icon name="check" size={18} /></span>
-                <div>
+                <div class="benefit-title-row">
+                  <span class="check-wrap"><Icon name="check" size={13} strokeWidth={2.5} /></span>
                   <strong>Salt Water Safe & Corrosion Resistant</strong>
-                  <span>Heavy-gauge marine aluminum stands up to weathering, UV, and wave energy.</span>
                 </div>
+                <p class="benefit-desc">Heavy-gauge marine aluminum stands up to weathering, UV, and wave energy.</p>
               </li>
             </ul>
 
@@ -304,32 +304,44 @@ import heroImage from "@/assets/services/starr-floating-dock.webp";
 
   .benefits-list li {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .benefit-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .check-wrap {
     flex-shrink: 0;
-    margin-top: 0.2rem;
-    width: 1.65rem;
-    height: 1.65rem;
+    width: 1.4rem;
+    height: 1.4rem;
     border-radius: 50%;
-    background: rgba(198, 146, 61, 0.2);
+    background: rgba(198, 146, 61, 0.15);
+    border: 1px solid rgba(198, 146, 61, 0.35);
     color: var(--color-gold-600, #b98232);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
   }
 
-  .benefits-list strong {
+  .check-wrap :global(svg) {
     display: block;
-    color: var(--color-navy-950, #041525);
-    font-size: clamp(1.05rem, 1rem + 0.2vw, 1.175rem);
-    margin-bottom: 0.2rem;
+    flex-shrink: 0;
+    transform: translateY(0.5px);
   }
 
-  .benefits-list span {
-    display: block;
+  .benefit-title-row strong {
+    color: var(--color-navy-950, #041525);
+    font-size: clamp(1.05rem, 1rem + 0.2vw, 1.175rem);
+    line-height: 1.25;
+  }
+
+  .benefit-desc {
+    margin: 0;
+    padding-left: calc(1.4rem + 0.75rem);
     color: var(--color-text-secondary, #4a5568);
     font-size: clamp(0.95rem, 0.92rem + 0.18vw, 1.05rem);
     line-height: 1.55;
