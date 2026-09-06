@@ -54,6 +54,19 @@ const marine = navLinks.find((link) => link.label === "Marine");
         </div>
       </div>
 
+      <!-- Marine Column -->
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">MARINE</h3>
+        <ul class="site-footer__list">
+          <li><a href="/docks" class="site-footer__link"><Icon name="chevron-right" size={14}/> Docks</a></li>
+          <li><a href="/floating-docks" class="site-footer__link"><Icon name="chevron-right" size={14}/> Floating Docks</a></li>
+          <li><a href="/lifts" class="site-footer__link"><Icon name="chevron-right" size={14}/> Lifts</a></li>
+          <li><a href="/pwc-jetski-lifts" class="site-footer__link"><Icon name="chevron-right" size={14}/> PWC / Jetski Lifts</a></li>
+          <li><a href="/services/decks-boardwalks" class="site-footer__link"><Icon name="chevron-right" size={14}/> Decks & Boardwalks</a></li>
+          <li><a href="/marine" class="site-footer__link"><Icon name="chevron-right" size={14}/> View All Marine</a></li>
+        </ul>
+      </div>
+
       <!-- Services Column -->
       <div class="site-footer__col">
         <h3 class="site-footer__heading">SERVICES</h3>
@@ -64,18 +77,6 @@ const marine = navLinks.find((link) => link.label === "Marine");
             ))
           }
           <li><a href="/services" class="site-footer__link"><Icon name="chevron-right" size={14}/> View All Services</a></li>
-        </ul>
-      </div>
-
-      <!-- Marine Column -->
-      <div class="site-footer__col">
-        <h3 class="site-footer__heading">MARINE</h3>
-        <ul class="site-footer__list">
-          {
-            marine?.children?.map((child) => (
-              <li><a href={child.href} class="site-footer__link"><Icon name="chevron-right" size={14}/> {child.label}</a></li>
-            ))
-          }
         </ul>
       </div>
 

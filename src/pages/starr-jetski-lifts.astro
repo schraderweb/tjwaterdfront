@@ -1,0 +1,439 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import PopularServices from "@/components/shared/sections/PopularServices.astro";
+import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
+import ContactSection from "@/components/shared/sections/ContactSection.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+import Button from "@/components/shared/ui/Button.astro";
+import Icon from "@/components/shared/ui/Icon.astro";
+
+import heroImage from "@/assets/services/starr-jetski-lift.webp";
+
+const liftModels = [
+  { model: "1663VS", type: "Standard", capacity: "1,600 lb", insideWidth: '63"', liftHeight: '45"', legLength: '20"', weight: "183 lb", length: '70"', outsideWidth: '73"' },
+  { model: "1663VT", type: "Tall", capacity: "1,600 lb", insideWidth: '63"', liftHeight: '65"', legLength: '20"', weight: "202 lb", length: '70"', outsideWidth: '73"' },
+  { model: "1663VTL", type: "Tall / Long", capacity: "1,600 lb", insideWidth: '63"', liftHeight: '65"', legLength: '20"', weight: "275 lb", length: '101"', outsideWidth: '93"' },
+  { model: "1683VS", type: "Standard", capacity: "1,600 lb", insideWidth: '83"', liftHeight: '45"', legLength: '20"', weight: "208 lb", length: '70"', outsideWidth: '93"' },
+  { model: "1683VT", type: "Tall", capacity: "1,600 lb", insideWidth: '83"', liftHeight: '65"', legLength: '20"', weight: "228 lb", length: '70"', outsideWidth: '93"' },
+  { model: "1683VTL", type: "Tall / Long", capacity: "1,600 lb", insideWidth: '83"', liftHeight: '65"', legLength: '20"', weight: "305 lb", length: '101"', outsideWidth: '93"' },
+];
+
+const upgrades = [
+  { title: "Heavy Duty Winch", desc: 'Manual winch with 30" aluminum powder-coated wheel.' },
+  { title: "Electric Power Options", desc: "AC or 12V DC power drive with optional solar panel charging." },
+  { title: "Protective Guide-Ins", desc: "Custom guide-ins protect your hull from accidental scratches and impact." },
+  { title: "Starr Canopy Systems", desc: "Available in 12' and 14' lengths to shelter your watercraft from sun and rain." },
+  { title: "Bow Stop", desc: "Ensures precise and repeatable watercraft positioning on the bunks." },
+  { title: "SunWalk Decking", desc: "Slip-resistant decking to ease the transition from dock to watercraft." },
+];
+---
+
+<BaseLayout title="Starr Jetski Lifts | Vertical & Cantilever PWC Lifts">
+  <Navbar />
+
+  <main id="main">
+    <InteriorHero
+      title="Starr Jetski Lifts"
+      description="Freestanding vertical and cantilever single jet ski and small boat lifts. Engineered with heavy-gauge aluminum, stainless steel cables, and infinite adjustment legs."
+      image={heroImage}
+      imageAlt="Starr vertical jet ski lift on Michigan lake"
+    />
+
+    <!-- Vertical Single Jet Ski Section -->
+    <section class="vertical-lift-section">
+      <div class="site-container">
+        <div class="lift-intro-grid">
+          <div class="intro-copy">
+            <span class="section-eyebrow">FREESTANDING VERTICAL HOISTS</span>
+            <h2 class="section-heading">Vertical Single Jet Ski & Small Boat Lift</h2>
+            <p class="lead-text">
+              The 1663VS (Standard), 1663VT (Tall), 1683VS (Standard), and 1683VT (Tall) provide premier lifting 
+              solutions for personal watercraft, small fishing boats, and paddle boats.
+            </p>
+            <p class="body-text">
+              This aluminum lift features a <strong>1,600 lb capacity</strong>. The tall versions provide extended bed travel, 
+              available in both 63" and 83" inside widths to accommodate different water conditions and larger watercraft. 
+              Poly-wrapped full-length bunks protect your hull, while our legs offer infinite adjustment to conform perfectly 
+              to uneven lake bottoms. All lift cables are stainless steel to resist rust and corrosion.
+            </p>
+            <div class="cta-row">
+              <Button href="/contact" variant="gold" size="lg">Get Pricing & Availability</Button>
+              <a
+                href="https://starr-products.com/images/pdfs/2026-starr-docks-lifts.pdf#page=17"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="pdf-link"
+              >
+                <Icon name="briefcase" size={18} />
+                View in Starr Brochure (Page 17)
+              </a>
+            </div>
+          </div>
+
+          <div class="cantilever-card">
+            <div class="cantilever-badge">Cantilever Option</div>
+            <h3>Starr Cantilever Jet Ski Lifts</h3>
+            <p>A simple, dependable pivoting lift design for shallower waters and straightforward operation.</p>
+            <ul class="cantilever-specs">
+              <li><Icon name="check" size={18} /> <strong>1,500 lb</strong> load capacity</li>
+              <li><Icon name="check" size={18} /> <strong>64"</strong> inside operating width</li>
+              <li><Icon name="check" size={18} /> Heavy-duty winch with pulley bar design</li>
+              <li><Icon name="check" size={18} /> 30" aluminum powder-coated wheel</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Specifications Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3>Vertical Model Specifications (1,600 lb Capacity)</h3>
+            <p>Compare standard and tall configurations to find the ideal match for your water depth and watercraft beam.</p>
+          </div>
+          <div class="table-scroll">
+            <table class="specs-table">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Configuration</th>
+                  <th>Capacity</th>
+                  <th>Inside Width</th>
+                  <th>Lifting Height</th>
+                  <th>Leg Length</th>
+                  <th>Weight</th>
+                  <th>Length</th>
+                  <th>Outside Width</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  liftModels.map((row) => (
+                    <tr>
+                      <td class="model-cell">{row.model}</td>
+                      <td>{row.type}</td>
+                      <td>{row.capacity}</td>
+                      <td>{row.insideWidth}</td>
+                      <td>{row.liftHeight}</td>
+                      <td>{row.legLength}</td>
+                      <td>{row.weight}</td>
+                      <td>{row.length}</td>
+                      <td>{row.outsideWidth}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Upgrades Section -->
+        <div class="upgrades-section">
+          <div class="upgrades-header text-center">
+            <span class="section-eyebrow">CUSTOMIZE YOUR HOIST</span>
+            <h3 class="section-heading">Optional Upgrades & Accessories</h3>
+            <p class="section-subheading">Equip your Starr jet ski lift with premium accessories engineered by the manufacturer.</p>
+          </div>
+
+          <div class="upgrades-grid">
+            {
+              upgrades.map((item) => (
+                <div class="upgrade-card">
+                  <div class="upgrade-icon">
+                    <Icon name="check" size={20} />
+                  </div>
+                  <div class="upgrade-info">
+                    <h4>{item.title}</h4>
+                    <p>{item.desc}</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <GallerySection category="hoist-service-repairs" />
+
+    <PopularServices />
+
+    <ReviewsTrustSection topFill="var(--color-cream-50)" bottomFill="var(--color-navy-950)" />
+
+    <ContactSection />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .vertical-lift-section {
+    padding-block: clamp(4rem, 6vw, 6.5rem);
+    background: var(--color-white, #ffffff);
+  }
+
+  .lift-intro-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(2.5rem, 4vw, 4.5rem);
+    align-items: start;
+    margin-bottom: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    color: var(--color-gold-600, #b98232);
+    font-size: var(--text-tiny, 0.75rem);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    color: var(--color-navy-950, #041525);
+    line-height: 1.15;
+    margin: 0 0 1.25rem;
+  }
+
+  .lead-text {
+    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--color-navy-900, #071a2d);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .body-text {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-text-secondary, #4a5568);
+    margin-bottom: 2rem;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .pdf-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-navy-900, #071a2d);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: underline;
+    transition: color 200ms var(--ease-premium);
+  }
+
+  .pdf-link:hover {
+    color: var(--color-gold-600, #b98232);
+  }
+
+  /* Cantilever card */
+  .cantilever-card {
+    background: var(--color-cream-50, #fcfaf5);
+    border: 1px solid var(--color-border-light, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: clamp(1.75rem, 2.5vw, 2.25rem);
+    box-shadow: 0 4px 15px -3px rgba(7, 26, 43, 0.05);
+  }
+
+  .cantilever-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: var(--color-navy-950, #041525);
+    color: var(--color-gold-300, #edd49a);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .cantilever-card h3 {
+    font-family: var(--font-sans);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-navy-950, #041525);
+    margin: 0 0 0.75rem;
+  }
+
+  .cantilever-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary, #4a5568);
+    line-height: 1.55;
+    margin: 0 0 1.25rem;
+  }
+
+  .cantilever-specs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cantilever-specs li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.925rem;
+    color: var(--color-navy-900, #071a2d);
+  }
+
+  .cantilever-specs li :global(svg) {
+    color: var(--color-gold-600, #b98232);
+    flex-shrink: 0;
+  }
+
+  /* Table styles */
+  .table-container {
+    background: var(--color-navy-950, #041525);
+    border-radius: var(--radius-md, 12px);
+    padding: clamp(1.75rem, 2.5vw, 2.5rem);
+    color: var(--color-white);
+    margin-bottom: clamp(3.5rem, 5vw, 5rem);
+    border: 1px solid rgba(198, 146, 61, 0.35);
+  }
+
+  .table-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .table-header h3 {
+    font-family: var(--font-sans);
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-white);
+    margin: 0 0 0.5rem;
+  }
+
+  .table-header p {
+    margin: 0;
+    color: rgba(246, 241, 231, 0.8);
+    font-size: 0.95rem;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  .specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.925rem;
+    min-width: 680px;
+  }
+
+  .specs-table th {
+    text-align: left;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-gold-300, #edd49a);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .specs-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    color: rgba(246, 241, 231, 0.9);
+  }
+
+  .specs-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .model-cell {
+    font-weight: 700;
+    color: var(--color-white) !important;
+  }
+
+  /* Upgrades */
+  .upgrades-section {
+    padding-top: 1rem;
+  }
+
+  .upgrades-header {
+    max-width: 44rem;
+    margin: 0 auto clamp(2rem, 3.5vw, 3rem);
+  }
+
+  .upgrades-header.text-center {
+    text-align: center;
+  }
+
+  .section-subheading {
+    color: var(--color-text-secondary, #4a5568);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .upgrades-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2vw, 1.75rem);
+  }
+
+  .upgrade-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: var(--radius-sm, 8px);
+    background: var(--color-cream-50, #fcfaf5);
+    border: 1px solid var(--color-border-light, #e2e8f0);
+  }
+
+  .upgrade-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(198, 146, 61, 0.2);
+    color: var(--color-gold-600, #b98232);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .upgrade-info h4 {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-navy-950, #041525);
+    margin: 0 0 0.35rem;
+  }
+
+  .upgrade-info p {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #4a5568);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .lift-intro-grid {
+      grid-template-columns: 1fr;
+    }
+    .upgrades-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .upgrades-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

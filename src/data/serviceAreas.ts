@@ -1,3 +1,9 @@
+export const serviceRegions: string[] = [
+  "All Of Michigan",
+  "Northern Indiana",
+  "Northern Ohio",
+];
+
 export const serviceAreas: string[] = [
   "Pontiac", "Troy", "Royal Oak", "Auburn Hills", "Southfield", "West Bloomfield", "Birmingham", "Ferndale",
   "Howell", "Brighton", "Pickney", "Hamburg", "Flint", "Grand Blanc", "Clio", "Flushing", "Lake Fenton", "Linden",

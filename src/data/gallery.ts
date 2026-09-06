@@ -29,21 +29,26 @@ const imageModules = import.meta.glob<{ default: ImageMetadata }>(
 
 /** Nicer display names for category folders (folder names can't contain "&"). */
 const CATEGORY_LABEL_OVERRIDES: Record<string, string> = {
+  "dock-service-repairs": "Docks",
+  "hoist-service-repairs": "Lifts",
   "decks-boardwalks": "Decks & Boardwalks",
-  "dock-service-repairs": "Dock Service & Repairs",
-  "hoist-service-repairs": "Hoist Service & Repairs",
+  "retaining-walls": "Retaining Walls",
+  "patios": "Patios",
+  "beaches": "Beaches",
+  "seawalls": "Seawalls",
+  "landscaping": "Landscaping",
 };
 
-/** Canonical category order for the /gallery tabs. New folders append after these. */
+/** Canonical category order for the /gallery tabs. */
 const DEFAULT_CATEGORY_ORDER = [
-  "landscaping",
-  "seawalls",
-  "retaining-walls",
-  "patios",
-  "beaches",
-  "decks-boardwalks",
   "dock-service-repairs",
   "hoist-service-repairs",
+  "seawalls",
+  "retaining-walls",
+  "decks-boardwalks",
+  "beaches",
+  "patios",
+  "landscaping",
 ];
 
 function humanize(slug: string): string {

@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Navbar from "@/components/shared/layout/Navbar.astro";
 import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import DualProductCards from "@/components/shared/sections/DualProductCards.astro";
 import ServiceDetail from "@/components/shared/sections/ServiceDetail.astro";
 import GallerySection from "@/components/shared/sections/GallerySection.astro";
 import PopularServices from "@/components/shared/sections/PopularServices.astro";
@@ -9,8 +10,33 @@ import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSectio
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 
-// Hero image
+// Hero and card images
 import heroImage from "@/content/gallery/dock-service-repairs/01.webp";
+import connectADockImage from "@/assets/services/connect-a-dock.webp";
+import starrFloatingDockImage from "@/assets/services/starr-floating-dock.webp";
+
+const floatingDockCards: [any, any] = [
+  {
+    title: "Connect A Dock",
+    subtitle: "Modular Floating Dock Systems",
+    description:
+      "Family-friendly modular polyethylene floating docks for swimming, boating, rowing, and fishing. 1000 Series Low Profile and 2000 Series High Profile configurations.",
+    image: connectADockImage,
+    imageAlt: "Connect A Dock floating dock system installation",
+    badge: "Polyethylene Modular",
+    href: "/floating-dock",
+  },
+  {
+    title: "Starr Floating Dock",
+    subtitle: "Heavy-Duty Aluminum Floating Docks",
+    description:
+      "Engineered for deep water greater than 9 ft, fluctuating water levels, and mucky lake bottoms. Available in Truss or Platinum style aluminum docks with a 15-year warranty.",
+    image: starrFloatingDockImage,
+    imageAlt: "Starr floating aluminum dock with boat on a Michigan lake",
+    badge: "Heavy-Gauge Aluminum",
+    href: "/starr-floating-dock",
+  },
+];
 ---
 
 <BaseLayout title="Floating Docks | T&J Waterfront Services">
@@ -22,6 +48,13 @@ import heroImage from "@/content/gallery/dock-service-repairs/01.webp";
       description="Floating dock systems that maintain their stability in deeper water, keeping your dock level season after season."
       image={heroImage}
       imageAlt="Floating dock by T&J Waterfront Services"
+    />
+
+    <DualProductCards
+      eyebrow="SELECT YOUR FLOATING DOCK SYSTEM"
+      title="Explore Our Floating Dock Options"
+      description="Choose between our modular Connect-A-Dock polyethylene docks or heavy-gauge Starr aluminum floating docks designed for Michigan lakefronts."
+      cards={floatingDockCards}
     />
 
     <ServiceDetail slug="floating-docks" image={heroImage} imageAlt="Floating dock by T&J Waterfront Services" />

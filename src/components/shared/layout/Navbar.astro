@@ -51,26 +51,40 @@ const isActive = (href: string) =>
                     <ul class="dropdown">
                       {link.children.map((child) => (
                         <li class:list={child.children && "has-submenu"}>
-                          <a
-                            href={child.href}
-                            class:list={["dropdown-link", isActive(child.href) && "is-active-child"]}
-                            {...(isActive(child.href) ? { "aria-current": "page" } : {})}
-                          >
-                            {child.label}
-                            {child.children && <Icon name="chevron-right" size={10} class="submenu-chevron" />}
-                          </a>
+                          {child.href === "#" ? (
+                            <span class="dropdown-link dropdown-heading">
+                              {child.label}
+                              {child.children && <Icon name="chevron-right" size={10} class="submenu-chevron" />}
+                            </span>
+                          ) : (
+                            <a
+                              href={child.href}
+                              class:list={["dropdown-link", isActive(child.href) && "is-active-child"]}
+                              {...(isActive(child.href) ? { "aria-current": "page" } : {})}
+                            >
+                              {child.label}
+                              {child.children && <Icon name="chevron-right" size={10} class="submenu-chevron" />}
+                            </a>
+                          )}
                           {child.children && (
                             <ul class="submenu">
                               {child.children.map((sub) => (
                                 <li class:list={sub.children && "has-submenu"}>
-                                  <a
-                                    href={sub.href}
-                                    class:list={["dropdown-link", isActive(sub.href) && "is-active-child"]}
-                                    {...(isActive(sub.href) ? { "aria-current": "page" } : {})}
-                                  >
-                                    {sub.label}
-                                    {sub.children && <Icon name="chevron-right" size={10} class="submenu-chevron" />}
-                                  </a>
+                                  {sub.href === "#" ? (
+                                    <span class="dropdown-link dropdown-heading">
+                                      {sub.label}
+                                      {sub.children && <Icon name="chevron-right" size={10} class="submenu-chevron" />}
+                                    </span>
+                                  ) : (
+                                    <a
+                                      href={sub.href}
+                                      class:list={["dropdown-link", isActive(sub.href) && "is-active-child"]}
+                                      {...(isActive(sub.href) ? { "aria-current": "page" } : {})}
+                                    >
+                                      {sub.label}
+                                      {sub.children && <Icon name="chevron-right" size={10} class="submenu-chevron" />}
+                                    </a>
+                                  )}
                                   {sub.children && (
                                     <ul class="submenu">
                                       {sub.children.map((deep) => (
@@ -142,16 +156,28 @@ const isActive = (href: string) =>
               <ul class="mobile-sublist">
                 {link.children.map((child) => (
                   <li>
-                    <a href={child.href} class:list={["mobile-sublink", isActive(child.href) && "is-active-child"]}>
-                      {child.label}
-                    </a>
+                    {child.href === "#" ? (
+                      <span class="mobile-sublink is-heading font-semibold text-white/90">
+                        {child.label}
+                      </span>
+                    ) : (
+                      <a href={child.href} class:list={["mobile-sublink", isActive(child.href) && "is-active-child"]}>
+                        {child.label}
+                      </a>
+                    )}
                     {child.children && (
                       <ul class="mobile-subsub">
                         {child.children.map((sub) => (
                           <li>
-                            <a href={sub.href} class:list={["mobile-sublink", isActive(sub.href) && "is-active-child"]}>
-                              {sub.label}
-                            </a>
+                            {sub.href === "#" ? (
+                              <span class="mobile-sublink is-heading font-semibold text-white/90">
+                                {sub.label}
+                              </span>
+                            ) : (
+                              <a href={sub.href} class:list={["mobile-sublink", isActive(sub.href) && "is-active-child"]}>
+                                {sub.label}
+                              </a>
+                            )}
                             {sub.children && (
                               <ul class="mobile-subsub">
                                 {sub.children.map((deep) => (

@@ -118,7 +118,7 @@ export const docksCards: HubCard[] = [
 
 export const liftsCards: HubCard[] = [
   {
-    title: "Boat & Pontoon Lifts",
+    title: "Boat / Pontoon / Tritoon Lifts",
     description:
       "Heavy-gauge aluminum construction providing great strength and long-lasting durability.",
     image: serviceBoatLift,
@@ -126,12 +126,12 @@ export const liftsCards: HubCard[] = [
     href: "/boat-lifts",
   },
   {
-    title: "PWC / Jet Lifts",
+    title: "PWC / Jetski Lifts",
     description:
-      "A safe harbor for your personal watercraft — just roll off and you're ready to go.",
+      "A safe harbor for your personal watercraft — drive-on docking and vertical lifts.",
     image: galleryHoist03,
     icon: "ship-wheel",
-    href: "/personal-watercraft-lift",
+    href: "/pwc-jetski-lifts",
   },
   {
     title: "Canopies",

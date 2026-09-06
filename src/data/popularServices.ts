@@ -1,51 +1,51 @@
-import dockRepairImage from "../assets/services/dock-repair.webp";
-import pontoonAccessoriesImage from "../assets/services/pontoon-accessories.webp";
-import seawallImage from "../assets/services/seawall.webp";
+import dockImage from "../assets/services/dock-repair.webp";
 import boatLiftImage from "../assets/services/boat-lift.webp";
+import seawallImage from "../assets/services/seawall.webp";
+import decksImage from "../content/gallery/decks-boardwalks/01.webp";
 import beachImage from "../assets/services/beach.webp";
 import retainingWallImage from "../assets/services/retaining-wall.webp";
 
 export const popularServices = [
   {
-    title: "Dock Services & Repair",
-    description: "Whether your dock just needs a few updates or total refurbishing, we can help.",
-    image: dockRepairImage,
-    icon: "wrench", // or sectional-docks
-    href: "/services/dock-service"
+    title: "Docks",
+    description: "From sectional and roll-in to platinum and floating systems, find the right dock for your shoreline.",
+    image: dockImage,
+    icon: "sectional-docks",
+    href: "/docks",
   },
   {
-    title: "Boat & Pontoon Lift Accessories",
-    description: "Everything you need for Boat and Pontoon Lifting.",
-    image: pontoonAccessoriesImage,
+    title: "Lifts",
+    description: "Boat, pontoon, tritoon, and personal watercraft lifts built for long-lasting durability and easy launching.",
+    image: boatLiftImage,
     icon: "anchor",
-    href: "/lift-accessories"
+    href: "/lifts",
   },
   {
     title: "Seawalls",
-    description: "Build your wall right the first time.",
+    description: "Steel, boulders, ledge rock, and rip rap walls engineered to stop erosion and protect your waterfront investment.",
     image: seawallImage,
-    icon: "shield",
-    href: "/services/seawalls"
+    icon: "shield-check",
+    href: "/services/seawalls",
   },
   {
-    title: "Boat Lifts",
-    description: "Starr boat lifts (BL) are constructed with heavy gauge aluminum providing great strength and long lasting durability.",
-    image: boatLiftImage,
-    icon: "anchor", // since boat-lift icon wasn't explicitly present, anchor is a good marine fallback
-    href: "/boat-lifts"
+    title: "Decks & Boardwalks",
+    description: "Custom boardwalk walkways over marshland, through your yard, or to the shoreline — no job too big or small.",
+    image: decksImage,
+    icon: "house",
+    href: "/services/decks-boardwalks",
   },
   {
     title: "Beaches",
-    description: "Mason Sand, 2NS, Florida Sand, Santa Barbra Beach. Many types available to make your beach your next dream destination.",
+    description: "Mason sand, 2NS, Florida sand, and Santa Barbara beach options to turn your shoreline into a backyard destination.",
     image: beachImage,
     icon: "map-pin",
-    href: "/services/beaches"
+    href: "/services/beaches",
   },
   {
     title: "Retaining Walls",
-    description: "Retaining walls can offer a lot of benefits from adding texture to your yard to the function of keeping the soil from moving.",
+    description: "From large walls that hold up your land to small garden walls that add character and usable yard space.",
     image: retainingWallImage,
-    icon: "shield", // or briefcase, but shield/map-pin could work. Let's use shield or a custom one if available. We'll use menu or check if others fit better. Let's stick to simple ones.
-    href: "/services/retaining-walls"
-  }
+    icon: "shield",
+    href: "/services/retaining-walls",
+  },
 ];

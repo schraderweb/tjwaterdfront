@@ -1,0 +1,321 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/shared/layout/Navbar.astro";
+import InteriorHero from "@/components/pages/services/InteriorHero.astro";
+import DualProductCards from "@/components/shared/sections/DualProductCards.astro";
+import GallerySection from "@/components/shared/sections/GallerySection.astro";
+import PopularServices from "@/components/shared/sections/PopularServices.astro";
+import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
+import ContactSection from "@/components/shared/sections/ContactSection.astro";
+import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+import Button from "@/components/shared/ui/Button.astro";
+import Icon from "@/components/shared/ui/Icon.astro";
+
+// Images
+import heroImage from "@/content/gallery/hoist-service-repairs/03.webp";
+import connectAPortImage from "@/assets/services/connect-a-port.webp";
+import starrJetskiLiftImage from "@/assets/services/starr-jetski-lift.webp";
+
+const pwcProductCards: [any, any] = [
+  {
+    title: "Connect A Port",
+    subtitle: "Drive-On PWC Docking Ports",
+    description:
+      "Need a place to dock your PWC or jet ski? Drive-on docking with Stoltz rollers makes launching and docking effortless — just roll off and you're ready to go!",
+    image: connectAPortImage,
+    imageAlt: "Connect A Port PWC drive-on jet ski port at a dock",
+    badge: "Drive-On Port",
+    href: "#connect-a-port",
+  },
+  {
+    title: "Starr Jetski Lift",
+    subtitle: "Vertical & Cantilever Aluminum Hoists",
+    description:
+      "Freestanding vertical and cantilever lifts constructed with heavy-gauge aluminum, stainless steel cables, and available weather-protective canopies.",
+    image: starrJetskiLiftImage,
+    imageAlt: "Starr aluminum vertical jet ski lift with protective canopy",
+    badge: "Mechanical Lift",
+    href: "/starr-jetski-lifts",
+  },
+];
+---
+
+<BaseLayout title="PWC Jetski Lifts & Drive-On Ports | T&J Waterfront Services">
+  <Navbar />
+
+  <main id="main">
+    <InteriorHero
+      title="PWC Jetski Lifts"
+      description="A safe harbor for your Dingy boat or fishing boat or PWC/Jetski — Connect-A-Port docking made for one-, two-, three-, or four-place watercraft."
+      image={heroImage}
+      imageAlt="PWC and jet ski lifts by T&J Waterfront Services"
+    />
+
+    <!-- Side-by-Side Dual Cards -->
+    <DualProductCards
+      eyebrow="SELECT YOUR PWC SOLUTION"
+      title="Drive-On Ports or Freestanding Lifts"
+      description="Whether you prefer rolling off with drive-on Connect-A-Port docking or lifting clear of the water with Starr aluminum hoists, we have the ideal setup for your lakefront."
+      cards={pwcProductCards}
+    />
+
+    <!-- Connect-A-Port Detail Section -->
+    <section class="connect-port-section" id="connect-a-port">
+      <div class="site-container">
+        <div class="port-intro-header text-center">
+          <span class="section-eyebrow">DRIVE-ON WATERCRAFT DOCKING</span>
+          <h2 class="section-heading">Connect A Port</h2>
+          <p class="section-lead">
+            Need a place to dock your PWC or jet ski? T&J Waterfront Services offers PWC docking to add a safe harbor 
+            for your one-, two-, three-, or four-place personal watercraft — just roll off and you're ready to go!
+          </p>
+        </div>
+
+        <div class="models-grid">
+          <!-- XL6 Model -->
+          <div class="model-card featured-model">
+            <div class="model-badge">Most Popular</div>
+            <h3 class="model-title">Connect-A-Port XL6</h3>
+            <p class="model-desc">
+              The Connect-A-Port XL6 features a six-foot-plus walking surface around the edges, with a universal hull design 
+              and adjustable Stoltz rollers that make it easy to launch and dock — idle up to dock, roll off to launch. 
+              It connects to 2000 Series docks, floating docks, or fixed docks.
+            </p>
+            <ul class="specs-list">
+              <li>
+                <span class="spec-label">Model</span>
+                <span class="spec-value">CAPXL6</span>
+              </li>
+              <li>
+                <span class="spec-label">Dimensions</span>
+                <span class="spec-value">72" &times; 156" &times; 23"</span>
+              </li>
+              <li>
+                <span class="spec-label">Max Flotation</span>
+                <span class="spec-value">2,000 lbs</span>
+              </li>
+              <li>
+                <span class="spec-label">Weight</span>
+                <span class="spec-value">375 lbs</span>
+              </li>
+              <li>
+                <span class="spec-label">Hull Support</span>
+                <span class="spec-value">Universal with Stoltz Rollers</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- XL5 Model -->
+          <div class="model-card">
+            <div class="model-badge badge-compact">Compact Fit</div>
+            <h3 class="model-title">Connect-A-Port XL5</h3>
+            <p class="model-desc">
+              Where a more compact footprint is the better fit, the Connect-A-Port XL5 uses universal hull support 
+              and adjustable rollers to make personal watercraft easier to dock in tighter slips and spaces.
+            </p>
+            <ul class="specs-list">
+              <li>
+                <span class="spec-label">Model</span>
+                <span class="spec-value">CAPXL5</span>
+              </li>
+              <li>
+                <span class="spec-label">Dimensions</span>
+                <span class="spec-value">59" &times; 156" &times; 23"</span>
+              </li>
+              <li>
+                <span class="spec-label">Max Flotation</span>
+                <span class="spec-value">1,800 lbs</span>
+              </li>
+              <li>
+                <span class="spec-label">Weight</span>
+                <span class="spec-value">325 lbs</span>
+              </li>
+              <li>
+                <span class="spec-label">Hull Support</span>
+                <span class="spec-value">Universal Hull Support</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Cross link to Starr Jetski Lift -->
+        <div class="starr-crosslink-card">
+          <div class="crosslink-text">
+            <h4>Prefer a Mechanical Aluminum Hoist?</h4>
+            <p>Explore Starr Vertical & Cantilever PWC Lifts with canopy options, stainless cables, and capacities up to 1,600 lbs.</p>
+          </div>
+          <Button href="/starr-jetski-lifts" variant="gold" size="md">
+            View Starr Jetski Lifts &rarr;
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <GallerySection category="hoist-service-repairs" />
+
+    <PopularServices />
+
+    <ReviewsTrustSection topFill="var(--color-cream-50)" bottomFill="var(--color-navy-950)" />
+
+    <ContactSection />
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .connect-port-section {
+    padding-block: clamp(4rem, 6vw, 6.5rem);
+    background: var(--color-white, #ffffff);
+  }
+
+  .port-intro-header {
+    max-width: 48rem;
+    margin: 0 auto clamp(2.5rem, 4vw, 3.5rem);
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    color: var(--color-gold-600, #b98232);
+    font-size: var(--text-tiny, 0.75rem);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    color: var(--color-navy-950, #041525);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+
+  .section-lead {
+    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--color-text-secondary, #4a5568);
+    margin: 0;
+  }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2.5vw, 2.5rem);
+    margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
+  }
+
+  .model-card {
+    padding: clamp(1.75rem, 2.5vw, 2.5rem);
+    border-radius: var(--radius-md, 12px);
+    background: var(--color-cream-50, #fcfaf5);
+    border: 1px solid var(--color-border-light, #e2e8f0);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .model-card.featured-model {
+    border-color: rgba(198, 146, 61, 0.5);
+    background: linear-gradient(145deg, #ffffff 0%, var(--color-cream-50, #fcfaf5) 100%);
+    box-shadow: 0 10px 25px -5px rgba(7, 26, 43, 0.08);
+  }
+
+  .model-badge {
+    align-self: flex-start;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    background: var(--color-gold-500, #c6923d);
+    color: var(--color-navy-950, #041525);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .model-badge.badge-compact {
+    background: var(--color-navy-900, #071a2d);
+    color: var(--color-white, #ffffff);
+  }
+
+  .model-title {
+    font-family: var(--font-sans);
+    font-size: clamp(1.35rem, 1.8vw, 1.65rem);
+    font-weight: 800;
+    color: var(--color-navy-950, #041525);
+    margin: 0 0 0.85rem;
+  }
+
+  .model-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary, #4a5568);
+    margin: 0 0 1.75rem;
+  }
+
+  .specs-list {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+    border-top: 1px solid var(--color-border-light, #e2e8f0);
+  }
+
+  .specs-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--color-border-light, #e2e8f0);
+    font-size: 0.925rem;
+  }
+
+  .spec-label {
+    color: var(--color-text-secondary, #4a5568);
+    font-weight: 500;
+  }
+
+  .spec-value {
+    color: var(--color-navy-950, #041525);
+    font-weight: 700;
+  }
+
+  .starr-crosslink-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 2.5vw, 2.25rem);
+    background: var(--color-navy-950, #041525);
+    border-radius: var(--radius-md, 12px);
+    border: 1px solid rgba(198, 146, 61, 0.4);
+    color: var(--color-white);
+  }
+
+  .crosslink-text h4 {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    color: var(--color-white);
+  }
+
+  .crosslink-text p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(246, 241, 231, 0.85);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 860px) {
+    .models-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .starr-crosslink-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

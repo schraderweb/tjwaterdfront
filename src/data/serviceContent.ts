@@ -217,6 +217,39 @@ export const serviceContent: Record<string, ServiceContent> = {
       "XL5 | Weight: 325 lbs",
     ],
   },
+  "pwc-jetski-lifts": {
+    eyebrow: "PWC / JET LIFTS",
+    heading: "PWC Jetski Lifts",
+    paragraphs: [
+      [
+        { text: "Need a place to dock your PWC or jet ski? " },
+        { text: "T&J Waterfront Services", strong: true },
+        { text: " offers " },
+        { text: "PWC docking", strong: true },
+        { text: " to add a safe harbor for your one-, two-, three-, or four-place personal watercraft - just roll off and you're ready to go!" },
+      ],
+      [
+        { text: "The " },
+        { text: "Connect-A-Port XL6", strong: true },
+        { text: " features a six-foot-plus walking surface around the edges, with a universal hull design and adjustable Stoltz rollers that make it easy to launch and dock - idle up to dock, roll off to launch. It connects to 2000 Series docks, floating docks, or fixed docks." },
+      ],
+      [
+        { text: "Where a more compact footprint is the better fit, the " },
+        { text: "Connect-A-Port XL5", strong: true },
+        { text: " uses universal hull support and adjustable rollers to make personal watercraft easier to dock." },
+      ],
+    ],
+    bullets: [
+      "XL6 | Model: CAPXL6",
+      'XL6 | 72" x 156" x 23"',
+      "XL6 | Maximum flotation: 2,000 lbs",
+      "XL6 | Weight: 375 lbs",
+      "XL5 | Model: CAPXL5",
+      'XL5 | 59" x 156" x 23"',
+      "XL5 | Maximum flotation: 1,800 lbs",
+      "XL5 | Weight: 325 lbs",
+    ],
+  },
   "sectional-docks": {
     eyebrow: "SECTIONAL DOCKS",
     heading: "Sectional Docks — Our Best Seller",

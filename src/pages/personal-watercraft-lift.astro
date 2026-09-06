@@ -1,38 +1,16 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import Navbar from "@/components/shared/layout/Navbar.astro";
-import InteriorHero from "@/components/pages/services/InteriorHero.astro";
-import ServiceDetail from "@/components/shared/sections/ServiceDetail.astro";
-import GallerySection from "@/components/shared/sections/GallerySection.astro";
-import PopularServices from "@/components/shared/sections/PopularServices.astro";
-import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
-import ContactSection from "@/components/shared/sections/ContactSection.astro";
-import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
-
-import heroImage from "@/content/gallery/hoist-service-repairs/03.webp";
+return Astro.redirect("/pwc-jetski-lifts", 301);
 ---
 
-<BaseLayout title="Personal Watercraft Lift | T&J Waterfront Services">
-  <Navbar />
-
-  <main id="main">
-    <InteriorHero
-      title="Personal Watercraft Lift"
-      description="A safe harbor for your PWC or jet ski — Connect-A-Port docking made for one-, two-, three-, or four-place watercraft."
-      image={heroImage}
-      imageAlt="Personal watercraft lift by T&J Waterfront Services"
-    />
-
-    <ServiceDetail slug="personal-watercraft-lift" image={heroImage} imageAlt="Personal watercraft lift by T&J Waterfront Services" />
-
-    <GallerySection category="hoist-service-repairs" />
-
-    <PopularServices />
-
-    <ReviewsTrustSection topFill="var(--color-cream-50)" bottomFill="var(--color-navy-950)" />
-
-    <ContactSection />
-  </main>
-
-  <SiteFooter />
-</BaseLayout>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to PWC Jetski Lifts...</title>
+    <link rel="canonical" href="https://tjwaterfrontservices.com/pwc-jetski-lifts" />
+    <meta http-equiv="refresh" content="0;url=/pwc-jetski-lifts" />
+  </head>
+  <body>
+    <p>Redirecting to <a href="/pwc-jetski-lifts">PWC Jetski Lifts</a>...</p>
+  </body>
+</html>

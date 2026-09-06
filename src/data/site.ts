@@ -5,7 +5,7 @@ export const site = {
   title:
     "T&J Waterfront Services | Dock, Boat Lift & Seawall Specialists — Howell, MI",
   description:
-    "T&J Waterfront Services installs, maintains and repairs docks, boat lifts, seawalls, patios, beaches, retaining walls and shorelines across Michigan. One trusted team for your entire lakefront.",
+    "T&J Waterfront Services installs, maintains and repairs docks, boat lifts, seawalls, patios, beaches, retaining walls and shorelines across All of Michigan, Northern Indiana, and Northern Ohio. One trusted team for your entire lakefront.",
   phone: "517-294-5577",
   phoneDisplay: "(517) 294-5577",
   phoneHref: "tel:+15172945577",
@@ -39,17 +39,6 @@ export interface NavLink {
 
 export const navLinks: NavLink[] = [
   {
-    label: "Services",
-    href: "/services",
-    children: [
-      { label: "Landscaping", href: "/services/landscaping" },
-      { label: "Seawalls", href: "/services/seawalls" },
-      { label: "Retaining Walls", href: "/services/retaining-walls" },
-      { label: "Patios", href: "/services/patios" },
-      { label: "Beaches", href: "/services/beaches" },
-    ],
-  },
-  {
     label: "Marine",
     href: "/marine",
     children: [
@@ -60,10 +49,10 @@ export const navLinks: NavLink[] = [
           { label: "Sectional Docks", href: "/sectional-docks" },
           {
             label: "Connect a Dock",
-            href: "/docks",
+            href: "#",
             children: [
               { label: "Floating Dock", href: "/floating-docks" },
-              { label: "Personal Watercraft Lift", href: "/personal-watercraft-lift" },
+              { label: "PWC / Jetski Lifts", href: "/pwc-jetski-lifts" },
             ],
           },
           { label: "Roll-In Docks", href: "/roll-in-docks" },
@@ -75,13 +64,24 @@ export const navLinks: NavLink[] = [
         label: "Lifts",
         href: "/lifts",
         children: [
-          { label: "Boat & Pontoon Lifts", href: "/boat-lifts" },
-          { label: "PWC / Jet Lifts", href: "/personal-watercraft-lift" },
+          { label: "Boat / Pontoon / Tritoon Lifts", href: "/boat-lifts" },
+          { label: "PWC / Jetski Lifts", href: "/pwc-jetski-lifts" },
           { label: "Canopies", href: "/canopies" },
           { label: "Lift Accessories", href: "/lift-accessories" },
         ],
       },
       { label: "Decks & Boardwalks", href: "/services/decks-boardwalks" },
+    ],
+  },
+  {
+    label: "Services",
+    href: "/services",
+    children: [
+      { label: "Landscaping", href: "/services/landscaping" },
+      { label: "Seawalls", href: "/services/seawalls" },
+      { label: "Retaining Walls", href: "/services/retaining-walls" },
+      { label: "Patios", href: "/services/patios" },
+      { label: "Beaches", href: "/services/beaches" },
       { label: "Dock Service / Repairs", href: "/services/dock-service" },
       { label: "Hoist Service / Repairs", href: "/services/hoist-service" },
     ],
@@ -101,30 +101,31 @@ export interface HeroService {
 
 export const heroServices: HeroService[] = [
   {
-    title: "Sectional Docks",
+    title: "Docks",
     description:
-      "Our best seller! With its strength and light weight, this is easily the industry leader for dock.",
-    icon: "sectional-docks",
-    href: "/sectional-docks",
+      "Sectional, roll-in, platinum, and floating systems built for Michigan waters.",
+    icon: "docks",
+    href: "/docks",
   },
   {
-    title: "Roll-In Docks",
-    description: "In most situations, the easiest dock to install.",
-    icon: "roll-in-docks",
-    href: "/roll-in-docks",
+    title: "Lifts",
+    description:
+      "Boat, pontoon, tritoon, and PWC lifts with custom bunks and canopies.",
+    icon: "lifts",
+    href: "/lifts",
   },
   {
-    title: "Platinum Docks",
+    title: "Seawalls",
     description:
-      "The soft edges and classy look took this high-end dock system to a whole new level.",
-    icon: "platinum-docks",
-    href: "/platinum-docks",
+      "Steel, boulder, and rip rap walls engineered to protect your shoreline.",
+    icon: "seawalls",
+    href: "/services/seawalls",
   },
   {
-    title: "Floating Docks",
+    title: "Decks & Boardwalks",
     description:
-      "Free-standing docks can get unstable in deeper water, while a floating system maintains its stability.",
-    icon: "floating-docks",
-    href: "/floating-docks",
+      "Custom boardwalks and lakefront walkways designed for any terrain.",
+    icon: "decks-boardwalks",
+    href: "/services/decks-boardwalks",
   },
 ];
