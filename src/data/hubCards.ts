@@ -208,7 +208,7 @@ export const allServicesCards: HubCard[] = [
     title: "Hoist Service & Repairs",
     description:
       "Cable, winch, and pulley repair, hoist trade-ins, transport, and new boat adjustments.",
-    image: galleryHoist01,
+    image: galleryHoistService,
     icon: "wrench",
     href: "/services/hoist-service",
   },
