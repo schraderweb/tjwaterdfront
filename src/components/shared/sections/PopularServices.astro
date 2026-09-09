@@ -4,7 +4,7 @@ import ServicesHeader from "@/components/pages/services/ServicesHeader.astro";
 import ServicesGrid from "@/components/pages/services/ServicesGrid.astro";
 import ViewAllServices from "@/components/pages/services/ViewAllServices.astro";
 import Icon from "@/components/shared/ui/Icon.astro";
-import leafDecoration from "@/assets/services/leaf-decoration.png";
+import leafDecoration from "@/assets/services/leaf-decoration.webp";
 ---
 
 <section class="popular-services" aria-labelledby="popular-services-heading">
@@ -13,7 +13,15 @@ import leafDecoration from "@/assets/services/leaf-decoration.png";
     <div class="watermark">
       <Icon name="anchor" size={400} strokeWidth={1} />
     </div>
-    <Image src={leafDecoration} alt="" class="leaf-decoration" />
+    <Image
+      src={leafDecoration}
+      alt=""
+      class="leaf-decoration"
+      format="webp"
+      quality={80}
+      loading="lazy"
+      decoding="async"
+    />
   </div>
 
   <div class="site-container content-container">

@@ -42,8 +42,12 @@ const { eyebrow, title, description, cards } = Astro.props;
               <Image
                 src={card.image}
                 alt={card.imageAlt}
-                width={1000}
-                height={650}
+                widths={[480, 720, 1000]}
+                sizes="(max-width: 768px) 92vw, 46vw"
+                format="webp"
+                quality={80}
+                loading="lazy"
+                decoding="async"
                 class="card-img"
               />
               <div class="card-overlay" />

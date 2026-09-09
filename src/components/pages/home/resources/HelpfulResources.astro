@@ -8,7 +8,15 @@ import resourcesBg from "@/assets/resources/resources-bg.webp";
 
 <section class="helpful-resources">
   <div class="resources-bg">
-    <Image src={resourcesBg} alt="Dark Michigan Waterfront" class="bg-image" />
+    <Image
+      src={resourcesBg}
+      alt="Dark Michigan Waterfront"
+      class="bg-image"
+      format="webp"
+      quality={80}
+      loading="lazy"
+      decoding="async"
+    />
     <div class="bg-overlay"></div>
   </div>
   

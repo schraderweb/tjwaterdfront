@@ -2,40 +2,58 @@
 import { Image } from "astro:assets";
 import { site } from "@/data/site";
 import Icon from "@/components/shared/ui/Icon.astro";
-import bgImage from "@/assets/hero/contact-us-about.png";
+import bgImage from "@/assets/hero/contact-us-about.webp";
 ---
 
 <section class="contact-about" aria-labelledby="contact-about-title">
   <div class="site-container contact-about__container">
     <div class="contact-about__content">
-      <span class="contact-about__eyebrow">LET'S CONNECT</span>
-      <h2 id="contact-about-title">Let's talk about<br /><em>your waterfront.</em></h2>
-      <p class="contact-about__description">
-        Every great project starts with a conversation.<br />
-        Tell us about your plans and we'll help turn them<br />
-        into something exceptional.
-      </p>
+      <div class="contact-about__header">
+        <span class="contact-about__eyebrow">READY TO CONNECT?</span>
+        <h2 id="contact-about-title" class="contact-about__title">
+          Experience waterfront excellence.
+        </h2>
+        <p class="contact-about__subtitle">
+          From full shoreline installations to yearly dock and hoist service,
+          our team is here to help you make the most of every season.
+        </p>
+      </div>
 
       <div class="contact-about__methods">
-        <div class="contact-about__method">
+        <!-- Phone -->
+        <a href={`tel:${site.phone}`} class="contact-about__method">
           <div class="contact-about__method-icon">
-            <Icon name="phone" size={28} strokeWidth={1.5} />
+            <Icon name="phone" size={20} strokeWidth={2} />
           </div>
           <div class="contact-about__method-content">
-            <span class="contact-about__method-label">CALL US</span>
-            <span class="contact-about__method-value contact-about__method-value--phone">{site.phoneDisplay}</span>
-            <a href={site.phoneHref} class="contact-about__method-link">
-              <span>Speak directly with our team</span>
+            <span class="contact-about__method-label">CALL US TODAY</span>
+            <span class="contact-about__method-value">{site.phone}</span>
+            <span class="contact-about__method-action">
+              <span>Direct Line</span>
+              <span aria-hidden="true">&rarr;</span>
+            </span>
+          </div>
+        </a>
+
+        <!-- Service Area -->
+        <div class="contact-about__method">
+          <div class="contact-about__method-icon">
+            <Icon name="map-pin" size={20} strokeWidth={2} />
+          </div>
+          <div class="contact-about__method-content">
+            <span class="contact-about__method-label">PROUDLY SERVING</span>
+            <span class="contact-about__method-value">Mid-Michigan & Beyond</span>
+            <a href="/service-areas" class="contact-about__method-link">
+              <span>View Service Areas</span>
               <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>
 
-        <div class="contact-about__method-divider" aria-hidden="true"></div>
-
+        <!-- Start Enquiry -->
         <div class="contact-about__method">
           <div class="contact-about__method-icon">
-            <Icon name="mail" size={28} strokeWidth={1.5} />
+            <Icon name="message-square" size={20} strokeWidth={2} />
           </div>
           <div class="contact-about__method-content">
             <span class="contact-about__method-label">SEND AN ENQUIRY</span>
@@ -57,7 +75,10 @@ import bgImage from "@/assets/hero/contact-us-about.png";
       class="contact-about__image"
       widths={[640, 960, 1280, 1600, 1920]}
       sizes="100vw"
+      format="webp"
+      quality={80}
       loading="lazy"
+      decoding="async"
     />
     <div class="contact-about__fade"></div>
   </div>

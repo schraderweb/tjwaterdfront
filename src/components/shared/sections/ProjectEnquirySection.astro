@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Icon from "@/components/shared/ui/Icon.astro";
 import SubmitSuccess from "@/components/shared/ui/SubmitSuccess.astro";
-import bgImage from "@/assets/hero/waterfront-hero.png";
+import bgImage from "@/assets/hero/waterfront-hero.webp";
 ---
 
 <section class="project-enquiry" aria-labelledby="project-enquiry-title">
@@ -13,7 +13,10 @@ import bgImage from "@/assets/hero/waterfront-hero.png";
       class="project-enquiry__bg-image"
       widths={[640, 960, 1280, 1920]}
       sizes="(max-width: 767px) 0vw, 50vw"
+      format="webp"
+      quality={80}
       loading="lazy"
+      decoding="async"
     />
     <div class="project-enquiry__bg-fade"></div>
   </div>

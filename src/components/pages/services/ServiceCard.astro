@@ -18,8 +18,12 @@ const { title, description, image, icon, href } = Astro.props;
     <Image 
       src={image} 
       alt={`Photograph of ${title}`} 
-      width={800}
-      height={600}
+      widths={[380, 560, 800]}
+      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+      format="webp"
+      quality={80}
+      loading="lazy"
+      decoding="async"
       class="card-image"
     />
     <div class="card-gradient"></div>

@@ -41,8 +41,11 @@ const mergeSitemaps = () => ({
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tjwaterfrontservices.com',
-  output: 'server',
-  adapter: vercel(),
+  output: 'static',
+  adapter: vercel({
+    imageService: true,
+    devImageService: 'sharp',
+  }),
   vite: {
     plugins: [tailwindcss()]
   },
