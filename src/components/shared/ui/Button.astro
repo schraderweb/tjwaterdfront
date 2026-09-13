@@ -12,6 +12,7 @@ interface Props {
     | "gold-cta"
     | "navy"
     | "navy-outline"
+    | "outline"
     | "outline-light"
     | "ghost-light"
     | "ghost-dark";
@@ -73,6 +74,8 @@ const variants = {
   navy: "bg-navy-900 text-cream-50 hover:bg-navy-800 shadow-soft hover:shadow-lift",
   "navy-outline":
     "border border-gold-500 bg-navy-950 text-gold-400 hover:bg-navy-900 hover:text-gold-200",
+  outline:
+    "border border-navy-950/25 bg-transparent text-navy-950 hover:border-navy-950 hover:bg-navy-950/5",
   "outline-light":
     "border border-white/40 text-white backdrop-blur-sm hover:border-white hover:bg-white/10",
   "ghost-light": "text-white/90 hover:text-white hover:bg-white/10",
