@@ -1,5 +1,5 @@
 /**
- * gallery.js — powers the gallery grid: category tabs, incremental "view more"
+ * gallery.js - powers the gallery grid: category tabs, incremental "view more"
  * loading, and lightbox.
  *
  * The first batch of photos is server-rendered; the remainder is shipped as a

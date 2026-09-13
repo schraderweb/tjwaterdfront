@@ -19,12 +19,43 @@ import heroImage from "@/content/gallery/sectional-docks/01.webp";
   <main id="main">
     <InteriorHero
       title="Sectional Docks"
-      description="Our best-selling sectional dock systems — strong, lightweight, and built to make seasonal setup a breeze."
+      description="Our best-selling sectional dock systems - strong, lightweight, and built to make seasonal setup a breeze."
       image={heroImage}
       imageAlt="Sectional dock by T&J Waterfront Services"
     />
 
     <ServiceDetail slug="sectional-docks" image={heroImage} imageAlt="Sectional dock system by T&J Waterfront Services" />
+
+    <section class="premium-section bg-white" style="padding-block: clamp(4rem, 6vw, 6.5rem);">
+      <div class="site-container" style="max-width: clamp(75rem, 85vw, 86rem); margin-inline: auto;">
+        <div class="premium-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(2.5rem, 4vw, 5rem); align-items: center;">
+          <div class="premium-content">
+            <span style="display: inline-block; color: var(--color-gold-600); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.65rem;">PREMIUM STATIONARY</span>
+            <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.25rem); color: var(--color-navy-950); line-height: 1.15; margin: 0 0 1.25rem;">Premium Anodized</h2>
+            <p style="font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.35rem); line-height: 1.65; color: var(--color-navy-900); margin-bottom: 1.25rem; font-weight: 500;">
+              Known as “KOOL DOCK”! Our Best Seller!
+            </p>
+            <p style="font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.1875rem); line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
+              With its strength and light weight, this is easily the industry leader for dock. We use anodized stringers and two center supports. Anodized aluminum stays cooler than vinyl and wood. It will not rust, turn black, or warp.
+            </p>
+            <p style="font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.1875rem); line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
+              Not only do you get a clean look, but it has a virtually maintenance-free finish that you will be able to enjoy for years to come!
+            </p>
+            <ul style="list-style: none; padding: 0; margin-bottom: 2.25rem;">
+              <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; color: var(--color-navy-900); margin-bottom: 0.5rem;">
+                <span style="color: var(--color-gold-600);">✓</span> Available in 3x10, 4x10, 5x10, 6x10, 4x8, 8x8
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; color: var(--color-navy-900);">
+                <span style="color: var(--color-gold-600);">✓</span> We can also create custom and angle sections
+              </li>
+            </ul>
+          </div>
+          <div class="premium-image" style="border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 10px 30px -10px rgba(7,26,43,0.15);">
+            <img src={heroImage.src} alt="Premium Anodized Kool Dock" style="width: 100%; height: auto; display: block;" />
+          </div>
+        </div>
+      </div>
+    </section>
 
     <GallerySection category="sectional-docks" />
 

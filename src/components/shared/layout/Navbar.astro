@@ -1,6 +1,6 @@
 ---
 /**
- * Navbar.astro — transparent brand navigation over the hero.
+ * Navbar.astro - transparent brand navigation over the hero.
  * The lockup is inline SVG/text so it stays crisp without an external logo request.
  */
 import Button from "@/components/shared/ui/Button.astro";
@@ -16,7 +16,7 @@ const isActive = (href: string) =>
 
 <header data-navbar class="navbar">
   <div class="site-container navbar-inner">
-    <a href="/" class="logo" aria-label="T&J Waterfront Services — home">
+    <a href="/" class="logo" aria-label="T&J Waterfront Services - home">
       <span class="logo-emblem" aria-hidden="true">
         <Icon name="anchor" size={68} strokeWidth={1.25} />
       </span>
@@ -26,7 +26,7 @@ const isActive = (href: string) =>
       </span>
     </a>
 
-    <a href="/" class="logo-wordmark" aria-label="T&J Waterfront Services — home">
+    <a href="/" class="logo-wordmark" aria-label="T&J Waterfront Services - home">
       <span class="logo-name">T&amp;J</span>
       <span class="logo-sub">Waterfront<br />Services</span>
     </a>
@@ -266,7 +266,7 @@ const isActive = (href: string) =>
 
   /* Scrolled state: dark blurred panel. Lives on ::after (not the header)
      because a non-none backdrop-filter creates a containing block for
-     position:fixed descendants — it would collapse the fixed .mobile-menu. */
+     position:fixed descendants - it would collapse the fixed .mobile-menu. */
   .navbar.is-scrolled {
     border-bottom-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 30px -18px rgba(7, 26, 43, 0.5);

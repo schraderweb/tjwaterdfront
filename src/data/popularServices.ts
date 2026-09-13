@@ -29,7 +29,7 @@ export const popularServices = [
   },
   {
     title: "Decks & Boardwalks",
-    description: "Custom boardwalk walkways over marshland, through your yard, or to the shoreline — no job too big or small.",
+    description: "Custom boardwalk walkways over marshland, through your yard, or to the shoreline - no job too big or small.",
     image: decksImage,
     icon: "house",
     href: "/services/decks-boardwalks",

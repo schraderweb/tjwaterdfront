@@ -1,7 +1,7 @@
 import type { ImageMetadata } from "astro";
 
 /**
- * gallery.ts — folder-driven gallery with parent category mapping.
+ * gallery.ts - folder-driven gallery with parent category mapping.
  *
  * Every image inside `src/content/gallery/<category>/` is discovered at build
  * time. The folder name becomes the category, the filename prefix (01-, 02-…)

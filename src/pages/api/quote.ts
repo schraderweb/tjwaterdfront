@@ -1,5 +1,5 @@
 /**
- * /api/quote — POST endpoint for the quote request form.
+ * /api/quote - POST endpoint for the quote request form.
  * Validates the payload (rejecting honeypot bots), inserts a row into the
  * Turso (libsql) database, and notifies the team via Resend email.
  */

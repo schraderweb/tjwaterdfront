@@ -1,5 +1,5 @@
 /**
- * submit-success.js — GSAP-driven thank-you transition for forms marked
+ * submit-success.js - GSAP-driven thank-you transition for forms marked
  * [data-submit-success]. On a valid submit it collapses the form (plus any
  * [data-success-hide] siblings inside the [data-success-root]), reveals the
  * [data-success-panel], plays the SVG scene (ring pop, wave drift, boat bob,

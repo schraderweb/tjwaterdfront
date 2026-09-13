@@ -3,7 +3,7 @@ export const site = {
   legalName: "T&J Waterfront Services LLC",
   url: "https://tjwaterfrontservices.com",
   title:
-    "T&J Waterfront Services | Dock, Boat Lift & Seawall Specialists — Howell, MI",
+    "T&J Waterfront Services | Dock, Boat Lift & Seawall Specialists - Howell, MI",
   description:
     "T&J Waterfront Services installs, maintains and repairs docks, boat lifts, seawalls, patios, beaches, retaining walls and shorelines across All of Michigan, Northern Indiana, and Northern Ohio. One trusted team for your entire lakefront.",
   phone: "517-294-5577",

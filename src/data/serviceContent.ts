@@ -36,7 +36,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     heading: "Protection that keeps your shoreline in place",
     paragraphs: [
       "Seawalls come in a variety of styles and materials. It's crucial to protect your home and yard investment. Whether you're on a small pond, a river, or a large lake, protection is the key to eliminating erosion.",
-      "We take great care and pride in the wide variety of seawalls we offer — from steel, boulders, ledge rock, and rip rap. Keeping water out of areas it shouldn't be is the key to stopping erosion near any body of water.",
+      "We take great care and pride in the wide variety of seawalls we offer - from steel, boulders, ledge rock, and rip rap. Keeping water out of areas it shouldn't be is the key to stopping erosion near any body of water.",
       "Every shoreline is different. The water, property, and level of protection you need all help determine the right approach, which is why we take time to understand the site before work begins.",
     ],
     bullets: ["Steel", "Boulders", "Ledge Rock", "Rip Rap"],
@@ -46,7 +46,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     eyebrow: "RETAINING WALLS",
     heading: "Walls that hold your land and add appeal",
     paragraphs: [
-      "We provide many styles of walls — from large walls that hold up your land or create more usable space in your yard, to small retaining or garden walls that add appeal to your landscaping at home or business.",
+      "We provide many styles of walls - from large walls that hold up your land or create more usable space in your yard, to small retaining or garden walls that add appeal to your landscaping at home or business.",
       "Retaining walls can do more than hold soil. They can define planting areas, create usable space, and bring structure to the landscape while complementing the character of your property.",
     ],
     bullets: ["Boulders", "Ledge Rock", "Slate Rock", "Wood", "Timbers", "Block", "Brick"],
@@ -65,7 +65,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     eyebrow: "BEACHES",
     heading: "Your backyard dream destination",
     paragraphs: [
-      "Any type of beach, large or small, we have it covered. Mason sand, 2NS, Florida sand, Santa Barbara beach — many types are available to make your beach the next dream destination in your backyard.",
+      "Any type of beach, large or small, we have it covered. Mason sand, 2NS, Florida sand, Santa Barbara beach - many types are available to make your beach the next dream destination in your backyard.",
       "We can help you compare options that fit the look and use of your shoreline, whether you want a place for swimming, relaxing, or spending time with family.",
       "With the right preparation and finish, your beach becomes an inviting part of the waterfront rather than an afterthought.",
     ],
@@ -84,7 +84,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     eyebrow: "DOCK SERVICES & REPAIR",
     heading: "Complete dock service, installs, and repairs",
     paragraphs: [
-      "We provide many service options for any of your lakefront needs. If you don't see it in the list below, contact us — we can likely take care of it for you, and if not, point you in the right direction. Any and all docks and accessories can be serviced.",
+      "We provide many service options for any of your lakefront needs. If you don't see it in the list below, contact us - we can likely take care of it for you, and if not, point you in the right direction. Any and all docks and accessories can be serviced.",
       "From seasonal setup to unexpected damage, we focus on getting your dock safe, functional, and ready for the way you use your waterfront.",
     ],
     bullets: [
@@ -102,7 +102,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     eyebrow: "HOIST SERVICES & REPAIR",
     heading: "Complete hoist service, installs, and repairs",
     paragraphs: [
-      "We provide many service options for any of your lakefront needs. If you don't see it in the list below, contact us — we can likely take care of it for you, and if not, point you in the right direction. Any and all hoists and accessories can be serviced.",
+      "We provide many service options for any of your lakefront needs. If you don't see it in the list below, contact us - we can likely take care of it for you, and if not, point you in the right direction. Any and all hoists and accessories can be serviced.",
       "Whether you are preparing for the season or dealing with a problem mid-season, we help keep your lift dependable and ready for your boat.",
     ],
     bullets: [
@@ -148,7 +148,7 @@ export const serviceContent: Record<string, ServiceContent> = {
         { text: "Starr boat lifts (BLs)", strong: true },
         { text: " are constructed with heavy-gauge aluminum, providing great strength and long-lasting durability, with a standard inside width of 120 inches." },
       ],
-      "A boat lift keeps your watercraft out of the water between trips — out of waves, out of algae, and out of the constant wear that comes from floating at the dock. We help you choose the right lift for your boat's weight and beam, then handle the install and seasonal service.",
+      "A boat lift keeps your watercraft out of the water between trips - out of waves, out of algae, and out of the constant wear that comes from floating at the dock. We help you choose the right lift for your boat's weight and beam, then handle the install and seasonal service.",
       "Because we work side by side with the manufacturer, we can size, set up, and service your lift for the way you actually use your watercraft.",
     ],
     bullets: [
@@ -171,7 +171,7 @@ export const serviceContent: Record<string, ServiceContent> = {
         { text: "Starr pontoon, tritoon, and cantilever lifts", strong: true },
         { text: " are available, along with the parts and add-ons that keep them dependable season after season." },
       ],
-      "Not sure what fits your lift? Give us a call — we'll help you find the right accessory for your watercraft and get it installed.",
+      "Not sure what fits your lift? Give us a call - we'll help you find the right accessory for your watercraft and get it installed.",
     ],
     bullets: [
       "Canopy systems with multiple boarding options",
@@ -252,14 +252,14 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
   "sectional-docks": {
     eyebrow: "SECTIONAL DOCKS",
-    heading: "Sectional Docks — Our Best Seller",
+    heading: "Sectional Docks - Our Best Seller",
     paragraphs: [
       [
         { text: "Sectional docks are our best seller", strong: true },
-        { text: " — and for good reason. With their strength and light weight, they're easily the industry leader when it comes to docks." },
+        { text: " - and for good reason. With their strength and light weight, they're easily the industry leader when it comes to docks." },
       ],
       "Each section connects to the next, so your dock can be configured to match the shape of your shoreline and the way you use your waterfront. The sections are easy to handle, install, and take out at the start and end of each season.",
-      "We help you plan the layout, size the sections, and set everything up right — so your dock is stable, easy to service, and ready for years of use.",
+      "We help you plan the layout, size the sections, and set everything up right - so your dock is stable, easy to service, and ready for years of use.",
     ],
     bullets: [
       "Strength with light weight",
@@ -334,7 +334,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     heading: "Dock Accessories",
     paragraphs: [
       "Everything you need to complete your dock. From ladders, bumpers, and cleats to lighting and seating, the right accessories make your dock safer, more comfortable, and more enjoyable.",
-      "The little details are what make a dock feel finished — and they're often the difference between a dock that works and a dock that's a pleasure to use.",
+      "The little details are what make a dock feel finished - and they're often the difference between a dock that works and a dock that's a pleasure to use.",
       "Not sure what your dock needs? Give us a call. We can recommend the right accessories for your setup and install them so everything is ready for the season.",
     ],
     bullets: [
@@ -360,7 +360,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     ],
     bullets: [
       '12" drop side gives 50" of coverage from peak to bottom of valance',
-      '24" drop side gives maximum coverage of 60" from peak of canopy to bottom of valance — the most coverage in the industry',
+      '24" drop side gives maximum coverage of 60" from peak of canopy to bottom of valance - the most coverage in the industry',
       "Front boarding access",
       "Rear boarding access",
       "Side boarding access",

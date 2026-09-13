@@ -1,13 +1,13 @@
 ---
 /**
- * Hero.astro — full-first-viewport hero.
+ * Hero.astro - full-first-viewport hero.
  *
  * Height model (design doc §56):
  *   min-height: 100svh (flex column)
  *   navbar is fixed/overlaying → padding-top reserved in .hero-main
  *   .hero-main flexes to fill, service bar takes natural height
  *
- * Image: absolutely-positioned <Picture> with object-fit: cover —
+ * Image: absolutely-positioned <Picture> with object-fit: cover -
  * mathematical cropping, no JS, no fixed pixel heights. LCP-optimized:
  * eager, fetchpriority=high, responsive widths, modern formats.
  */
@@ -60,7 +60,7 @@ import HeroServicesBar from "@/components/pages/home/hero/HeroServicesBar.astro"
     overflow: hidden;
     background: var(--color-navy-900);
     /*
-      Focal point token — adjust here after visual QA on real screenshots
+      Focal point token - adjust here after visual QA on real screenshots
       without touching component markup.
     */
     --hero-focus-x: center;

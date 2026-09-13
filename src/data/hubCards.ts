@@ -51,7 +51,7 @@ export const marineCards: HubCard[] = [
   {
     title: "Decks & Boardwalks",
     description:
-      "Boardwalk walkways over marshland, through your yard, or up to your door — no job too big or small.",
+      "Boardwalk walkways over marshland, through your yard, or up to your door - no job too big or small.",
     image: galleryDecks01,
     icon: "house",
     href: "/services/decks-boardwalks",
@@ -78,7 +78,7 @@ export const docksCards: HubCard[] = [
   {
     title: "Sectional Docks",
     description:
-      "Our best seller — strength and light weight make this the industry leader for dock.",
+      "Our best seller - strength and light weight make this the industry leader for dock.",
     image: gallerySectionalDock,
     icon: "sectional-docks",
     href: "/sectional-docks",
@@ -127,7 +127,7 @@ export const liftsCards: HubCard[] = [
   {
     title: "PWC / Jetski Lifts",
     description:
-      "A safe harbor for your personal watercraft — drive-on docking and vertical lifts.",
+      "A safe harbor for your personal watercraft - drive-on docking and vertical lifts.",
     image: galleryPwcLift,
     icon: "ship-wheel",
     href: "/pwc-jetski-lifts",
@@ -175,7 +175,7 @@ export const allServicesCards: HubCard[] = [
   },
   {
     title: "Patios",
-    description: "A space to relax or a place to gather for a BBQ or fire — we have it covered.",
+    description: "A space to relax or a place to gather for a BBQ or fire - we have it covered.",
     image: galleryPatios01,
     icon: "house",
     href: "/services/patios",
@@ -183,7 +183,7 @@ export const allServicesCards: HubCard[] = [
   {
     title: "Beaches",
     description:
-      "Mason sand, 2NS, Florida sand, Santa Barbara beach — many types available.",
+      "Mason sand, 2NS, Florida sand, Santa Barbara beach - many types available.",
     image: serviceBeach,
     icon: "map-pin",
     href: "/services/beaches",
@@ -191,7 +191,7 @@ export const allServicesCards: HubCard[] = [
   {
     title: "Decks & Boardwalks",
     description:
-      "Walkways over marshland, through your yard, or up to your door — no job too big or small.",
+      "Walkways over marshland, through your yard, or up to your door - no job too big or small.",
     image: galleryDecks01,
     icon: "house",
     href: "/services/decks-boardwalks",
