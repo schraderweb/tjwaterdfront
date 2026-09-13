@@ -18,21 +18,27 @@ interface Props {
   size?: "sm" | "md" | "lg";
   href?: string;
   type?: "button" | "submit";
+  target?: string;
+  rel?: string;
   icon?: string;
   iconPosition?: "left" | "right";
   class?: string;
   ariaLabel?: string;
+  [key: string]: any;
 }
 
 const {
   variant = "gold",
   size = "md",
   href,
+  target,
+  rel,
   type = "button",
   icon = "arrow-right",
   iconPosition = "right",
   class: className,
   ariaLabel,
+  ...rest
 } = Astro.props;
 
 const base = [
@@ -81,7 +87,8 @@ const arrowClasses =
 ---
 
 <Tag
-  {...(href ? { href } : { type })}
+  {...(href ? { href, target, rel } : { type })}
+  {...rest}
   class:list={[...base, sizes[size], variants[variant], className]}
   aria-label={ariaLabel}
 >

@@ -8,6 +8,7 @@ import PopularServices from "@/components/shared/sections/PopularServices.astro"
 import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSection.astro";
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
+import Button from "@/components/shared/ui/Button.astro";
 
 // Hero image
 import heroImage from "@/content/gallery/sectional-docks/01.webp";
@@ -24,34 +25,67 @@ import heroImage from "@/content/gallery/sectional-docks/01.webp";
       imageAlt="Sectional dock by T&J Waterfront Services"
     />
 
+    <!-- Quick subsection link to Premium Stationary Dock -->
+    <div class="bg-navy-950/5 border-b border-navy-900/10 py-3.5">
+      <div class="site-container flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2.5 text-navy-950 font-sans text-sm font-medium">
+          <span class="inline-block w-2 h-2 rounded-full bg-gold-500"></span>
+          <span>Looking for lightweight & budget-friendly stationary docks?</span>
+        </div>
+        <a
+          href="#premium-stationary"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-600 hover:text-gold-700 tracking-wide uppercase transition-colors"
+        >
+          <span>Jump to Premium Stationary Dock</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
     <ServiceDetail slug="sectional-docks" image={heroImage} imageAlt="Sectional dock system by T&J Waterfront Services" />
 
-    <section class="premium-section bg-white" style="padding-block: clamp(4rem, 6vw, 6.5rem);">
+    <section id="premium-stationary" class="premium-section bg-white scroll-mt-24" style="padding-block: clamp(4rem, 6vw, 6.5rem);">
       <div class="site-container" style="max-width: clamp(75rem, 85vw, 86rem); margin-inline: auto;">
         <div class="premium-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(2.5rem, 4vw, 5rem); align-items: center;">
           <div class="premium-content">
             <span style="display: inline-block; color: var(--color-gold-600); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.65rem;">PREMIUM STATIONARY</span>
-            <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.25rem); color: var(--color-navy-950); line-height: 1.15; margin: 0 0 1.25rem;">Premium Anodized</h2>
+            <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.25rem); color: var(--color-navy-950); line-height: 1.15; margin: 0 0 1.25rem;">Premium Stationary Dock</h2>
             <p style="font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.35rem); line-height: 1.65; color: var(--color-navy-900); margin-bottom: 1.25rem; font-weight: 500;">
-              Known as “KOOL DOCK”! Our Best Seller!
+              Lightweight Strength at a Budget-Friendly Price
             </p>
             <p style="font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.1875rem); line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
-              With its strength and light weight, this is easily the industry leader for dock. We use anodized stringers and two center supports. Anodized aluminum stays cooler than vinyl and wood. It will not rust, turn black, or warp.
+              The Premium Stationary Series features a lightweight design that delivers the strength you expect at a more budget-friendly price. It offers infinite add-on options and top-side leveling legs that allow for quick adjustments right from the dock surface.
             </p>
             <p style="font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.1875rem); line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
-              Not only do you get a clean look, but it has a virtually maintenance-free finish that you will be able to enjoy for years to come!
+              Winter storage is easier than ever. After initial installation, no tools are required for seasonal removal. The sections stack neatly and compactly, keeping your shoreline clean and clutter-free with no bulky dock sections taking up yard space. Also available in our industry-leading Anodized Aluminum “KOOL DOCK” configuration.
             </p>
-            <ul style="list-style: none; padding: 0; margin-bottom: 2.25rem;">
+            <ul style="list-style: none; padding: 0; margin-bottom: 2rem;">
               <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; color: var(--color-navy-900); margin-bottom: 0.5rem;">
-                <span style="color: var(--color-gold-600);">✓</span> Available in 3x10, 4x10, 5x10, 6x10, 4x8, 8x8
+                <span style="color: var(--color-gold-600);">✓</span> Available in 4x8, 4x10, and 4x12 sections (custom & angle sections available)
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; color: var(--color-navy-900); margin-bottom: 0.5rem;">
+                <span style="color: var(--color-gold-600);">✓</span> Top-side leveling legs for rapid shoreline height adjustments
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; color: var(--color-navy-900); margin-bottom: 0.5rem;">
+                <span style="color: var(--color-gold-600);">✓</span> Tool-free seasonal disassembly and compact stacking storage
               </li>
               <li style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; color: var(--color-navy-900);">
-                <span style="color: var(--color-gold-600);">✓</span> We can also create custom and angle sections
+                <span style="color: var(--color-gold-600);">✓</span> Anodized stringers & center supports that stay cooler than vinyl or wood
               </li>
             </ul>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+              <Button href="/contact" variant="gold" size="md">
+                GET A FREE QUOTE
+              </Button>
+              <Button href="/brochure.pdf#page=5" variant="navy-outline" size="md" target="_blank" rel="noopener noreferrer" icon="briefcase">
+                LEARN MORE
+              </Button>
+            </div>
           </div>
           <div class="premium-image" style="border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 10px 30px -10px rgba(7,26,43,0.15);">
-            <img src={heroImage.src} alt="Premium Anodized Kool Dock" style="width: 100%; height: auto; display: block;" />
+            <img src={heroImage.src} alt="Premium Stationary Dock" style="width: 100%; height: auto; display: block;" />
           </div>
         </div>
       </div>

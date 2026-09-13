@@ -15,6 +15,7 @@ export interface ServiceContent {
     label: string;
     href: string;
   };
+  brochureUrl?: string;
 }
 
 export const serviceContent: Record<string, ServiceContent> = {
@@ -161,6 +162,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       label: "CONTACT US",
       href: "/contact",
     },
+    brochureUrl: "/brochure.pdf#page=12",
   },
   "lift-accessories": {
     eyebrow: "LIFT ACCESSORIES",
@@ -183,6 +185,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       label: "CONTACT US",
       href: "/contact",
     },
+    brochureUrl: "/brochure.pdf#page=14",
   },
   "personal-watercraft-lift": {
     eyebrow: "PWC / JET LIFTS",
@@ -216,6 +219,11 @@ export const serviceContent: Record<string, ServiceContent> = {
       "XL5 | Maximum flotation: 1,800 lbs",
       "XL5 | Weight: 325 lbs",
     ],
+    cta: {
+      label: "CONTACT US",
+      href: "/contact",
+    },
+    brochureUrl: "/brochure.pdf#page=17",
   },
   "pwc-jetski-lifts": {
     eyebrow: "PWC / JET LIFTS",
@@ -249,6 +257,11 @@ export const serviceContent: Record<string, ServiceContent> = {
       "XL5 | Maximum flotation: 1,800 lbs",
       "XL5 | Weight: 325 lbs",
     ],
+    cta: {
+      label: "CONTACT US",
+      href: "/contact",
+    },
+    brochureUrl: "/brochure.pdf#page=17",
   },
   "sectional-docks": {
     eyebrow: "SECTIONAL DOCKS",
@@ -271,6 +284,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       label: "CONTACT US",
       href: "/contact",
     },
+    brochureUrl: "/brochure.pdf#page=3",
   },
   "roll-in-docks": {
     eyebrow: "ROLL-IN DOCKS",
@@ -290,13 +304,14 @@ export const serviceContent: Record<string, ServiceContent> = {
       label: "CONTACT US",
       href: "/contact",
     },
+    brochureUrl: "/brochure.pdf#page=6",
   },
   "platinum-docks": {
     eyebrow: "PLATINUM DOCKS",
     heading: "Platinum Docks",
     paragraphs: [
       "The soft edges and classy look took this high-end dock system to a whole new level.",
-      "Platinum docks combine a premium finish with the strength and stability you expect from a top-tier system. The result is a dock that looks as good as it performs, season after season.",
+      "Platinum docks combine a premium finish with the strength and stability you expect from a top-tier system. Featuring the innovative Platinum Track System (PTS), you can place and adjust slips, bumpers, benches, ladders, and custom accessories anywhere along the perimeter without drilling.",
       "From the first walk to the last swim of the season, the Platinum system is built to feel solid underfoot and look sharp on your shoreline. We handle the install and can pair it with the accessories that complete the setup.",
     ],
     bullets: [
@@ -309,6 +324,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       label: "CONTACT US",
       href: "/contact",
     },
+    brochureUrl: "/brochure.pdf#page=5",
   },
   "floating-docks": {
     eyebrow: "FLOATING DOCKS",
@@ -328,6 +344,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       label: "CONTACT US",
       href: "/contact",
     },
+    brochureUrl: "/brochure.pdf#page=8",
   },
   "dock-accessories": {
     eyebrow: "DOCK ACCESSORIES",
@@ -347,6 +364,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       label: "CONTACT US",
       href: "/contact",
     },
+    brochureUrl: "/brochure.pdf#page=9",
   },
   canopies: {
     eyebrow: "CANOPIES",
@@ -366,5 +384,10 @@ export const serviceContent: Record<string, ServiceContent> = {
       "Side boarding access",
       "Options that allow you to leave the bimini in travel position, or leave the arch up",
     ],
+    cta: {
+      label: "CONTACT US",
+      href: "/contact",
+    },
+    brochureUrl: "/brochure.pdf#page=18",
   },
 };

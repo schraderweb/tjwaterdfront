@@ -14,9 +14,10 @@ interface Props {
   slug: string;
   image?: ImageMetadata;
   imageAlt?: string;
+  brochureUrl?: string;
 }
 
-const { slug, image, imageAlt } = Astro.props;
+const { slug, image, imageAlt, brochureUrl: propBrochureUrl } = Astro.props;
 
 const content = serviceContent[slug];
 if (!content) {
@@ -24,6 +25,7 @@ if (!content) {
 }
 
 const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
+const brochureUrl = propBrochureUrl ?? content.brochureUrl;
 ---
 
 <section class="service-detail" aria-labelledby="service-detail-title">
@@ -96,6 +98,20 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
             <Button href={cta.href} variant="gold" size="md">
               {cta.label}
             </Button>
+            {
+              brochureUrl && (
+                <Button
+                  href={brochureUrl}
+                  variant="navy-outline"
+                  size="md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  icon="briefcase"
+                >
+                  LEARN MORE
+                </Button>
+              )
+            }
           </div>
         </div>
       </div>
@@ -268,6 +284,10 @@ const cta = content.cta ?? { label: "CONTACT US", href: "/contact" };
   .service-detail__cta {
     margin-top: auto;
     padding-top: clamp(1.25rem, 2.5vw, 2rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
   }
 
   /* Keep the image and copy stacked on smaller screens. */
