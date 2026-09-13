@@ -9,24 +9,31 @@ import ReviewsTrustSection from "@/components/shared/sections/ReviewsTrustSectio
 import ContactSection from "@/components/shared/sections/ContactSection.astro";
 import SiteFooter from "@/components/shared/sections/SiteFooter.astro";
 
-// Hero image
-import heroImage from "@/content/gallery/sectional-docks/01.webp";
+// Hero image - Starr Premium Stationary Series
+import heroImage from "@/content/gallery/premium-stationary-docks/01.webp";
 ---
 
-<BaseLayout title="Sectional Docks | T&J Waterfront Services">
+<BaseLayout
+  title="Premium Stationary Docks | T&J Waterfront Services"
+  description="Lightweight strength at a budget-friendly price. Premium stationary docks with top-side leveling legs, infinite add-on options, and no-tool winter disassembly."
+>
   <Navbar />
 
   <main id="main">
     <InteriorHero
-      title="Sectional Docks"
-      description="Our best-selling sectional dock systems - strong, lightweight, and built to make seasonal setup a breeze."
+      title="Premium Stationary Docks"
+      description="Lightweight strength at a budget-friendly price - featuring top-side leveling legs, infinite add-on options, and tool-free seasonal removal."
       image={heroImage}
-      imageAlt="Sectional dock by T&J Waterfront Services"
+      imageAlt="Premium Stationary Dock system by T&J Waterfront Services"
     />
 
-    <ServiceDetail slug="sectional-docks" image={heroImage} imageAlt="Sectional dock system by T&J Waterfront Services" />
+    <ServiceDetail
+      slug="premium-stationary-docks"
+      image={heroImage}
+      imageAlt="Premium Stationary Dock system by T&J Waterfront Services"
+    />
 
-    <GallerySection category="sectional-docks" />
+    <GallerySection category="premium-stationary-docks" />
 
     <PopularServices />
 

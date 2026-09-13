@@ -1,6 +1,7 @@
 import type { ImageMetadata } from "astro";
 
 import gallerySectionalDock from "@/content/gallery/sectional-docks/01.webp";
+import galleryPremiumStationaryDock from "@/content/gallery/premium-stationary-docks/01.webp";
 import galleryRollInDock from "@/content/gallery/roll-in-docks/01.webp";
 import galleryPlatinumDock from "@/content/gallery/platinum-docks/01.webp";
 import galleryFloatingDock from "@/content/gallery/starr-floating-dock/01.webp";
@@ -82,6 +83,14 @@ export const docksCards: HubCard[] = [
     image: gallerySectionalDock,
     icon: "sectional-docks",
     href: "/sectional-docks",
+  },
+  {
+    title: "Premium Stationary Docks",
+    description:
+      "Lightweight strength at a budget-friendly price with top-side leveling legs and easy winter storage.",
+    image: galleryPremiumStationaryDock,
+    icon: "sectional-docks",
+    href: "/premium-stationary-docks",
   },
   {
     title: "Roll-In Docks",

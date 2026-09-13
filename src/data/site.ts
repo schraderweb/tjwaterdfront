@@ -47,7 +47,7 @@ export const navLinks: NavLink[] = [
         href: "/docks",
         children: [
           { label: "Sectional Docks", href: "/sectional-docks" },
-          { label: "Premium Stationary Dock", href: "/sectional-docks#premium-stationary" },
+          { label: "Premium Stationary Docks", href: "/premium-stationary-docks" },
           {
             label: "Connect a Dock",
             href: "#",

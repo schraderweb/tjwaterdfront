@@ -33,6 +33,7 @@ const imageModules = import.meta.glob<{ default: ImageMetadata }>(
 
 export const PARENT_CATEGORY_MAP: Record<string, string> = {
   "sectional-docks": "docks",
+  "premium-stationary-docks": "docks",
   "roll-in-docks": "docks",
   "platinum-docks": "docks",
   "floating-dock": "docks",
@@ -52,6 +53,7 @@ export const CATEGORY_LABEL_OVERRIDES: Record<string, string> = {
   "docks": "Docks",
   "lifts": "Lifts",
   "sectional-docks": "Sectional Docks",
+  "premium-stationary-docks": "Premium Stationary Docks",
   "roll-in-docks": "Roll-In Docks",
   "platinum-docks": "Platinum Docks",
   "floating-dock": "Connect-A-Dock Floating Docks",

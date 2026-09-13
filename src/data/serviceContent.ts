@@ -286,6 +286,31 @@ export const serviceContent: Record<string, ServiceContent> = {
     },
     brochureUrl: "/brochure.pdf#page=3",
   },
+  "premium-stationary-docks": {
+    eyebrow: "PREMIUM STATIONARY",
+    heading: "Premium Stationary Docks",
+    paragraphs: [
+      [
+        { text: "Lightweight strength at a budget-friendly price", strong: true },
+        { text: " - the Premium Stationary Series delivers the strength and durability you expect from a top-tier dock system without breaking the bank." }
+      ],
+      "Featuring infinite add-on options and top-side leveling legs that allow for quick adjustments right from above the dock surface. Whether water levels fluctuate or you need fine seasonal leveling, adjustments are fast, effortless, and secure.",
+      "Winter storage is easier than ever. After initial installation, no tools are required for seasonal removal. The lightweight sections stack neatly and compactly, keeping your shoreline clean and clutter-free. Also available in our industry-leading Anodized Aluminum “KOOL DOCK” configuration which stays noticeably cooler under the summer sun.",
+    ],
+    bullets: [
+      "Available in 4'x8', 4'x10', and 4'x12' sections (custom & angle sections available)",
+      "Top-side leveling legs for rapid shoreline adjustments from the dock surface",
+      "No tools required for seasonal removal after initial install",
+      "Compact stacking storage keeps your lawn and waterfront neat",
+      "Anodized Aluminum Kool Dock stays cooler underfoot than wood or vinyl",
+      "Infinite add-on accessories, bumpers, ladders, and corner wedges",
+    ],
+    cta: {
+      label: "CONTACT US",
+      href: "/contact",
+    },
+    brochureUrl: "/brochure.pdf#page=5",
+  },
   "roll-in-docks": {
     eyebrow: "ROLL-IN DOCKS",
     heading: "Roll-In Docks",
