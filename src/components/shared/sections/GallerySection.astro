@@ -42,6 +42,7 @@ const manifest = await Promise.all(
       alt: img.alt,
       category: img.category,
       parentCategory: img.parentCategory,
+      allCategories: img.allCategories,
     };
   })
 );
@@ -101,6 +102,7 @@ const manifest = await Promise.all(
             data-gallery-item
             data-category={img.category}
             data-parent-category={img.parentCategory}
+            data-all-categories={img.allCategories?.join(" ")}
             data-full={img.fullSrc}
             data-caption={img.alt}
             class="gallery-item"

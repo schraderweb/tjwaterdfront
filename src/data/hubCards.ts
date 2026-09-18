@@ -6,12 +6,12 @@ import galleryRollInDock from "@/content/gallery/roll-in-docks/01.webp";
 import galleryPlatinumDock from "@/content/gallery/platinum-docks/01.webp";
 import galleryFloatingDock from "@/content/gallery/starr-floating-dock/01.webp";
 import galleryDockAccessories from "@/content/gallery/dock-accessories/01.webp";
-import galleryDockService from "@/content/gallery/dock-service-repairs/01.webp";
-
 import galleryBoatLift from "@/content/gallery/boat-lifts/01.webp";
 import galleryPwcLift from "@/content/gallery/pwc-jetski-lifts/01.webp";
 import galleryCanopies from "@/content/gallery/canopies/01.webp";
-import galleryHoistService from "@/content/gallery/hoist-service-repairs/01.webp";
+
+const galleryDockService = gallerySectionalDock;
+const galleryHoistService = galleryBoatLift;
 
 import galleryDecks01 from "@/content/gallery/decks-boardwalks/01.webp";
 import galleryLandscaping01 from "@/content/gallery/landscaping/01.webp";

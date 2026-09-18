@@ -45,7 +45,12 @@ function initGallery(root) {
   const currentItems = () =>
     activeCategory === "all"
       ? manifest
-      : manifest.filter((item) => item.category === activeCategory || item.parentCategory === activeCategory);
+      : manifest.filter(
+          (item) =>
+            item.category === activeCategory ||
+            item.parentCategory === activeCategory ||
+            (Array.isArray(item.allCategories) && item.allCategories.includes(activeCategory))
+        );
 
   const getVisibleItems = () =>
     [...grid.querySelectorAll("[data-gallery-item]")].filter((item) => !item.classList.contains("is-hidden"));
@@ -56,6 +61,7 @@ function initGallery(root) {
     item.dataset.galleryItem = "";
     item.dataset.category = data.category;
     if (data.parentCategory) item.dataset.parentCategory = data.parentCategory;
+    if (Array.isArray(data.allCategories)) item.dataset.allCategories = data.allCategories.join(" ");
     item.dataset.full = data.full;
     item.dataset.caption = data.alt;
     item.setAttribute("role", "button");

@@ -1,7 +1,7 @@
 import type { ImageMetadata } from "astro";
 
 /**
- * gallery.ts - folder-driven gallery with parent category mapping.
+ * gallery.ts - folder-driven gallery with parent category mapping and automatic deduplication.
  *
  * Every image inside `src/content/gallery/<category>/` is discovered at build
  * time. The folder name becomes the category, the filename prefix (01-, 02-…)
@@ -9,7 +9,7 @@ import type { ImageMetadata } from "astro";
  *
  * Product pages load specific categories (e.g. `sectional-docks`, `canopies`).
  * The main /gallery page displays the canonical 8 tabs (Docks, Lifts, Seawalls, etc.)
- * aggregating subcategories as needed.
+ * aggregating subcategories as needed, with zero duplicate photos across tabs.
  */
 
 export interface GalleryImage {
@@ -18,6 +18,7 @@ export interface GalleryImage {
   alt: string;
   category: string;
   parentCategory?: string;
+  allCategories?: string[];
 }
 
 export interface GalleryCategory {
@@ -39,12 +40,16 @@ export const PARENT_CATEGORY_MAP: Record<string, string> = {
   "floating-dock": "docks",
   "starr-floating-dock": "docks",
   "dock-accessories": "docks",
-  "dock-service-repairs": "docks",
 
   "boat-lifts": "lifts",
   "pwc-jetski-lifts": "lifts",
   "canopies": "lifts",
   "lift-accessories": "lifts",
+};
+
+/** Aliases for services that display parent or combined galleries */
+export const CATEGORY_ALIASES: Record<string, string> = {
+  "dock-service-repairs": "docks",
   "hoist-service-repairs": "lifts",
 };
 
@@ -106,6 +111,19 @@ function sortOrder(filename: string): number {
   return match ? parseInt(match[1], 10) : Number.MAX_SAFE_INTEGER;
 }
 
+// Map from unique image content asset src to all categories that reference it
+const hashToCategories = new Map<string, Set<string>>();
+
+for (const [path, meta] of Object.entries(imageModules)) {
+  const hash = meta.src;
+  const segments = path.split("/");
+  const category = segments[segments.length - 2];
+  if (!hashToCategories.has(hash)) {
+    hashToCategories.set(hash, new Set());
+  }
+  hashToCategories.get(hash)!.add(category);
+}
+
 const discoveredCategories = new Map<string, { label: string; files: { path: string; filename: string }[] }>();
 
 for (const [path] of Object.entries(imageModules)) {
@@ -121,34 +139,44 @@ for (const [path] of Object.entries(imageModules)) {
 
 export function getGalleryCategories(): GalleryCategory[] {
   return CANONICAL_GALLERY_TABS.map((tab) => {
-    let count = 0;
-    if (tab.slug === "docks" || tab.slug === "lifts") {
-      for (const [slug, entry] of discoveredCategories.entries()) {
-        if (slug === tab.slug || PARENT_CATEGORY_MAP[slug] === tab.slug) {
-          count += entry.files.length;
+    const uniqueHashes = new Set<string>();
+    for (const [path, meta] of Object.entries(imageModules)) {
+      const hash = meta.src;
+      const segments = path.split("/");
+      const category = segments[segments.length - 2];
+      const parent = PARENT_CATEGORY_MAP[category];
+      const cats = hashToCategories.get(hash);
+
+      if (tab.slug === "docks" || tab.slug === "lifts") {
+        if (category === tab.slug || parent === tab.slug) {
+          uniqueHashes.add(hash);
+        }
+      } else {
+        if (category === tab.slug || cats?.has(tab.slug)) {
+          uniqueHashes.add(hash);
         }
       }
-    } else {
-      count = discoveredCategories.get(tab.slug)?.files.length ?? 0;
     }
     return {
       slug: tab.slug,
       label: tab.label,
-      count,
+      count: uniqueHashes.size,
     };
   });
 }
 
 export function getGalleryImages(category?: string): GalleryImage[] {
+  const resolvedCategory = category && CATEGORY_ALIASES[category] ? CATEGORY_ALIASES[category] : category;
+
   let targetSlugs: string[] = [];
 
-  if (category) {
-    if (category === "docks" || category === "lifts") {
+  if (resolvedCategory) {
+    if (resolvedCategory === "docks" || resolvedCategory === "lifts") {
       targetSlugs = [...discoveredCategories.keys()].filter(
-        (slug) => slug === category || PARENT_CATEGORY_MAP[slug] === category
+        (slug) => slug === resolvedCategory || PARENT_CATEGORY_MAP[slug] === resolvedCategory
       );
-    } else if (discoveredCategories.has(category)) {
-      targetSlugs = [category];
+    } else if (discoveredCategories.has(resolvedCategory)) {
+      targetSlugs = [resolvedCategory];
     } else {
       targetSlugs = [];
     }
@@ -173,6 +201,7 @@ export function getGalleryImages(category?: string): GalleryImage[] {
   }
 
   const result: GalleryImage[] = [];
+  const seenHashes = new Set<string>();
 
   for (const slug of targetSlugs) {
     const entry = discoveredCategories.get(slug);
@@ -184,14 +213,23 @@ export function getGalleryImages(category?: string): GalleryImage[] {
 
     sorted.forEach((file, index) => {
       const meta = imageModules[file.path];
+      const hash = meta.src;
+      if (seenHashes.has(hash)) {
+        return; // Deduplicate identical images across folders
+      }
+      seenHashes.add(hash);
+
       const readable = humanizeAlt(file.filename, entry.label);
       const alt = readable || `${entry.label} photo ${index + 1}`;
+      const allCats = Array.from(hashToCategories.get(hash) || [slug]);
+
       result.push({
         src: meta,
         fullSrc: meta.src,
         alt,
         category: slug,
         parentCategory: PARENT_CATEGORY_MAP[slug],
+        allCategories: allCats,
       });
     });
   }
