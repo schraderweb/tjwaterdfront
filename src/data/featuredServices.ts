@@ -18,7 +18,7 @@ export const featuredService = {
   eyebrow: "PREMIUM BOAT LIFTS",
   title: "Starr Boat Lifts",
   description:
-    'Starr boat lifts (BLs) are constructed with heavy gauge aluminum providing great strength and long lasting durability. Standard inside width of "120" wide.',
+    'Starr boat lifts (BLs) are constructed with heavy-gauge aluminum providing great strength and long-lasting durability. Standard inside width of 120".',
   href: "/boat-lifts",
 };
 
@@ -57,7 +57,7 @@ export const showcaseImages: FeaturedServiceImage[] = [
 
 export const dockEssentials = {
   eyebrow: "DOCK ESSENTIALS",
-  title: "Docks Accessories",
+  title: "Dock Accessories",
   description:
     "Everything you need for a safer, stronger, and more enjoyable dock.",
   imageSrc: dockEssentialsImage,

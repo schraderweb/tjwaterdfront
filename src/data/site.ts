@@ -118,7 +118,7 @@ export const heroServices: HeroService[] = [
   {
     title: "Seawalls",
     description:
-      "Steel, boulder, and rip rap walls engineered to protect your shoreline.",
+      "Steel, boulder, and rip-rap walls engineered to protect your shoreline.",
     icon: "seawalls",
     href: "/services/seawalls",
   },

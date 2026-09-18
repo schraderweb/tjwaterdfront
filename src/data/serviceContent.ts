@@ -188,7 +188,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     brochureUrl: "/brochure.pdf#page=14",
   },
   "personal-watercraft-lift": {
-    eyebrow: "PWC / JET LIFTS",
+    eyebrow: "PWC / JET SKI LIFTS",
     heading: "Personal Watercraft Lift",
     paragraphs: [
       [
@@ -226,7 +226,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     brochureUrl: "/brochure.pdf#page=17",
   },
   "pwc-jetski-lifts": {
-    eyebrow: "PWC / JET LIFTS",
+    eyebrow: "PWC / JET SKI LIFTS",
     heading: "PWC Jetski Lifts",
     paragraphs: [
       [
@@ -298,7 +298,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       "Winter storage is easier than ever. After initial installation, no tools are required for seasonal removal. The lightweight sections stack neatly and compactly, keeping your shoreline clean and clutter-free. Also available in our industry-leading Anodized Aluminum “KOOL DOCK” configuration which stays noticeably cooler under the summer sun.",
     ],
     bullets: [
-      "Available in 4'x8', 4'x10', and 4'x12' sections (custom & angle sections available)",
+      "Available in 4' x 8', 4' x 10', and 4' x 12' sections (custom & angle sections available)",
       "Top-side leveling legs for rapid shoreline adjustments from the dock surface",
       "No tools required for seasonal removal after initial install",
       "Compact stacking storage keeps your lawn and waterfront neat",

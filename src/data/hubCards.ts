@@ -79,7 +79,7 @@ export const docksCards: HubCard[] = [
   {
     title: "Sectional Docks",
     description:
-      "Our best seller - strength and light weight make this the industry leader for dock.",
+      "Our best seller - strength and light weight make this the industry leader for docks.",
     image: gallerySectionalDock,
     icon: "sectional-docks",
     href: "/sectional-docks",

@@ -22,7 +22,7 @@ export const popularServices = [
   },
   {
     title: "Seawalls",
-    description: "Steel, boulders, ledge rock, and rip rap walls engineered to stop erosion and protect your waterfront investment.",
+    description: "Steel, boulders, ledge rock, and rip-rap walls engineered to stop erosion and protect your waterfront investment.",
     image: seawallImage,
     icon: "shield-check",
     href: "/services/seawalls",
