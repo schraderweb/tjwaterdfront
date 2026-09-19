@@ -1,4 +1,7 @@
 import type { ImageMetadata } from "astro";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
 
 /**
  * gallery.ts - folder-driven gallery with parent category mapping and automatic deduplication.
@@ -90,6 +93,33 @@ export const CANONICAL_GALLERY_TABS: { slug: string; label: string }[] = [
   { slug: "landscaping", label: "Landscaping" },
 ];
 
+/** Visual duplicates across folders (re-encoded photos or cross-category equivalents) */
+const VISUAL_EQUIVALENCES: [string, string][] = [
+  // Starr floating dock re-encoded copies of Connect-A-Dock floating docks
+  ["starr-floating-dock/05.webp", "floating-dock/01.webp"],
+  ["starr-floating-dock/06.webp", "floating-dock/02.webp"],
+  ["starr-floating-dock/07.webp", "floating-dock/03.webp"],
+  ["starr-floating-dock/08.webp", "floating-dock/04.webp"],
+  ["starr-floating-dock/09.webp", "floating-dock/05.webp"],
+  ["starr-floating-dock/10.webp", "floating-dock/06.webp"],
+  ["starr-floating-dock/11.webp", "floating-dock/07.webp"],
+  ["starr-floating-dock/12.webp", "floating-dock/08.webp"],
+  ["starr-floating-dock/13.webp", "floating-dock/09.webp"],
+
+  // Premium stationary docks vs Sectional docks
+  ["premium-stationary-docks/02.webp", "sectional-docks/15.webp"],
+  ["premium-stationary-docks/03.webp", "sectional-docks/03.webp"],
+  ["premium-stationary-docks/04.webp", "sectional-docks/17.webp"],
+  ["premium-stationary-docks/05.webp", "sectional-docks/10.webp"],
+  ["premium-stationary-docks/06.webp", "sectional-docks/16.webp"],
+  ["premium-stationary-docks/07.webp", "sectional-docks/01.webp"],
+
+  // Cross-category visual matches
+  ["patios/03.webp", "seawalls/08.webp"],
+  ["retaining-walls/22.webp", "seawalls/25.webp"],
+  ["retaining-walls/23.webp", "seawalls/26.webp"],
+];
+
 export function humanize(slug: string): string {
   const override = CATEGORY_LABEL_OVERRIDES[slug];
   if (override) return override;
@@ -111,17 +141,51 @@ function sortOrder(filename: string): number {
   return match ? parseInt(match[1], 10) : Number.MAX_SAFE_INTEGER;
 }
 
-// Map from unique image content asset src to all categories that reference it
-const hashToCategories = new Map<string, Set<string>>();
+// ── Image Deduplication & Canonical Mapping ─────────────────────────────────
+// Map each image file path to its canonical identifier based on SHA256 and visual equivalences.
+const fileToCanonical = new Map<string, string>();
+const shaToCanonical = new Map<string, string>();
 
-for (const [path, meta] of Object.entries(imageModules)) {
-  const hash = meta.src;
-  const segments = path.split("/");
+for (const filePath of Object.keys(imageModules)) {
+  const segments = filePath.split("/");
   const category = segments[segments.length - 2];
-  if (!hashToCategories.has(hash)) {
-    hashToCategories.set(hash, new Set());
+  const filename = segments[segments.length - 1];
+  const rel = `${category}/${filename}`;
+
+  try {
+    const absPath = path.resolve(process.cwd(), "src", filePath.replace(/^\.\.\//, ""));
+    const buf = fs.readFileSync(absPath);
+    const sha = crypto.createHash("sha256").update(buf).digest("hex");
+
+    if (!shaToCanonical.has(sha)) {
+      shaToCanonical.set(sha, rel);
+    }
+    fileToCanonical.set(rel, shaToCanonical.get(sha)!);
+  } catch {
+    fileToCanonical.set(rel, rel);
   }
-  hashToCategories.get(hash)!.add(category);
+}
+
+// Apply visual equivalences
+for (const [dup, target] of VISUAL_EQUIVALENCES) {
+  const canonicalTarget = fileToCanonical.get(target) || target;
+  fileToCanonical.set(dup, canonicalTarget);
+}
+
+// Map canonical key -> all categories referencing it
+const canonicalToCategories = new Map<string, Set<string>>();
+
+for (const filePath of Object.keys(imageModules)) {
+  const segments = filePath.split("/");
+  const category = segments[segments.length - 2];
+  const filename = segments[segments.length - 1];
+  const rel = `${category}/${filename}`;
+  const canonical = fileToCanonical.get(rel) || rel;
+
+  if (!canonicalToCategories.has(canonical)) {
+    canonicalToCategories.set(canonical, new Set());
+  }
+  canonicalToCategories.get(canonical)!.add(category);
 }
 
 const discoveredCategories = new Map<string, { label: string; files: { path: string; filename: string }[] }>();
@@ -139,28 +203,30 @@ for (const [path] of Object.entries(imageModules)) {
 
 export function getGalleryCategories(): GalleryCategory[] {
   return CANONICAL_GALLERY_TABS.map((tab) => {
-    const uniqueHashes = new Set<string>();
-    for (const [path, meta] of Object.entries(imageModules)) {
-      const hash = meta.src;
-      const segments = path.split("/");
+    const uniqueCanonicals = new Set<string>();
+    for (const [filePath] of Object.entries(imageModules)) {
+      const segments = filePath.split("/");
       const category = segments[segments.length - 2];
+      const filename = segments[segments.length - 1];
+      const rel = `${category}/${filename}`;
+      const canonical = fileToCanonical.get(rel) || rel;
       const parent = PARENT_CATEGORY_MAP[category];
-      const cats = hashToCategories.get(hash);
+      const cats = canonicalToCategories.get(canonical);
 
       if (tab.slug === "docks" || tab.slug === "lifts") {
         if (category === tab.slug || parent === tab.slug) {
-          uniqueHashes.add(hash);
+          uniqueCanonicals.add(canonical);
         }
       } else {
         if (category === tab.slug || cats?.has(tab.slug)) {
-          uniqueHashes.add(hash);
+          uniqueCanonicals.add(canonical);
         }
       }
     }
     return {
       slug: tab.slug,
       label: tab.label,
-      count: uniqueHashes.size,
+      count: uniqueCanonicals.size,
     };
   });
 }
@@ -201,7 +267,7 @@ export function getGalleryImages(category?: string): GalleryImage[] {
   }
 
   const result: GalleryImage[] = [];
-  const seenHashes = new Set<string>();
+  const seenCanonicals = new Set<string>();
 
   for (const slug of targetSlugs) {
     const entry = discoveredCategories.get(slug);
@@ -212,16 +278,17 @@ export function getGalleryImages(category?: string): GalleryImage[] {
     );
 
     sorted.forEach((file, index) => {
-      const meta = imageModules[file.path];
-      const hash = meta.src;
-      if (seenHashes.has(hash)) {
-        return; // Deduplicate identical images across folders
+      const rel = `${slug}/${file.filename}`;
+      const canonical = fileToCanonical.get(rel) || rel;
+      if (seenCanonicals.has(canonical)) {
+        return; // Deduplicate identical or equivalent images across folders
       }
-      seenHashes.add(hash);
+      seenCanonicals.add(canonical);
 
+      const meta = imageModules[file.path];
       const readable = humanizeAlt(file.filename, entry.label);
       const alt = readable || `${entry.label} photo ${index + 1}`;
-      const allCats = Array.from(hashToCategories.get(hash) || [slug]);
+      const allCats = Array.from(canonicalToCategories.get(canonical) || [slug]);
 
       result.push({
         src: meta,
