@@ -7,7 +7,7 @@ import Button from "@/components/shared/ui/Button.astro";
 import GoldLine from "@/components/shared/ui/GoldLine.astro";
 import Icon from "@/components/shared/ui/Icon.astro";
 import SubmitSuccess from "@/components/shared/ui/SubmitSuccess.astro";
-import { defaultState, stateCities, stateOptions } from "@/data/formLocations";
+import { defaultState, stateOptions } from "@/data/formLocations";
 
 const projectTypes = [
   "Dock Installation",
@@ -30,8 +30,6 @@ const projectTypes = [
   </div>
 
   <form action="/api/quote" method="post" class="quote-fields" data-submit-success>
-    <script type="application/json" data-city-source set:html={JSON.stringify(stateCities)} />
-
     <p class="hp-field" aria-hidden="true">
       <label>
         Company
@@ -78,7 +76,6 @@ const projectTypes = [
             id="quote-state"
             name="state"
             autocomplete="address-level1"
-            data-city-state
             required
           >
             {stateOptions.map((option) => (
@@ -93,20 +90,16 @@ const projectTypes = [
 
       <div class="field">
         <label class="sr-only" for="quote-city">City</label>
-        <div class="input-wrap select-wrap">
+        <div class="input-wrap">
           <Icon name="map-pin" size={18} class="field-icon" />
-          <select
+          <input
             id="quote-city"
+            type="text"
             name="city"
+            placeholder="City"
             autocomplete="address-level2"
-            data-city-select
-            data-city-placeholder="City"
             required
-          >
-            <option value="" selected disabled>City</option>
-            {(stateCities[defaultState] ?? []).map((city) => <option value={city}>{city}</option>)}
-          </select>
-          <Icon name="chevron-down" size={16} class="select-icon" />
+          />
         </div>
       </div>
 
@@ -445,7 +438,5 @@ const projectTypes = [
 
 <script>
   import { initSubmitSuccess } from "@/scripts/submit-success.js";
-  import { initCitySelect } from "@/scripts/city-select.js";
   initSubmitSuccess();
-  initCitySelect();
 </script>

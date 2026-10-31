@@ -1,136 +1,14 @@
-import { serviceAreas } from "./serviceAreas";
-
 export interface StateOption {
   value: string;
   label: string;
 }
 
-/** Michigan first (primary service area), then the remaining US states. */
+/** States served by the business; Michigan first and selected by default. */
 export const stateOptions: StateOption[] = [
   { value: "MI", label: "Michigan" },
-  { value: "AL", label: "Alabama" },
-  { value: "AK", label: "Alaska" },
-  { value: "AZ", label: "Arizona" },
-  { value: "AR", label: "Arkansas" },
-  { value: "CA", label: "California" },
-  { value: "CO", label: "Colorado" },
-  { value: "CT", label: "Connecticut" },
-  { value: "DE", label: "Delaware" },
-  { value: "DC", label: "District of Columbia" },
-  { value: "FL", label: "Florida" },
-  { value: "GA", label: "Georgia" },
-  { value: "HI", label: "Hawaii" },
-  { value: "ID", label: "Idaho" },
-  { value: "IL", label: "Illinois" },
   { value: "IN", label: "Indiana" },
-  { value: "IA", label: "Iowa" },
-  { value: "KS", label: "Kansas" },
-  { value: "KY", label: "Kentucky" },
-  { value: "LA", label: "Louisiana" },
-  { value: "ME", label: "Maine" },
-  { value: "MD", label: "Maryland" },
-  { value: "MA", label: "Massachusetts" },
-  { value: "MN", label: "Minnesota" },
-  { value: "MS", label: "Mississippi" },
-  { value: "MO", label: "Missouri" },
-  { value: "MT", label: "Montana" },
-  { value: "NE", label: "Nebraska" },
-  { value: "NV", label: "Nevada" },
-  { value: "NH", label: "New Hampshire" },
-  { value: "NJ", label: "New Jersey" },
-  { value: "NM", label: "New Mexico" },
-  { value: "NY", label: "New York" },
-  { value: "NC", label: "North Carolina" },
-  { value: "ND", label: "North Dakota" },
   { value: "OH", label: "Ohio" },
-  { value: "OK", label: "Oklahoma" },
-  { value: "OR", label: "Oregon" },
-  { value: "PA", label: "Pennsylvania" },
-  { value: "RI", label: "Rhode Island" },
-  { value: "SC", label: "South Carolina" },
-  { value: "SD", label: "South Dakota" },
-  { value: "TN", label: "Tennessee" },
-  { value: "TX", label: "Texas" },
-  { value: "UT", label: "Utah" },
-  { value: "VT", label: "Vermont" },
-  { value: "VA", label: "Virginia" },
-  { value: "WA", label: "Washington" },
-  { value: "WV", label: "West Virginia" },
-  { value: "WI", label: "Wisconsin" },
-  { value: "WY", label: "Wyoming" },
 ];
 
 /** State pre-selected on both forms. */
 export const defaultState = "MI";
-
-export const otherCityLabel = "Other";
-
-/**
- * City choices per state. The city select is rebuilt from this map whenever the
- * state changes, so a submitted city always belongs to the selected state.
- * Michigan carries the full service-area list; other states list their main
- * cities plus an "Other" escape hatch.
- */
-export const stateCities: Record<string, string[]> = {
-  MI: [...Array.from(new Set(serviceAreas)).sort((a, b) => a.localeCompare(b)), otherCityLabel],
-  IN: [
-    "Angola", "Auburn", "Columbia City", "Crown Point", "Culver", "Elkhart", "Fort Wayne",
-    "Goshen", "Granger", "Hammond", "Kendallville", "La Porte", "Merrillville", "Michigan City",
-    "Mishawaka", "Nappanee", "Plymouth", "Portage", "Rochester", "South Bend", "Syracuse",
-    "Valparaiso", "Warsaw", "Winona Lake", otherCityLabel,
-  ],
-  OH: [
-    "Avon Lake", "Bowling Green", "Bryan", "Cleveland", "Defiance", "Elyria", "Findlay",
-    "Fremont", "Huron", "Lima", "Lorain", "Maumee", "Napoleon", "Oregon", "Perrysburg",
-    "Port Clinton", "Sandusky", "Sylvania", "Tiffin", "Toledo", "Vermilion", "Wauseon",
-    otherCityLabel,
-  ],
-  AL: ["Birmingham", "Huntsville", "Mobile", "Montgomery", "Tuscaloosa", otherCityLabel],
-  AK: ["Anchorage", "Fairbanks", "Juneau", otherCityLabel],
-  AZ: ["Chandler", "Gilbert", "Mesa", "Phoenix", "Scottsdale", "Tempe", "Tucson", otherCityLabel],
-  AR: ["Fayetteville", "Fort Smith", "Little Rock", "Springdale", otherCityLabel],
-  CA: ["Fresno", "Los Angeles", "Oakland", "Sacramento", "San Diego", "San Francisco", "San Jose", otherCityLabel],
-  CO: ["Aurora", "Boulder", "Colorado Springs", "Denver", "Fort Collins", otherCityLabel],
-  CT: ["Bridgeport", "Hartford", "New Haven", "Stamford", otherCityLabel],
-  DE: ["Dover", "Newark", "Wilmington", otherCityLabel],
-  DC: ["Washington", otherCityLabel],
-  FL: ["Fort Lauderdale", "Jacksonville", "Miami", "Orlando", "Tallahassee", "Tampa", otherCityLabel],
-  GA: ["Athens", "Atlanta", "Augusta", "Columbus", "Savannah", otherCityLabel],
-  HI: ["Hilo", "Honolulu", otherCityLabel],
-  ID: ["Boise", "Idaho Falls", "Meridian", "Nampa", otherCityLabel],
-  IL: ["Aurora", "Chicago", "Naperville", "Peoria", "Rockford", "Springfield", otherCityLabel],
-  IA: ["Ames", "Cedar Rapids", "Davenport", "Des Moines", otherCityLabel],
-  KS: ["Kansas City", "Lawrence", "Olathe", "Topeka", "Wichita", otherCityLabel],
-  KY: ["Bowling Green", "Frankfort", "Lexington", "Louisville", otherCityLabel],
-  LA: ["Baton Rouge", "Lafayette", "New Orleans", "Shreveport", otherCityLabel],
-  ME: ["Augusta", "Bangor", "Portland", otherCityLabel],
-  MD: ["Annapolis", "Baltimore", "Frederick", "Rockville", otherCityLabel],
-  MA: ["Boston", "Cambridge", "Springfield", "Worcester", otherCityLabel],
-  MN: ["Duluth", "Minneapolis", "Rochester", "Saint Paul", otherCityLabel],
-  MS: ["Gulfport", "Hattiesburg", "Jackson", otherCityLabel],
-  MO: ["Columbia", "Kansas City", "Springfield", "St. Louis", otherCityLabel],
-  MT: ["Billings", "Bozeman", "Helena", "Missoula", otherCityLabel],
-  NE: ["Lincoln", "Omaha", otherCityLabel],
-  NV: ["Henderson", "Las Vegas", "Reno", otherCityLabel],
-  NH: ["Concord", "Manchester", "Nashua", otherCityLabel],
-  NJ: ["Edison", "Jersey City", "Newark", "Trenton", otherCityLabel],
-  NM: ["Albuquerque", "Las Cruces", "Santa Fe", otherCityLabel],
-  NY: ["Albany", "Buffalo", "New York", "Rochester", "Syracuse", otherCityLabel],
-  NC: ["Asheville", "Charlotte", "Durham", "Raleigh", otherCityLabel],
-  ND: ["Bismarck", "Fargo", "Grand Forks", otherCityLabel],
-  OK: ["Norman", "Oklahoma City", "Tulsa", otherCityLabel],
-  OR: ["Eugene", "Portland", "Salem", otherCityLabel],
-  PA: ["Allentown", "Erie", "Harrisburg", "Philadelphia", "Pittsburgh", otherCityLabel],
-  RI: ["Cranston", "Providence", "Warwick", otherCityLabel],
-  SC: ["Charleston", "Columbia", "Greenville", otherCityLabel],
-  SD: ["Rapid City", "Sioux Falls", otherCityLabel],
-  TN: ["Chattanooga", "Knoxville", "Memphis", "Nashville", otherCityLabel],
-  TX: ["Austin", "Dallas", "El Paso", "Fort Worth", "Houston", "San Antonio", otherCityLabel],
-  UT: ["Ogden", "Provo", "Salt Lake City", otherCityLabel],
-  VT: ["Burlington", "Montpelier", otherCityLabel],
-  VA: ["Alexandria", "Norfolk", "Richmond", "Virginia Beach", otherCityLabel],
-  WA: ["Bellevue", "Seattle", "Spokane", "Tacoma", otherCityLabel],
-  WV: ["Charleston", "Huntington", "Morgantown", otherCityLabel],
-  WI: ["Green Bay", "Madison", "Milwaukee", otherCityLabel],
-  WY: ["Casper", "Cheyenne", otherCityLabel],
-};
