@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Icon from "@/components/shared/ui/Icon.astro";
 import SubmitSuccess from "@/components/shared/ui/SubmitSuccess.astro";
+import { defaultState, stateCities, stateOptions } from "@/data/formLocations";
 import bgImage from "@/assets/hero/waterfront-hero.webp";
 ---
 
@@ -119,6 +120,8 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
               </div>
             </fieldset>
 
+            <script type="application/json" data-city-source set:html={JSON.stringify(stateCities)} />
+
             <div class="enquiry-form__grid">
               <div class="form-group">
                 <label for="enquiry-name">YOUR NAME</label>
@@ -129,13 +132,31 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
                 <input type="email" id="enquiry-email" name="email" required placeholder="Email address" />
               </div>
               <div class="form-group">
+                <label for="enquiry-state">STATE</label>
+                <select id="enquiry-state" name="state" autocomplete="address-level1" data-city-state required>
+                  {stateOptions.map((option) => (
+                    <option value={option.value} selected={option.value === defaultState}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="enquiry-city">CITY</label>
+                <select id="enquiry-city" name="city" autocomplete="address-level2" data-city-select data-city-placeholder="Select your city" required>
+                  <option value="" selected disabled>Select your city</option>
+                  {(stateCities[defaultState] ?? []).map((city) => <option value={city}>{city}</option>)}
+                </select>
+              </div>
+              <div class="form-group form-group--full">
                 <label for="enquiry-phone">PHONE NUMBER</label>
                 <input type="tel" id="enquiry-phone" name="phone" required placeholder="Phone number" />
               </div>
-              <div class="form-group">
-                <label for="enquiry-location">LOCATION</label>
-                <input type="text" id="enquiry-location" name="location" placeholder="City, State" />
-              </div>
+            </div>
+
+            <div class="form-group form-group--full">
+              <label for="enquiry-address">PROJECT ADDRESS</label>
+              <input type="text" id="enquiry-address" name="address" placeholder="Street address of the project (optional)" autocomplete="street-address" />
             </div>
 
             <div class="form-group form-group--full">
@@ -447,6 +468,7 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
   }
 
   .form-group input,
+  .form-group select,
   .form-group textarea {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.82);
@@ -461,8 +483,23 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
     transition: all 0.3s ease;
   }
 
-  .form-group input {
+  .form-group input,
+  .form-group select {
     height: clamp(62px, 5vw, 68px);
+  }
+
+  .form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 44px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230C2135' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    cursor: pointer;
+  }
+
+  .form-group select:invalid {
+    color: rgba(12, 33, 53, 0.45);
   }
 
   .form-group textarea {
@@ -476,6 +513,7 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
   }
 
   .form-group input:focus,
+  .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
     border-color: #C9953D;
@@ -597,7 +635,8 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
       gap: 20px;
     }
 
-    .form-group input {
+    .form-group input,
+    .form-group select {
       height: 56px;
     }
   }
@@ -605,7 +644,9 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
 
 <script>
   import { initSubmitSuccess } from "@/scripts/submit-success.js";
+  import { initCitySelect } from "@/scripts/city-select.js";
   initSubmitSuccess();
+  initCitySelect();
 
   const form = document.getElementById("project-enquiry-form");
   const projectTypeField = document.getElementById("enquiry-project-type");

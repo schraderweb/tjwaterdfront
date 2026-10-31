@@ -30,7 +30,11 @@ export async function POST({ request }) {
   const name = String(payload.name ?? "").trim();
   const email = String(payload.email ?? "").replace(/[\r\n]+/g, " ").trim().toLowerCase();
   const phone = String(payload.phone ?? "").trim();
-  const location = String(payload.location ?? "").trim();
+  const address = String(payload.address ?? "").trim();
+  const city = String(payload.city ?? "").trim();
+  const state = String(payload.state ?? "").trim();
+  const location =
+    [city, state].filter(Boolean).join(", ") || String(payload.location ?? "").trim();
   const projectType = String(payload.project_type ?? "").trim();
   const message = String(payload.message ?? "").trim();
   const company = String(payload.company ?? "").trim();
@@ -49,13 +53,14 @@ export async function POST({ request }) {
   const db = getDb();
   try {
     await db.execute({
-      sql: `INSERT INTO quote_requests (id, name, email, phone, location, project_type, message, company, status, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO quote_requests (id, name, email, phone, address, location, project_type, message, company, status, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [
         crypto.randomUUID(),
         name,
         email,
         phone,
+        address,
         location,
         projectType,
         message || null,
@@ -74,7 +79,7 @@ export async function POST({ request }) {
     db.close();
   }
 
-  await sendNotificationEmail({ name, email, phone, location, projectType, message });
+  await sendNotificationEmail({ name, email, phone, address, city, state, location, projectType, message });
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,
@@ -86,6 +91,9 @@ async function sendNotificationEmail(quote: {
   name: string;
   email: string;
   phone: string;
+  address: string;
+  city: string;
+  state: string;
   location: string;
   projectType: string;
   message: string;
@@ -126,10 +134,13 @@ async function sendNotificationEmail(quote: {
   }
 }
 
-function buildEmail({ name, email, phone, location, projectType, message }: {
+function buildEmail({ name, email, phone, address, city, state, location, projectType, message }: {
   name: string;
   email: string;
   phone: string;
+  address: string;
+  city: string;
+  state: string;
   location: string;
   projectType: string;
   message: string;
@@ -138,7 +149,10 @@ function buildEmail({ name, email, phone, location, projectType, message }: {
     { label: "Name", value: name },
     { label: "Email", value: email, href: `mailto:${email}` },
     { label: "Phone", value: phone },
-    { label: "Project Location", value: location },
+    ...(address ? [{ label: "Project Address", value: address }] : []),
+    ...(city ? [{ label: "City", value: city }] : []),
+    ...(state ? [{ label: "State", value: state }] : []),
+    ...(city || state ? [] : [{ label: "Project Location", value: location }]),
     { label: "Project Type", value: projectType },
   ]
     .map(
