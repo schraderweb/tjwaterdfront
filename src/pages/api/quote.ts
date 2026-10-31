@@ -7,7 +7,7 @@ import { createClient } from "@libsql/client";
 
 export const prerender = false;
 
-const RESEND_API = "https://api.resend.com/emails";
+const RESEND_API = import.meta.env.RESEND_API_URL || "https://api.resend.com/emails";
 
 function getDb() {
   return createClient({
@@ -28,7 +28,7 @@ export async function POST({ request }) {
   }
 
   const name = String(payload.name ?? "").trim();
-  const email = String(payload.email ?? "").trim().toLowerCase();
+  const email = String(payload.email ?? "").replace(/[\r\n]+/g, " ").trim().toLowerCase();
   const phone = String(payload.phone ?? "").trim();
   const location = String(payload.location ?? "").trim();
   const projectType = String(payload.project_type ?? "").trim();
@@ -100,6 +100,7 @@ async function sendNotificationEmail(quote: {
     .filter(Boolean);
 
   const html = buildEmail(quote);
+  const replyTo = isValidEmail(quote.email) ? `${quote.name} <${quote.email}>` : undefined;
 
   try {
     const res = await fetch(RESEND_API, {
@@ -111,6 +112,7 @@ async function sendNotificationEmail(quote: {
       body: JSON.stringify({
         from: fromEmail,
         to: toEmails,
+        ...(replyTo ? { reply_to: replyTo } : {}),
         subject: `New Quote Request from ${quote.name}`,
         html,
       }),
@@ -134,7 +136,7 @@ function buildEmail({ name, email, phone, location, projectType, message }: {
 }) {
   const rows = [
     { label: "Name", value: name },
-    { label: "Email", value: email },
+    { label: "Email", value: email, href: `mailto:${email}` },
     { label: "Phone", value: phone },
     { label: "Project Location", value: location },
     { label: "Project Type", value: projectType },
@@ -145,7 +147,11 @@ function buildEmail({ name, email, phone, location, projectType, message }: {
           <td style="padding:12px 0;${i > 0 ? "border-top:1px solid #F5F5F4;" : ""}">
             <strong style="color:#0C2135;font-size:15px;">${escapeHtml(row.label)}</strong>
           </td>
-          <td style="padding:12px 0;${i > 0 ? "border-top:1px solid #F5F5F4;" : ""}text-align:right;color:#333F48;font-size:15px;">${escapeHtml(row.value)}</td>
+          <td style="padding:12px 0;${i > 0 ? "border-top:1px solid #F5F5F4;" : ""}text-align:right;color:#333F48;font-size:15px;">${
+            row.href
+              ? `<a href="${escapeHtml(row.href)}" style="color:#C9953D;text-decoration:none;">${escapeHtml(row.value)}</a>`
+              : escapeHtml(row.value)
+          }</td>
         </tr>`
     )
     .join("");
@@ -178,6 +184,7 @@ function buildEmail({ name, email, phone, location, projectType, message }: {
               <hr style="border:none;border-top:1px solid #E7E5E4;margin:20px 0;">
               <p style="margin:0 0 8px;color:#0C2135;font-size:16px;font-weight:700;">Message</p>
               <p style="margin:0;color:#333F48;font-size:16px;line-height:1.6;background:#F8F6F1;padding:20px;border-radius:8px;border-left:3px solid #C9953D;">${escapeHtml(message || "\u2014")}</p>
+              <a href="mailto:${escapeHtml(email)}?subject=${escapeHtml(encodeURIComponent(`Re: Your quote request \u2013 ${name}`))}" style="display:inline-block;margin-top:24px;background:#0C2135;color:#ffffff;text-decoration:none;padding:14px 24px;border-radius:8px;font-size:15px;font-weight:600;">Reply to ${escapeHtml(name)}</a>
             </td>
           </tr>
           <tr>
@@ -193,6 +200,10 @@ function buildEmail({ name, email, phone, location, projectType, message }: {
   </table>
 </body>
 </html>`;
+}
+
+function isValidEmail(value: string) {
+  return /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(value);
 }
 
 function escapeHtml(value: string) {
