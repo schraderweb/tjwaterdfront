@@ -68,6 +68,35 @@ const projectTypes = [
         </div>
       </div>
 
+      <div class="field field-wide">
+        <label class="sr-only" for="quote-address">Project Address</label>
+        <div class="input-wrap">
+          <Icon name="house" size={18} class="field-icon" />
+          <input
+            id="quote-address"
+            type="text"
+            name="address"
+            placeholder="Project Address"
+            autocomplete="street-address"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="sr-only" for="quote-city">City</label>
+        <div class="input-wrap">
+          <Icon name="map-pin" size={18} class="field-icon" />
+          <input
+            id="quote-city"
+            type="text"
+            name="city"
+            placeholder="City"
+            autocomplete="address-level2"
+            required
+          />
+        </div>
+      </div>
+
       <div class="field">
         <label class="sr-only" for="quote-state">State</label>
         <div class="input-wrap select-wrap">
@@ -85,21 +114,6 @@ const projectTypes = [
             ))}
           </select>
           <Icon name="chevron-down" size={16} class="select-icon" />
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="sr-only" for="quote-city">City</label>
-        <div class="input-wrap">
-          <Icon name="map-pin" size={18} class="field-icon" />
-          <input
-            id="quote-city"
-            type="text"
-            name="city"
-            placeholder="City"
-            autocomplete="address-level2"
-            required
-          />
         </div>
       </div>
 
@@ -127,20 +141,6 @@ const projectTypes = [
             {projectTypes.map((type) => <option value={type}>{type}</option>)}
           </select>
           <Icon name="chevron-down" size={16} class="select-icon" />
-        </div>
-      </div>
-
-      <div class="field field-wide">
-        <label class="sr-only" for="quote-address">Project Address</label>
-        <div class="input-wrap">
-          <Icon name="house" size={18} class="field-icon" />
-          <input
-            id="quote-address"
-            type="text"
-            name="address"
-            placeholder="Project Address"
-            autocomplete="street-address"
-          />
         </div>
       </div>
 
