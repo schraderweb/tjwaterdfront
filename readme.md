@@ -158,10 +158,28 @@ The site is connected to a hosting provider (Vercel) via the GitHub repository.
  Edit src/ or public/  →  Commit + push to main  →  Auto build & deploy  →  Live site
 ```
 
-> **Quote form note:** the quote form (`src/components/pages/home/hero/QuoteForm.astro`) submits to an `/api/quote` endpoint that is not defined in this repository — it must be provided by the hosting platform. If quote submissions stop working, check that endpoint with your developer/hosting provider.
+> **Quote form note:** both quote forms submit to `src/pages/api/quote.ts` (a Vercel serverless function). It stores the request in Turso and emails the team through Resend — only after every spam check below has passed.
 
 ---
 
 ## Environment Variables
 
-Any secret keys (form emails, APIs) are set in the hosting provider's dashboard under **Settings → Environment Variables** — never in the code.
+Secret keys are set in Vercel under **Project → Settings → Environment Variables** — never in the code. Server secrets are read at request time; the one `PUBLIC_` key is baked into the pages at build time, so **redeploy after changing it**.
+
+| Variable | Secret? | Purpose |
+| --- | --- | --- |
+| `PUBLIC_TURNSTILE_SITE_KEY` | No (public) | Cloudflare Turnstile site key shown to browsers |
+| `TURNSTILE_SECRET_KEY` | **Yes** | Verifies Turnstile tokens server-side. Without it the form refuses all submissions. |
+| `TURSO_URL` / `TURSO_AUTH_TOKEN` | **Yes** | Database for quote requests and the rate limiter |
+| `RESEND_API_KEY` | **Yes** | Sends the notification email |
+| `FROM_EMAIL` / `TO_EMAILS` | No | Sender, and comma-separated recipients (optional, have defaults) |
+
+### Spam protection on the quote form
+
+- **Cloudflare Turnstile** — in the Cloudflare dashboard create a widget in **Managed** mode and add `tjwaterfrontservices.com` (plus any Vercel preview domain you test on) as hostnames. It runs invisibly and only shows a checkbox when Cloudflare is unsure.
+- **Rate limit** — 5 submissions per 15 minutes per visitor, stored in the `quote_rate_limits` Turso table (created automatically; IPs are stored only as keyed hashes).
+- **Duplicates** — the same request re-sent within 24 hours is acknowledged but not stored or emailed again.
+- **Honeypot, field validation, length limits, HTML escaping** in the email.
+- Rejected submissions are logged in Vercel's function logs as JSON lines (`"event":"quote_rejected"`) with the reason only — no names, emails or messages.
+
+Test locally with Cloudflare's test keys (site key `1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`) and a scratch database, then run `node scripts/test-quote-api.mjs` (see the file header).

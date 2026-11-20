@@ -183,4 +183,29 @@
     opacity: 0;
     transform: translateY(24px);
   }
+
+  /* Spam honeypot: off-screen, hidden from assistive tech and keyboard. */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  /* Turnstile runs invisibly; it only takes space when it needs the visitor to click. */
+  .turnstile-slot:not(.is-visible) {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .turnstile-slot.is-visible {
+    display: flex;
+    justify-content: center;
+    min-height: 65px;
+  }
 }

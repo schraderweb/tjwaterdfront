@@ -5,6 +5,7 @@
  * [data-success-panel], plays the SVG scene (ring pop, wave drift, boat bob,
  * checkmark draw), and supports a "send another" reset button.
  * Reduced-motion users get an instant, static success state.
+ * Submissions carry a Cloudflare Turnstile token (see createTurnstile below).
  */
 import gsap from "gsap";
 
@@ -196,37 +197,141 @@ export function initSubmitSuccess() {
       errorMessage.textContent = "";
     };
 
+    const turnstile = createTurnstile(form);
+    form.addEventListener("focusin", turnstile.warmUp, { once: true });
+
+    const postQuote = async (token) => {
+      const payload = Object.fromEntries(new FormData(form).entries());
+      payload["cf-turnstile-response"] = token;
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      return { ok: res.ok && data.ok === true, data };
+    };
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      if (state !== "idle" || submitButton?.hasAttribute("disabled")) return;
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
       clearError();
 
-      const originalLabel = submitButton?.textContent ?? "";
+      const originalLabel = submitButton?.innerHTML ?? "";
+      const restoreButton = () => {
+        submitButton?.removeAttribute("disabled");
+        if (submitButton) submitButton.innerHTML = originalLabel;
+      };
       submitButton?.setAttribute("disabled", "");
       if (submitButton) submitButton.textContent = "Sending…";
 
       try {
-        const body = new FormData(form);
-        const res = await fetch(form.action, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(Object.fromEntries(body.entries())),
-        });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok || data.ok !== true) {
-          throw new Error(data.error || "Could not save your request.");
+        let result = await postQuote(await turnstile.token());
+        // Tokens are single-use and expire after 5 minutes: get a fresh one and retry once.
+        if (result.data.code === "verification_expired") {
+          turnstile.reset();
+          result = await postQuote(await turnstile.token());
         }
+        turnstile.reset();
+        if (!result.ok) throw new Error(result.data.error || "Could not save your request.");
+        restoreButton();
         showSuccess();
       } catch (err) {
+        turnstile.reset();
         showError(err.message);
-        submitButton?.removeAttribute("disabled");
-        if (submitButton) submitButton.textContent = originalLabel;
+        restoreButton();
       }
     });
 
     resetButton?.addEventListener("click", resetForm);
   });
+}
+
+const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+let turnstileApi = null;
+
+function loadTurnstile() {
+  turnstileApi ??= new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = TURNSTILE_SRC;
+    script.async = true;
+    script.onload = () => resolve(window.turnstile);
+    script.onerror = () => {
+      turnstileApi = null;
+      script.remove();
+      reject(new Error("The verification check couldn't load. Please disable content blockers for this site, or call us."));
+    };
+    document.head.appendChild(script);
+  });
+  return turnstileApi;
+}
+
+/**
+ * Cloudflare Turnstile (Managed mode, interaction-only appearance): loads on first
+ * focus so the first paint stays script-free, runs invisibly, and only shows a
+ * checkbox in [data-turnstile] when Cloudflare needs the visitor to click.
+ */
+function createTurnstile(form) {
+  const slot = form.querySelector("[data-turnstile]");
+  const siteKey = slot?.dataset.sitekey;
+  let widget = null;
+  let widgetId;
+  let current = "";
+  let waiters = [];
+
+  const settle = (value) => {
+    current = value;
+    if (!value) return;
+    waiters.forEach((resolve) => resolve(value));
+    waiters = [];
+  };
+
+  const ensureWidget = () => {
+    if (!siteKey) return Promise.resolve();
+    widget ??= loadTurnstile()
+      .then((api) => {
+        widgetId = api.render(slot, {
+          sitekey: siteKey,
+          action: "quote",
+          appearance: "interaction-only",
+          "refresh-expired": "auto",
+          callback: settle,
+          "expired-callback": () => settle(""),
+          "error-callback": () => {
+            settle("");
+            slot.classList.add("is-visible");
+          },
+          "before-interactive-callback": () => slot.classList.add("is-visible"),
+          "after-interactive-callback": () => slot.classList.remove("is-visible"),
+        });
+      })
+      .catch((err) => {
+        widget = null;
+        throw err;
+      });
+    return widget;
+  };
+
+  return {
+    warmUp: () => ensureWidget().catch(() => {}),
+    async token() {
+      await ensureWidget();
+      if (!siteKey || current) return current;
+      // Wait for the invisible check, or for the visitor to finish an interactive one.
+      const token = await new Promise((resolve) => {
+        waiters.push(resolve);
+        setTimeout(() => resolve(""), 60_000);
+      });
+      if (!token) throw new Error("Please complete the verification check, then send your request again.");
+      return token;
+    },
+    reset() {
+      settle("");
+      if (widgetId !== undefined) window.turnstile?.reset(widgetId);
+    },
+  };
 }
