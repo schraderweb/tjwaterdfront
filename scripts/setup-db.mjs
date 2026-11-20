@@ -23,12 +23,23 @@ CREATE TABLE IF NOT EXISTS quote_requests (
   name          TEXT NOT NULL,
   email         TEXT NOT NULL,
   phone         TEXT NOT NULL,
+  address       TEXT,
   location      TEXT NOT NULL,
   project_type  TEXT NOT NULL,
   message       TEXT,
   company       TEXT,
   status        TEXT NOT NULL DEFAULT 'new',
   created_at    TEXT NOT NULL
+);
+`;
+
+// Used by /api/quote for IP rate limiting and duplicate detection (keys are HMAC hashes, no raw IPs).
+// The API also creates it on first request; it is here so a fresh database is complete.
+const CREATE_RATE_LIMITS = `
+CREATE TABLE IF NOT EXISTS quote_rate_limits (
+  key           TEXT PRIMARY KEY,
+  window_start  INTEGER NOT NULL,
+  count         INTEGER NOT NULL
 );
 `;
 
@@ -110,6 +121,7 @@ function insert(quote) {
 
 try {
   await db.execute(CREATE_TABLE);
+  await db.execute(CREATE_RATE_LIMITS);
   console.log("Table quote_requests ready (created if missing).");
 
   const existing = await db.execute("SELECT COUNT(*) AS count FROM quote_requests");

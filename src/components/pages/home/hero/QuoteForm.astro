@@ -9,6 +9,8 @@ import Icon from "@/components/shared/ui/Icon.astro";
 import SubmitSuccess from "@/components/shared/ui/SubmitSuccess.astro";
 import { defaultState, stateOptions } from "@/data/formLocations";
 
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
 const projectTypes = [
   "Dock Installation",
   "Boat Lift",
@@ -32,8 +34,8 @@ const projectTypes = [
   <form action="/api/quote" method="post" class="quote-fields" data-submit-success>
     <p class="hp-field" aria-hidden="true">
       <label>
-        Company
-        <input type="text" name="company" tabindex="-1" autocomplete="off" />
+        Referral code (leave blank)
+        <input type="text" name="referral_code" tabindex="-1" autocomplete="off" />
       </label>
     </p>
 
@@ -155,6 +157,8 @@ const projectTypes = [
       </div>
     </div>
 
+    <div class="turnstile-slot" data-turnstile data-sitekey={turnstileSiteKey}></div>
+
     <Button type="submit" variant="gold-cta" size="lg" class="quote-submit">
       Send Request
     </Button>
@@ -228,15 +232,6 @@ const projectTypes = [
     display: flex;
     flex-direction: column;
     gap: 1.3rem;
-  }
-
-  .hp-field {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    margin: 0;
   }
 
   .form-grid {

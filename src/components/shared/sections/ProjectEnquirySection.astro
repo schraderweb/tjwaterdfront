@@ -4,6 +4,8 @@ import Icon from "@/components/shared/ui/Icon.astro";
 import SubmitSuccess from "@/components/shared/ui/SubmitSuccess.astro";
 import { defaultState, stateOptions } from "@/data/formLocations";
 import bgImage from "@/assets/hero/waterfront-hero.webp";
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <section class="project-enquiry" aria-labelledby="project-enquiry-title">
@@ -79,6 +81,13 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
       <div class="project-enquiry__right">
         <div class="enquiry-form-root" data-success-root>
           <form class="enquiry-form" id="project-enquiry-form" data-submit-success action="/api/quote" method="post">
+            <p class="hp-field" aria-hidden="true">
+              <label>
+                Referral code (leave blank)
+                <input type="text" name="referral_code" tabindex="-1" autocomplete="off" />
+              </label>
+            </p>
+
             <fieldset class="enquiry-form__service-selection">
               <legend class="enquiry-form__legend">I'M INTERESTED IN</legend>
               <div class="service-tiles">
@@ -161,10 +170,14 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
 
             <input type="hidden" name="project_type" id="enquiry-project-type" />
 
+            <div class="turnstile-slot" data-turnstile data-sitekey={turnstileSiteKey}></div>
+
             <button type="submit" class="enquiry-form__submit">
               <span>SEND ENQUIRY</span>
               <Icon name="arrow-right" size={20} strokeWidth={2} class="submit-arrow" />
             </button>
+
+            <p class="enquiry-form__error" data-submit-error role="alert" hidden></p>
 
             <div class="enquiry-form__security">
               <Icon name="lock-keyhole" size={14} strokeWidth={1.5} />
@@ -547,6 +560,24 @@ import bgImage from "@/assets/hero/waterfront-hero.webp";
 
   .submit-arrow {
     transition: transform 0.3s ease;
+  }
+
+  .enquiry-form__error {
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid rgba(190, 60, 40, 0.4);
+    border-radius: 2px;
+    background: rgba(190, 60, 40, 0.08);
+    color: var(--color-navy-950, #0C2135);
+    font-family: var(--font-sans, "Manrope", sans-serif);
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .enquiry-form__submit[disabled] {
+    cursor: progress;
+    opacity: 0.75;
   }
 
   /* Security Message */
